@@ -7,5 +7,6 @@ var EnchantmentValueEffectType = []string{
 	"minecraft:all_of",
 	"minecraft:multiply",
 	"minecraft:remove_binomial",
+	"minecraft:exponential",
 	"minecraft:set",
 }

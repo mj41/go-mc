@@ -43,4 +43,5 @@ var LootFunctionType = []string{
 	"minecraft:toggle_tooltips",
 	"minecraft:set_ominous_bottle_amplifier",
 	"minecraft:set_custom_model_data",
+	"minecraft:discard",
 }

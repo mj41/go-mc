@@ -11,7 +11,8 @@ var _ DataComponent = (*PotionContents)(nil)
 type PotionContents struct {
 	PotionID      pk.Option[pk.VarInt, *pk.VarInt]
 	CustomColor   pk.Option[pk.Int, *pk.Int]
-	PotionEffects []any
+	CustomEffects []ItemPotionEffect
+	CustomName    pk.Option[pk.String, *pk.String]
 }
 
 // ID implements DataComponent.
@@ -21,10 +22,20 @@ func (PotionContents) ID() string {
 
 // ReadFrom implements DataComponent.
 func (p *PotionContents) ReadFrom(r io.Reader) (n int64, err error) {
-	panic("unimplemented")
+	return pk.Tuple{
+		&p.PotionID,
+		&p.CustomColor,
+		pk.Array(&p.CustomEffects),
+		&p.CustomName,
+	}.ReadFrom(r)
 }
 
 // WriteTo implements DataComponent.
 func (p *PotionContents) WriteTo(w io.Writer) (n int64, err error) {
-	panic("unimplemented")
+	return pk.Tuple{
+		&p.PotionID,
+		&p.CustomColor,
+		pk.Array(&p.CustomEffects),
+		&p.CustomName,
+	}.WriteTo(w)
 }

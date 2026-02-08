@@ -27,6 +27,7 @@ var WorldgenDensityFunctionType = []string{
 	"minecraft:cube",
 	"minecraft:half_negative",
 	"minecraft:quarter_negative",
+	"minecraft:invert",
 	"minecraft:squeeze",
 	"minecraft:add",
 	"minecraft:mul",
@@ -35,4 +36,5 @@ var WorldgenDensityFunctionType = []string{
 	"minecraft:spline",
 	"minecraft:constant",
 	"minecraft:y_clamped_gradient",
+	"minecraft:find_top_surface",
 }

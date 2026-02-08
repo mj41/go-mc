@@ -1,10 +1,21 @@
 package component
 
-import "io"
+import (
+	"io"
+
+	pk "github.com/Tnze/go-mc/net/packet"
+)
 
 var _ DataComponent = (*Enchantments)(nil)
 
-type Enchantments struct{}
+type Enchantments struct {
+	Enchantments []EnchantmentEntry
+}
+
+type EnchantmentEntry struct {
+	ID    pk.VarInt
+	Level pk.VarInt
+}
 
 // ID implements DataComponent.
 func (Enchantments) ID() string {
@@ -12,11 +23,11 @@ func (Enchantments) ID() string {
 }
 
 // ReadFrom implements DataComponent.
-func (r *Enchantments) ReadFrom(reader io.Reader) (n int64, err error) {
-	panic("unimplemented")
+func (e *Enchantments) ReadFrom(r io.Reader) (n int64, err error) {
+	return pk.Array(&e.Enchantments).ReadFrom(r)
 }
 
 // WriteTo implements DataComponent.
-func (r *Enchantments) WriteTo(writer io.Writer) (n int64, err error) {
-	panic("unimplemented")
+func (e *Enchantments) WriteTo(w io.Writer) (n int64, err error) {
+	return pk.Array(&e.Enchantments).WriteTo(w)
 }

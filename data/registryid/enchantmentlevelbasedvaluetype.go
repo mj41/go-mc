@@ -7,5 +7,6 @@ var EnchantmentLevelBasedValueType = []string{
 	"minecraft:fraction",
 	"minecraft:levels_squared",
 	"minecraft:linear",
+	"minecraft:exponent",
 	"minecraft:lookup",
 }

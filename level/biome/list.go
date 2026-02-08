@@ -102,6 +102,8 @@ var (
 		[]byte("minecraft:end_midlands"),
 		[]byte("minecraft:small_end_islands"),
 		[]byte("minecraft:end_barrens"),
+		[]byte("minecraft:cherry_grove"),
+		[]byte("minecraft:pale_garden"),
 	}
 )
 

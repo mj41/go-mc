@@ -5,10 +5,12 @@ package registryid
 var EnchantmentEntityEffectType = []string{
 	"minecraft:all_of",
 	"minecraft:apply_mob_effect",
+	"minecraft:change_item_damage",
 	"minecraft:damage_entity",
-	"minecraft:damage_item",
 	"minecraft:explode",
 	"minecraft:ignite",
+	"minecraft:apply_impulse",
+	"minecraft:apply_exhaustion",
 	"minecraft:play_sound",
 	"minecraft:replace_block",
 	"minecraft:replace_disk",

@@ -52,6 +52,11 @@ type (
 	CrafterEntity               struct{}
 	TrialSpawnerEntity          struct{}
 	VaultEntity                 struct{}
+	CreakingHeartEntity         struct{}
+	ShelfEntity                 struct{}
+	TestBlockEntity             struct{}
+	TestInstanceBlockEntity     struct{}
+	CopperGolemStatueEntity     struct{}
 )
 
 type EntityType int32

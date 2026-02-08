@@ -7,6 +7,8 @@ type DataComponent interface {
 	ID() string
 }
 
+// NewComponent returns a new DataComponent for the given wire ID (protocol 774 / Minecraft 1.21.11).
+// Wire IDs 0-95 are defined in the SlotComponentType mapper.
 func NewComponent(id int32) DataComponent {
 	switch id {
 	case 0:
@@ -24,23 +26,23 @@ func NewComponent(id int32) DataComponent {
 	case 6:
 		return new(ItemName)
 	case 7:
-		return new(Lore)
+		return new(ItemModel)
 	case 8:
-		return new(Rarity)
+		return new(Lore)
 	case 9:
-		return new(Enchantments)
+		return new(Rarity)
 	case 10:
-		return new(CanPlaceOn)
+		return new(Enchantments)
 	case 11:
-		return new(CanBreak)
+		return new(CanPlaceOn)
 	case 12:
-		return new(AttributeModifiers)
+		return new(CanBreak)
 	case 13:
-		return new(CustomModelData)
+		return new(AttributeModifiers)
 	case 14:
-		return new(HideAdditionalTooptip)
+		return new(CustomModelData)
 	case 15:
-		return new(HideTooptip)
+		return new(TooltipDisplay)
 	case 16:
 		return new(RepairCost)
 	case 17:
@@ -52,64 +54,155 @@ func NewComponent(id int32) DataComponent {
 	case 20:
 		return new(Food)
 	case 21:
-		return new(FireResistant)
+		return new(Consumable)
 	case 22:
-		return new(Tool)
+		return new(UseRemainder)
 	case 23:
-		return new(StoredEnchantments)
+		return new(UseCooldown)
 	case 24:
-		return new(DyedColor)
+		return new(DamageResistant)
 	case 25:
-		return new(MapColor)
+		return new(Tool)
 	case 26:
-		return new(MapID)
+		return new(Weapon)
 	case 27:
-		return new(MapDecorations)
+		return new(Enchantable)
 	case 28:
-		return new(MapPostProcessing)
+		return new(Equippable)
 	case 29:
-		return new(ChargedProjectiles)
+		return new(Repairable)
 	case 30:
-		return new(BundleContents)
+		return new(Glider)
 	case 31:
-		return new(PotionContents)
+		return new(TooltipStyle)
 	case 32:
-		return new(SuspiciousStewEffects)
+		return new(DeathProtection)
 	case 33:
-		return new(WritableBookContent)
+		return new(BlocksAttacks)
 	case 34:
+		return new(StoredEnchantments)
 	case 35:
-		return new(Trim)
+		return new(DyedColor)
 	case 36:
-		return new(DebugStickState)
+		return new(MapColor)
 	case 37:
-		return new(EntityData)
+		return new(MapID)
 	case 38:
-		return new(BucketEntityData)
+		return new(MapDecorations)
 	case 39:
-		return new(BlockEntityData)
+		return new(MapPostProcessing)
 	case 40:
-		return new(Instrument)
+		return new(PotionDurationScale)
 	case 41:
-		return new(OminousBottleAmplifier)
+		return new(ChargedProjectiles)
 	case 42:
-		return new(JukeboxPlayable)
+		return new(BundleContents)
 	case 43:
-		return new(Recipes)
+		return new(PotionContents)
 	case 44:
-		return new(LodestoneTracker)
+		return new(SuspiciousStewEffects)
 	case 45:
+		return new(WritableBookContent)
 	case 46:
+		return new(WrittenBookContent)
 	case 47:
+		return new(Trim)
 	case 48:
+		return new(DebugStickState)
 	case 49:
+		return new(EntityData)
 	case 50:
+		return new(BucketEntityData)
 	case 51:
+		return new(BlockEntityData)
 	case 52:
+		return new(Instrument)
 	case 53:
+		return new(ProvidesTrimMaterial)
 	case 54:
+		return new(OminousBottleAmplifier)
 	case 55:
+		return new(JukeboxPlayable)
 	case 56:
+		return new(ProvidesBannerPatterns)
+	case 57:
+		return new(Recipes)
+	case 58:
+		return new(LodestoneTracker)
+	case 59:
+		return new(FireworkExplosion)
+	case 60:
+		return new(Fireworks)
+	case 61:
+		return new(Profile)
+	case 62:
+		return new(NoteBlockSound)
+	case 63:
+		return new(BannerPatterns)
+	case 64:
+		return new(BaseColor)
+	case 65:
+		return new(PotDecorations)
+	case 66:
+		return new(Container)
+	case 67:
+		return new(BlockState)
+	case 68:
+		return new(Bees)
+	case 69:
+		return new(Lock)
+	case 70:
+		return new(ContainerLoot)
+	case 71:
+		return new(BreakSound)
+	case 72:
+		return new(VillagerVariant)
+	case 73:
+		return new(WolfVariant)
+	case 74:
+		return new(WolfSoundVariant)
+	case 75:
+		return new(WolfCollar)
+	case 76:
+		return new(FoxVariant)
+	case 77:
+		return new(SalmonSize)
+	case 78:
+		return new(ParrotVariant)
+	case 79:
+		return new(TropicalFishPattern)
+	case 80:
+		return new(TropicalFishBaseColor)
+	case 81:
+		return new(TropicalFishPatternColor)
+	case 82:
+		return new(MooshroomVariant)
+	case 83:
+		return new(RabbitVariant)
+	case 84:
+		return new(PigVariant)
+	case 85:
+		return new(CowVariant)
+	case 86:
+		return new(ChickenVariant)
+	case 87:
+		return new(FrogVariant)
+	case 88:
+		return new(HorseVariant)
+	case 89:
+		return new(PaintingVariant)
+	case 90:
+		return new(LlamaVariant)
+	case 91:
+		return new(AxolotlVariant)
+	case 92:
+		return new(CatVariant)
+	case 93:
+		return new(CatCollar)
+	case 94:
+		return new(SheepColor)
+	case 95:
+		return new(ShulkerColor)
 	}
 	return nil
 }

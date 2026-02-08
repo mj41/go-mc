@@ -3,7 +3,7 @@ package pers.tnze.gomc.gen;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.Bootstrap;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,7 +27,7 @@ public class GenBlocks {
         System.out.println("program start!");
         SharedConstants.tryDetectVersion();
         Bootstrap.bootStrap();
-        Blocks.rebuildCache();
+        // Blocks.rebuildCache() removed in 1.21.11; Bootstrap.bootStrap() handles initialization
 
         try (FileOutputStream f = new FileOutputStream("blocks.nbt")) {
             try (GZIPOutputStream g = new GZIPOutputStream(f)) {
@@ -110,7 +110,7 @@ public class GenBlocks {
             throw new RuntimeException(e);
         }
         for (BlockEntityType<?> blockEntity : BuiltInRegistries.BLOCK_ENTITY_TYPE) {
-            ResourceLocation value = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity);
+            Identifier value = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity);
             ListTag validBlocksList = new ListTag();
 
             Set<Block> validBlocks;

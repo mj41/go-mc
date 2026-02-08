@@ -10,7 +10,8 @@ import (
 var _ DataComponent = (*EntityData)(nil)
 
 type EntityData struct {
-	dynbt.Value
+	Type pk.VarInt
+	Data dynbt.Value
 }
 
 // ID implements DataComponent.
@@ -20,10 +21,16 @@ func (EntityData) ID() string {
 
 // ReadFrom implements DataComponent.
 func (e *EntityData) ReadFrom(r io.Reader) (n int64, err error) {
-	return pk.NBT(&e.Value).ReadFrom(r)
+	return pk.Tuple{
+		&e.Type,
+		pk.NBTField{V: &e.Data, AllowUnknownFields: true},
+	}.ReadFrom(r)
 }
 
 // WriteTo implements DataComponent.
 func (e *EntityData) WriteTo(w io.Writer) (n int64, err error) {
-	return pk.NBT(&e.Value).WriteTo(w)
+	return pk.Tuple{
+		&e.Type,
+		pk.NBTField{V: &e.Data, AllowUnknownFields: true},
+	}.WriteTo(w)
 }

@@ -1,10 +1,16 @@
 package component
 
-import "io"
+import (
+	"io"
+
+	pk "github.com/Tnze/go-mc/net/packet"
+)
 
 var _ DataComponent = (*CanBreak)(nil)
 
-type CanBreak struct{}
+type CanBreak struct {
+	Predicates []ItemBlockPredicate
+}
 
 // ID implements DataComponent.
 func (CanBreak) ID() string {
@@ -13,10 +19,10 @@ func (CanBreak) ID() string {
 
 // ReadFrom implements DataComponent.
 func (c *CanBreak) ReadFrom(r io.Reader) (n int64, err error) {
-	panic("unimplemented")
+	return pk.Array(&c.Predicates).ReadFrom(r)
 }
 
 // WriteTo implements DataComponent.
 func (c *CanBreak) WriteTo(w io.Writer) (n int64, err error) {
-	panic("unimplemented")
+	return pk.Array(&c.Predicates).WriteTo(w)
 }

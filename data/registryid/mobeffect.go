@@ -42,4 +42,5 @@ var MobEffect = []string{
 	"minecraft:weaving",
 	"minecraft:oozing",
 	"minecraft:infested",
+	"minecraft:breath_of_the_nautilus",
 }

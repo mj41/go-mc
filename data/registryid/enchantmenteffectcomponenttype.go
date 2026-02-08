@@ -10,6 +10,7 @@ var EnchantmentEffectComponentType = []string{
 	"minecraft:knockback",
 	"minecraft:armor_effectiveness",
 	"minecraft:post_attack",
+	"minecraft:post_piercing_attack",
 	"minecraft:hit_block",
 	"minecraft:item_damage",
 	"minecraft:attributes",

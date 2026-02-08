@@ -19,14 +19,18 @@ type (
 	Podzol     struct {
 		Snowy Boolean `nbt:"snowy"`
 	}
-	Cobblestone    struct{}
-	OakPlanks      struct{}
-	SprucePlanks   struct{}
-	BirchPlanks    struct{}
-	JunglePlanks   struct{}
-	AcaciaPlanks   struct{}
-	CherryPlanks   struct{}
-	DarkOakPlanks  struct{}
+	Cobblestone   struct{}
+	OakPlanks     struct{}
+	SprucePlanks  struct{}
+	BirchPlanks   struct{}
+	JunglePlanks  struct{}
+	AcaciaPlanks  struct{}
+	CherryPlanks  struct{}
+	DarkOakPlanks struct{}
+	PaleOakWood   struct {
+		Axis Axis `nbt:"axis"`
+	}
+	PaleOakPlanks  struct{}
 	MangrovePlanks struct{}
 	BambooPlanks   struct{}
 	BambooMosaic   struct{}
@@ -49,6 +53,9 @@ type (
 		Stage Integer `nbt:"stage"`
 	}
 	DarkOakSapling struct {
+		Stage Integer `nbt:"stage"`
+	}
+	PaleOakSapling struct {
 		Stage Integer `nbt:"stage"`
 	}
 	MangrovePropagule struct {
@@ -101,6 +108,9 @@ type (
 	DarkOakLog struct {
 		Axis Axis `nbt:"axis"`
 	}
+	PaleOakLog struct {
+		Axis Axis `nbt:"axis"`
+	}
 	MangroveLog struct {
 		Axis Axis `nbt:"axis"`
 	}
@@ -129,6 +139,9 @@ type (
 		Axis Axis `nbt:"axis"`
 	}
 	StrippedDarkOakLog struct {
+		Axis Axis `nbt:"axis"`
+	}
+	StrippedPaleOakLog struct {
 		Axis Axis `nbt:"axis"`
 	}
 	StrippedOakLog struct {
@@ -185,6 +198,9 @@ type (
 	StrippedDarkOakWood struct {
 		Axis Axis `nbt:"axis"`
 	}
+	StrippedPaleOakWood struct {
+		Axis Axis `nbt:"axis"`
+	}
 	StrippedMangroveWood struct {
 		Axis Axis `nbt:"axis"`
 	}
@@ -219,6 +235,11 @@ type (
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
 	DarkOakLeaves struct {
+		Distance    Integer `nbt:"distance"`
+		Persistent  Boolean `nbt:"persistent"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	PaleOakLeaves struct {
 		Distance    Integer `nbt:"distance"`
 		Persistent  Boolean `nbt:"persistent"`
 		Waterlogged Boolean `nbt:"waterlogged"`
@@ -350,12 +371,15 @@ type (
 		Extended Boolean   `nbt:"extended"`
 		Facing   Direction `nbt:"facing"`
 	}
-	Cobweb       struct{}
-	ShortGrass   struct{}
-	Fern         struct{}
-	DeadBush     struct{}
-	Seagrass     struct{}
-	TallSeagrass struct {
+	Cobweb        struct{}
+	ShortGrass    struct{}
+	Fern          struct{}
+	DeadBush      struct{}
+	Bush          struct{}
+	ShortDryGrass struct{}
+	TallDryGrass  struct{}
+	Seagrass      struct{}
+	TallSeagrass  struct {
 		Half DoubleBlockHalf `nbt:"half"`
 	}
 	Piston struct {
@@ -419,6 +443,78 @@ type (
 		Slot_4_occupied Boolean   `nbt:"slot_4_occupied"`
 		Slot_5_occupied Boolean   `nbt:"slot_5_occupied"`
 	}
+	AcaciaShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	BambooShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	BirchShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	CherryShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	CrimsonShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	DarkOakShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	JungleShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	MangroveShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	OakShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	PaleOakShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	SpruceShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
+	WarpedShelf struct {
+		Facing      Direction     `nbt:"facing"`
+		Powered     Boolean       `nbt:"powered"`
+		Side_chain  SideChainPart `nbt:"side_chain"`
+		Waterlogged Boolean       `nbt:"waterlogged"`
+	}
 	MossyCobblestone struct{}
 	Obsidian         struct{}
 	Torch            struct{}
@@ -433,8 +529,13 @@ type (
 		Up    Boolean `nbt:"up"`
 		West  Boolean `nbt:"west"`
 	}
-	SoulFire  struct{}
-	Spawner   struct{}
+	SoulFire      struct{}
+	Spawner       struct{}
+	CreakingHeart struct {
+		Axis                 Axis               `nbt:"axis"`
+		Creaking_heart_state CreakingHeartState `nbt:"creaking_heart_state"`
+		Natural              Boolean            `nbt:"natural"`
+	}
 	OakStairs struct {
 		Facing      Direction   `nbt:"facing"`
 		Half        Half        `nbt:"half"`
@@ -495,6 +596,10 @@ type (
 		Rotation    Integer `nbt:"rotation"`
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
+	PaleOakSign struct {
+		Rotation    Integer `nbt:"rotation"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
 	MangroveSign struct {
 		Rotation    Integer `nbt:"rotation"`
 		Waterlogged Boolean `nbt:"waterlogged"`
@@ -552,6 +657,10 @@ type (
 		Facing      Direction `nbt:"facing"`
 		Waterlogged Boolean   `nbt:"waterlogged"`
 	}
+	PaleOakWallSign struct {
+		Facing      Direction `nbt:"facing"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
 	MangroveWallSign struct {
 		Facing      Direction `nbt:"facing"`
 		Waterlogged Boolean   `nbt:"waterlogged"`
@@ -591,6 +700,11 @@ type (
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
 	DarkOakHangingSign struct {
+		Attached    Boolean `nbt:"attached"`
+		Rotation    Integer `nbt:"rotation"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	PaleOakHangingSign struct {
 		Attached    Boolean `nbt:"attached"`
 		Rotation    Integer `nbt:"rotation"`
 		Waterlogged Boolean `nbt:"waterlogged"`
@@ -640,6 +754,10 @@ type (
 		Waterlogged Boolean   `nbt:"waterlogged"`
 	}
 	DarkOakWallHangingSign struct {
+		Facing      Direction `nbt:"facing"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	PaleOakWallHangingSign struct {
 		Facing      Direction `nbt:"facing"`
 		Waterlogged Boolean   `nbt:"waterlogged"`
 	}
@@ -695,6 +813,9 @@ type (
 	DarkOakPressurePlate struct {
 		Powered Boolean `nbt:"powered"`
 	}
+	PaleOakPressurePlate struct {
+		Powered Boolean `nbt:"powered"`
+	}
 	MangrovePressurePlate struct {
 		Powered Boolean `nbt:"powered"`
 	}
@@ -727,8 +848,9 @@ type (
 	Cactus    struct {
 		Age Integer `nbt:"age"`
 	}
-	Clay      struct{}
-	SugarCane struct {
+	CactusFlower struct{}
+	Clay         struct{}
+	SugarCane    struct {
 		Age Integer `nbt:"age"`
 	}
 	Jukebox struct {
@@ -752,6 +874,10 @@ type (
 	}
 	SoulTorch     struct{}
 	SoulWallTorch struct {
+		Facing Direction `nbt:"facing"`
+	}
+	CopperTorch     struct{}
+	CopperWallTorch struct {
 		Facing Direction `nbt:"facing"`
 	}
 	Glowstone    struct{}
@@ -838,6 +964,13 @@ type (
 		Powered     Boolean   `nbt:"powered"`
 		Waterlogged Boolean   `nbt:"waterlogged"`
 	}
+	PaleOakTrapdoor struct {
+		Facing      Direction `nbt:"facing"`
+		Half        Half      `nbt:"half"`
+		Open        Boolean   `nbt:"open"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
 	MangroveTrapdoor struct {
 		Facing      Direction `nbt:"facing"`
 		Half        Half      `nbt:"half"`
@@ -895,7 +1028,95 @@ type (
 		Waterlogged Boolean `nbt:"waterlogged"`
 		West        Boolean `nbt:"west"`
 	}
-	Chain struct {
+	CopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	ExposedCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	WeatheredCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	OxidizedCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	WaxedCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	WaxedExposedCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	WaxedWeatheredCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	WaxedOxidizedCopperBars struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	IronChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	CopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	ExposedCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WeatheredCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	OxidizedCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedExposedCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedWeatheredCopperChain struct {
+		Axis        Axis    `nbt:"axis"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedOxidizedCopperChain struct {
 		Axis        Axis    `nbt:"axis"`
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
@@ -936,6 +1157,15 @@ type (
 		Waterlogged Boolean `nbt:"waterlogged"`
 		West        Boolean `nbt:"west"`
 	}
+	ResinClump struct {
+		Down        Boolean `nbt:"down"`
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Up          Boolean `nbt:"up"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
 	OakFenceGate struct {
 		Facing  Direction `nbt:"facing"`
 		In_wall Boolean   `nbt:"in_wall"`
@@ -964,8 +1194,29 @@ type (
 		Snowy Boolean `nbt:"snowy"`
 	}
 	LilyPad          struct{}
-	NetherBricks     struct{}
-	NetherBrickFence struct {
+	ResinBlock       struct{}
+	ResinBricks      struct{}
+	ResinBrickStairs struct {
+		Facing      Direction   `nbt:"facing"`
+		Half        Half        `nbt:"half"`
+		Shape       StairsShape `nbt:"shape"`
+		Waterlogged Boolean     `nbt:"waterlogged"`
+	}
+	ResinBrickSlab struct {
+		Type        SlabType `nbt:"type"`
+		Waterlogged Boolean  `nbt:"waterlogged"`
+	}
+	ResinBrickWall struct {
+		East        WallSide `nbt:"east"`
+		North       WallSide `nbt:"north"`
+		South       WallSide `nbt:"south"`
+		Up          Boolean  `nbt:"up"`
+		Waterlogged Boolean  `nbt:"waterlogged"`
+		West        WallSide `nbt:"west"`
+	}
+	ChiseledResinBricks struct{}
+	NetherBricks        struct{}
+	NetherBrickFence    struct {
 		East        Boolean `nbt:"east"`
 		North       Boolean `nbt:"north"`
 		South       Boolean `nbt:"south"`
@@ -1084,6 +1335,7 @@ type (
 	PottedAcaciaSapling     struct{}
 	PottedCherrySapling     struct{}
 	PottedDarkOakSapling    struct{}
+	PottedPaleOakSapling    struct{}
 	PottedMangrovePropagule struct{}
 	PottedFern              struct{}
 	PottedDandelion         struct{}
@@ -1140,6 +1392,11 @@ type (
 		Powered Boolean    `nbt:"powered"`
 	}
 	DarkOakButton struct {
+		Face    AttachFace `nbt:"face"`
+		Facing  Direction  `nbt:"facing"`
+		Powered Boolean    `nbt:"powered"`
+	}
+	PaleOakButton struct {
 		Face    AttachFace `nbt:"face"`
 		Facing  Direction  `nbt:"facing"`
 		Powered Boolean    `nbt:"powered"`
@@ -1411,6 +1668,12 @@ type (
 		Shape       StairsShape `nbt:"shape"`
 		Waterlogged Boolean     `nbt:"waterlogged"`
 	}
+	PaleOakStairs struct {
+		Facing      Direction   `nbt:"facing"`
+		Half        Half        `nbt:"half"`
+		Shape       StairsShape `nbt:"shape"`
+		Waterlogged Boolean     `nbt:"waterlogged"`
+	}
 	MangroveStairs struct {
 		Facing      Direction   `nbt:"facing"`
 		Half        Half        `nbt:"half"`
@@ -1651,6 +1914,10 @@ type (
 		Type        SlabType `nbt:"type"`
 		Waterlogged Boolean  `nbt:"waterlogged"`
 	}
+	PaleOakSlab struct {
+		Type        SlabType `nbt:"type"`
+		Waterlogged Boolean  `nbt:"waterlogged"`
+	}
 	MangroveSlab struct {
 		Type        SlabType `nbt:"type"`
 		Waterlogged Boolean  `nbt:"waterlogged"`
@@ -1759,6 +2026,12 @@ type (
 		Open    Boolean   `nbt:"open"`
 		Powered Boolean   `nbt:"powered"`
 	}
+	PaleOakFenceGate struct {
+		Facing  Direction `nbt:"facing"`
+		In_wall Boolean   `nbt:"in_wall"`
+		Open    Boolean   `nbt:"open"`
+		Powered Boolean   `nbt:"powered"`
+	}
 	MangroveFenceGate struct {
 		Facing  Direction `nbt:"facing"`
 		In_wall Boolean   `nbt:"in_wall"`
@@ -1807,6 +2080,13 @@ type (
 		West        Boolean `nbt:"west"`
 	}
 	DarkOakFence struct {
+		East        Boolean `nbt:"east"`
+		North       Boolean `nbt:"north"`
+		South       Boolean `nbt:"south"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+		West        Boolean `nbt:"west"`
+	}
+	PaleOakFence struct {
 		East        Boolean `nbt:"east"`
 		North       Boolean `nbt:"north"`
 		South       Boolean `nbt:"south"`
@@ -1863,6 +2143,13 @@ type (
 		Powered Boolean         `nbt:"powered"`
 	}
 	DarkOakDoor struct {
+		Facing  Direction       `nbt:"facing"`
+		Half    DoubleBlockHalf `nbt:"half"`
+		Hinge   DoorHingeSide   `nbt:"hinge"`
+		Open    Boolean         `nbt:"open"`
+		Powered Boolean         `nbt:"powered"`
+	}
+	PaleOakDoor struct {
 		Facing  Direction       `nbt:"facing"`
 		Half    DoubleBlockHalf `nbt:"half"`
 		Hinge   DoorHingeSide   `nbt:"hinge"`
@@ -2087,6 +2374,11 @@ type (
 	}
 	SnifferEgg struct {
 		Hatch Integer `nbt:"hatch"`
+	}
+	DriedGhast struct {
+		Facing      Direction `nbt:"facing"`
+		Hydration   Integer   `nbt:"hydration"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
 	}
 	DeadTubeCoralBlock   struct{}
 	DeadBrainCoralBlock  struct{}
@@ -2506,6 +2798,38 @@ type (
 		Hanging     Boolean `nbt:"hanging"`
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
+	CopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	ExposedCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WeatheredCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	OxidizedCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedExposedCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedWeatheredCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
+	WaxedOxidizedCopperLantern struct {
+		Hanging     Boolean `nbt:"hanging"`
+		Waterlogged Boolean `nbt:"waterlogged"`
+	}
 	Campfire struct {
 		Facing      Direction `nbt:"facing"`
 		Lit         Boolean   `nbt:"lit"`
@@ -2676,7 +3000,11 @@ type (
 	Jigsaw struct {
 		Orientation FrontAndTop `nbt:"orientation"`
 	}
-	Composter struct {
+	TestBlock struct {
+		Mode TestBlockMode `nbt:"mode"`
+	}
+	TestInstanceBlock struct{}
+	Composter         struct {
 		Level Integer `nbt:"level"`
 	}
 	Target struct {
@@ -3293,7 +3621,122 @@ type (
 		Lit     Boolean `nbt:"lit"`
 		Powered Boolean `nbt:"powered"`
 	}
+	CopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	ExposedCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WeatheredCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	OxidizedCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedExposedCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedWeatheredCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedOxidizedCopperChest struct {
+		Facing      Direction `nbt:"facing"`
+		Type        ChestType `nbt:"type"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	CopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	ExposedCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	WeatheredCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	OxidizedCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	WaxedCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	WaxedExposedCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	WaxedWeatheredCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
+	WaxedOxidizedCopperGolemStatue struct {
+		Copper_golem_pose Pose      `nbt:"copper_golem_pose"`
+		Facing            Direction `nbt:"facing"`
+		Waterlogged       Boolean   `nbt:"waterlogged"`
+	}
 	LightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	ExposedLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WeatheredLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	OxidizedLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedExposedLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedWeatheredLightningRod struct {
+		Facing      Direction `nbt:"facing"`
+		Powered     Boolean   `nbt:"powered"`
+		Waterlogged Boolean   `nbt:"waterlogged"`
+	}
+	WaxedOxidizedLightningRod struct {
 		Facing      Direction `nbt:"facing"`
 		Powered     Boolean   `nbt:"powered"`
 		Waterlogged Boolean   `nbt:"waterlogged"`
@@ -3318,6 +3761,14 @@ type (
 	PinkPetals      struct {
 		Facing        Direction `nbt:"facing"`
 		Flower_amount Integer   `nbt:"flower_amount"`
+	}
+	Wildflowers struct {
+		Facing        Direction `nbt:"facing"`
+		Flower_amount Integer   `nbt:"flower_amount"`
+	}
+	LeafLitter struct {
+		Facing         Direction `nbt:"facing"`
+		Segment_amount Integer   `nbt:"segment_amount"`
 	}
 	MossBlock   struct{}
 	BigDripleaf struct {
@@ -3463,6 +3914,22 @@ type (
 	HeavyCore struct {
 		Waterlogged Boolean `nbt:"waterlogged"`
 	}
+	PaleMossBlock  struct{}
+	PaleMossCarpet struct {
+		Bottom Boolean  `nbt:"bottom"`
+		East   WallSide `nbt:"east"`
+		North  WallSide `nbt:"north"`
+		South  WallSide `nbt:"south"`
+		West   WallSide `nbt:"west"`
+	}
+	PaleHangingMoss struct {
+		Tip Boolean `nbt:"tip"`
+	}
+	OpenEyeblossom         struct{}
+	ClosedEyeblossom       struct{}
+	PottedOpenEyeblossom   struct{}
+	PottedClosedEyeblossom struct{}
+	FireflyBush            struct{}
 )
 
 func (Air) ID() string                         { return "minecraft:air" }
@@ -3485,6 +3952,8 @@ func (JunglePlanks) ID() string                { return "minecraft:jungle_planks
 func (AcaciaPlanks) ID() string                { return "minecraft:acacia_planks" }
 func (CherryPlanks) ID() string                { return "minecraft:cherry_planks" }
 func (DarkOakPlanks) ID() string               { return "minecraft:dark_oak_planks" }
+func (PaleOakWood) ID() string                 { return "minecraft:pale_oak_wood" }
+func (PaleOakPlanks) ID() string               { return "minecraft:pale_oak_planks" }
 func (MangrovePlanks) ID() string              { return "minecraft:mangrove_planks" }
 func (BambooPlanks) ID() string                { return "minecraft:bamboo_planks" }
 func (BambooMosaic) ID() string                { return "minecraft:bamboo_mosaic" }
@@ -3495,6 +3964,7 @@ func (JungleSapling) ID() string               { return "minecraft:jungle_saplin
 func (AcaciaSapling) ID() string               { return "minecraft:acacia_sapling" }
 func (CherrySapling) ID() string               { return "minecraft:cherry_sapling" }
 func (DarkOakSapling) ID() string              { return "minecraft:dark_oak_sapling" }
+func (PaleOakSapling) ID() string              { return "minecraft:pale_oak_sapling" }
 func (MangrovePropagule) ID() string           { return "minecraft:mangrove_propagule" }
 func (Bedrock) ID() string                     { return "minecraft:bedrock" }
 func (Water) ID() string                       { return "minecraft:water" }
@@ -3518,6 +3988,7 @@ func (JungleLog) ID() string                   { return "minecraft:jungle_log" }
 func (AcaciaLog) ID() string                   { return "minecraft:acacia_log" }
 func (CherryLog) ID() string                   { return "minecraft:cherry_log" }
 func (DarkOakLog) ID() string                  { return "minecraft:dark_oak_log" }
+func (PaleOakLog) ID() string                  { return "minecraft:pale_oak_log" }
 func (MangroveLog) ID() string                 { return "minecraft:mangrove_log" }
 func (MangroveRoots) ID() string               { return "minecraft:mangrove_roots" }
 func (MuddyMangroveRoots) ID() string          { return "minecraft:muddy_mangrove_roots" }
@@ -3528,6 +3999,7 @@ func (StrippedJungleLog) ID() string           { return "minecraft:stripped_jung
 func (StrippedAcaciaLog) ID() string           { return "minecraft:stripped_acacia_log" }
 func (StrippedCherryLog) ID() string           { return "minecraft:stripped_cherry_log" }
 func (StrippedDarkOakLog) ID() string          { return "minecraft:stripped_dark_oak_log" }
+func (StrippedPaleOakLog) ID() string          { return "minecraft:stripped_pale_oak_log" }
 func (StrippedOakLog) ID() string              { return "minecraft:stripped_oak_log" }
 func (StrippedMangroveLog) ID() string         { return "minecraft:stripped_mangrove_log" }
 func (StrippedBambooBlock) ID() string         { return "minecraft:stripped_bamboo_block" }
@@ -3546,6 +4018,7 @@ func (StrippedJungleWood) ID() string          { return "minecraft:stripped_jung
 func (StrippedAcaciaWood) ID() string          { return "minecraft:stripped_acacia_wood" }
 func (StrippedCherryWood) ID() string          { return "minecraft:stripped_cherry_wood" }
 func (StrippedDarkOakWood) ID() string         { return "minecraft:stripped_dark_oak_wood" }
+func (StrippedPaleOakWood) ID() string         { return "minecraft:stripped_pale_oak_wood" }
 func (StrippedMangroveWood) ID() string        { return "minecraft:stripped_mangrove_wood" }
 func (OakLeaves) ID() string                   { return "minecraft:oak_leaves" }
 func (SpruceLeaves) ID() string                { return "minecraft:spruce_leaves" }
@@ -3554,6 +4027,7 @@ func (JungleLeaves) ID() string                { return "minecraft:jungle_leaves
 func (AcaciaLeaves) ID() string                { return "minecraft:acacia_leaves" }
 func (CherryLeaves) ID() string                { return "minecraft:cherry_leaves" }
 func (DarkOakLeaves) ID() string               { return "minecraft:dark_oak_leaves" }
+func (PaleOakLeaves) ID() string               { return "minecraft:pale_oak_leaves" }
 func (MangroveLeaves) ID() string              { return "minecraft:mangrove_leaves" }
 func (AzaleaLeaves) ID() string                { return "minecraft:azalea_leaves" }
 func (FloweringAzaleaLeaves) ID() string       { return "minecraft:flowering_azalea_leaves" }
@@ -3591,6 +4065,9 @@ func (Cobweb) ID() string                      { return "minecraft:cobweb" }
 func (ShortGrass) ID() string                  { return "minecraft:short_grass" }
 func (Fern) ID() string                        { return "minecraft:fern" }
 func (DeadBush) ID() string                    { return "minecraft:dead_bush" }
+func (Bush) ID() string                        { return "minecraft:bush" }
+func (ShortDryGrass) ID() string               { return "minecraft:short_dry_grass" }
+func (TallDryGrass) ID() string                { return "minecraft:tall_dry_grass" }
 func (Seagrass) ID() string                    { return "minecraft:seagrass" }
 func (TallSeagrass) ID() string                { return "minecraft:tall_seagrass" }
 func (Piston) ID() string                      { return "minecraft:piston" }
@@ -3634,6 +4111,18 @@ func (Bricks) ID() string                      { return "minecraft:bricks" }
 func (Tnt) ID() string                         { return "minecraft:tnt" }
 func (Bookshelf) ID() string                   { return "minecraft:bookshelf" }
 func (ChiseledBookshelf) ID() string           { return "minecraft:chiseled_bookshelf" }
+func (AcaciaShelf) ID() string                 { return "minecraft:acacia_shelf" }
+func (BambooShelf) ID() string                 { return "minecraft:bamboo_shelf" }
+func (BirchShelf) ID() string                  { return "minecraft:birch_shelf" }
+func (CherryShelf) ID() string                 { return "minecraft:cherry_shelf" }
+func (CrimsonShelf) ID() string                { return "minecraft:crimson_shelf" }
+func (DarkOakShelf) ID() string                { return "minecraft:dark_oak_shelf" }
+func (JungleShelf) ID() string                 { return "minecraft:jungle_shelf" }
+func (MangroveShelf) ID() string               { return "minecraft:mangrove_shelf" }
+func (OakShelf) ID() string                    { return "minecraft:oak_shelf" }
+func (PaleOakShelf) ID() string                { return "minecraft:pale_oak_shelf" }
+func (SpruceShelf) ID() string                 { return "minecraft:spruce_shelf" }
+func (WarpedShelf) ID() string                 { return "minecraft:warped_shelf" }
 func (MossyCobblestone) ID() string            { return "minecraft:mossy_cobblestone" }
 func (Obsidian) ID() string                    { return "minecraft:obsidian" }
 func (Torch) ID() string                       { return "minecraft:torch" }
@@ -3641,6 +4130,7 @@ func (WallTorch) ID() string                   { return "minecraft:wall_torch" }
 func (Fire) ID() string                        { return "minecraft:fire" }
 func (SoulFire) ID() string                    { return "minecraft:soul_fire" }
 func (Spawner) ID() string                     { return "minecraft:spawner" }
+func (CreakingHeart) ID() string               { return "minecraft:creaking_heart" }
 func (OakStairs) ID() string                   { return "minecraft:oak_stairs" }
 func (Chest) ID() string                       { return "minecraft:chest" }
 func (RedstoneWire) ID() string                { return "minecraft:redstone_wire" }
@@ -3658,6 +4148,7 @@ func (AcaciaSign) ID() string                  { return "minecraft:acacia_sign" 
 func (CherrySign) ID() string                  { return "minecraft:cherry_sign" }
 func (JungleSign) ID() string                  { return "minecraft:jungle_sign" }
 func (DarkOakSign) ID() string                 { return "minecraft:dark_oak_sign" }
+func (PaleOakSign) ID() string                 { return "minecraft:pale_oak_sign" }
 func (MangroveSign) ID() string                { return "minecraft:mangrove_sign" }
 func (BambooSign) ID() string                  { return "minecraft:bamboo_sign" }
 func (OakDoor) ID() string                     { return "minecraft:oak_door" }
@@ -3671,6 +4162,7 @@ func (AcaciaWallSign) ID() string              { return "minecraft:acacia_wall_s
 func (CherryWallSign) ID() string              { return "minecraft:cherry_wall_sign" }
 func (JungleWallSign) ID() string              { return "minecraft:jungle_wall_sign" }
 func (DarkOakWallSign) ID() string             { return "minecraft:dark_oak_wall_sign" }
+func (PaleOakWallSign) ID() string             { return "minecraft:pale_oak_wall_sign" }
 func (MangroveWallSign) ID() string            { return "minecraft:mangrove_wall_sign" }
 func (BambooWallSign) ID() string              { return "minecraft:bamboo_wall_sign" }
 func (OakHangingSign) ID() string              { return "minecraft:oak_hanging_sign" }
@@ -3680,6 +4172,7 @@ func (AcaciaHangingSign) ID() string           { return "minecraft:acacia_hangin
 func (CherryHangingSign) ID() string           { return "minecraft:cherry_hanging_sign" }
 func (JungleHangingSign) ID() string           { return "minecraft:jungle_hanging_sign" }
 func (DarkOakHangingSign) ID() string          { return "minecraft:dark_oak_hanging_sign" }
+func (PaleOakHangingSign) ID() string          { return "minecraft:pale_oak_hanging_sign" }
 func (CrimsonHangingSign) ID() string          { return "minecraft:crimson_hanging_sign" }
 func (WarpedHangingSign) ID() string           { return "minecraft:warped_hanging_sign" }
 func (MangroveHangingSign) ID() string         { return "minecraft:mangrove_hanging_sign" }
@@ -3691,6 +4184,7 @@ func (AcaciaWallHangingSign) ID() string       { return "minecraft:acacia_wall_h
 func (CherryWallHangingSign) ID() string       { return "minecraft:cherry_wall_hanging_sign" }
 func (JungleWallHangingSign) ID() string       { return "minecraft:jungle_wall_hanging_sign" }
 func (DarkOakWallHangingSign) ID() string      { return "minecraft:dark_oak_wall_hanging_sign" }
+func (PaleOakWallHangingSign) ID() string      { return "minecraft:pale_oak_wall_hanging_sign" }
 func (MangroveWallHangingSign) ID() string     { return "minecraft:mangrove_wall_hanging_sign" }
 func (CrimsonWallHangingSign) ID() string      { return "minecraft:crimson_wall_hanging_sign" }
 func (WarpedWallHangingSign) ID() string       { return "minecraft:warped_wall_hanging_sign" }
@@ -3705,6 +4199,7 @@ func (JunglePressurePlate) ID() string         { return "minecraft:jungle_pressu
 func (AcaciaPressurePlate) ID() string         { return "minecraft:acacia_pressure_plate" }
 func (CherryPressurePlate) ID() string         { return "minecraft:cherry_pressure_plate" }
 func (DarkOakPressurePlate) ID() string        { return "minecraft:dark_oak_pressure_plate" }
+func (PaleOakPressurePlate) ID() string        { return "minecraft:pale_oak_pressure_plate" }
 func (MangrovePressurePlate) ID() string       { return "minecraft:mangrove_pressure_plate" }
 func (BambooPressurePlate) ID() string         { return "minecraft:bamboo_pressure_plate" }
 func (RedstoneOre) ID() string                 { return "minecraft:redstone_ore" }
@@ -3716,6 +4211,7 @@ func (Snow) ID() string                        { return "minecraft:snow" }
 func (Ice) ID() string                         { return "minecraft:ice" }
 func (SnowBlock) ID() string                   { return "minecraft:snow_block" }
 func (Cactus) ID() string                      { return "minecraft:cactus" }
+func (CactusFlower) ID() string                { return "minecraft:cactus_flower" }
 func (Clay) ID() string                        { return "minecraft:clay" }
 func (SugarCane) ID() string                   { return "minecraft:sugar_cane" }
 func (Jukebox) ID() string                     { return "minecraft:jukebox" }
@@ -3727,6 +4223,8 @@ func (Basalt) ID() string                      { return "minecraft:basalt" }
 func (PolishedBasalt) ID() string              { return "minecraft:polished_basalt" }
 func (SoulTorch) ID() string                   { return "minecraft:soul_torch" }
 func (SoulWallTorch) ID() string               { return "minecraft:soul_wall_torch" }
+func (CopperTorch) ID() string                 { return "minecraft:copper_torch" }
+func (CopperWallTorch) ID() string             { return "minecraft:copper_wall_torch" }
 func (Glowstone) ID() string                   { return "minecraft:glowstone" }
 func (NetherPortal) ID() string                { return "minecraft:nether_portal" }
 func (CarvedPumpkin) ID() string               { return "minecraft:carved_pumpkin" }
@@ -3756,6 +4254,7 @@ func (JungleTrapdoor) ID() string              { return "minecraft:jungle_trapdo
 func (AcaciaTrapdoor) ID() string              { return "minecraft:acacia_trapdoor" }
 func (CherryTrapdoor) ID() string              { return "minecraft:cherry_trapdoor" }
 func (DarkOakTrapdoor) ID() string             { return "minecraft:dark_oak_trapdoor" }
+func (PaleOakTrapdoor) ID() string             { return "minecraft:pale_oak_trapdoor" }
 func (MangroveTrapdoor) ID() string            { return "minecraft:mangrove_trapdoor" }
 func (BambooTrapdoor) ID() string              { return "minecraft:bamboo_trapdoor" }
 func (StoneBricks) ID() string                 { return "minecraft:stone_bricks" }
@@ -3774,7 +4273,23 @@ func (BrownMushroomBlock) ID() string          { return "minecraft:brown_mushroo
 func (RedMushroomBlock) ID() string            { return "minecraft:red_mushroom_block" }
 func (MushroomStem) ID() string                { return "minecraft:mushroom_stem" }
 func (IronBars) ID() string                    { return "minecraft:iron_bars" }
-func (Chain) ID() string                       { return "minecraft:chain" }
+func (CopperBars) ID() string                  { return "minecraft:copper_bars" }
+func (ExposedCopperBars) ID() string           { return "minecraft:exposed_copper_bars" }
+func (WeatheredCopperBars) ID() string         { return "minecraft:weathered_copper_bars" }
+func (OxidizedCopperBars) ID() string          { return "minecraft:oxidized_copper_bars" }
+func (WaxedCopperBars) ID() string             { return "minecraft:waxed_copper_bars" }
+func (WaxedExposedCopperBars) ID() string      { return "minecraft:waxed_exposed_copper_bars" }
+func (WaxedWeatheredCopperBars) ID() string    { return "minecraft:waxed_weathered_copper_bars" }
+func (WaxedOxidizedCopperBars) ID() string     { return "minecraft:waxed_oxidized_copper_bars" }
+func (IronChain) ID() string                   { return "minecraft:iron_chain" }
+func (CopperChain) ID() string                 { return "minecraft:copper_chain" }
+func (ExposedCopperChain) ID() string          { return "minecraft:exposed_copper_chain" }
+func (WeatheredCopperChain) ID() string        { return "minecraft:weathered_copper_chain" }
+func (OxidizedCopperChain) ID() string         { return "minecraft:oxidized_copper_chain" }
+func (WaxedCopperChain) ID() string            { return "minecraft:waxed_copper_chain" }
+func (WaxedExposedCopperChain) ID() string     { return "minecraft:waxed_exposed_copper_chain" }
+func (WaxedWeatheredCopperChain) ID() string   { return "minecraft:waxed_weathered_copper_chain" }
+func (WaxedOxidizedCopperChain) ID() string    { return "minecraft:waxed_oxidized_copper_chain" }
 func (GlassPane) ID() string                   { return "minecraft:glass_pane" }
 func (Pumpkin) ID() string                     { return "minecraft:pumpkin" }
 func (Melon) ID() string                       { return "minecraft:melon" }
@@ -3784,12 +4299,19 @@ func (PumpkinStem) ID() string                 { return "minecraft:pumpkin_stem"
 func (MelonStem) ID() string                   { return "minecraft:melon_stem" }
 func (Vine) ID() string                        { return "minecraft:vine" }
 func (GlowLichen) ID() string                  { return "minecraft:glow_lichen" }
+func (ResinClump) ID() string                  { return "minecraft:resin_clump" }
 func (OakFenceGate) ID() string                { return "minecraft:oak_fence_gate" }
 func (BrickStairs) ID() string                 { return "minecraft:brick_stairs" }
 func (StoneBrickStairs) ID() string            { return "minecraft:stone_brick_stairs" }
 func (MudBrickStairs) ID() string              { return "minecraft:mud_brick_stairs" }
 func (Mycelium) ID() string                    { return "minecraft:mycelium" }
 func (LilyPad) ID() string                     { return "minecraft:lily_pad" }
+func (ResinBlock) ID() string                  { return "minecraft:resin_block" }
+func (ResinBricks) ID() string                 { return "minecraft:resin_bricks" }
+func (ResinBrickStairs) ID() string            { return "minecraft:resin_brick_stairs" }
+func (ResinBrickSlab) ID() string              { return "minecraft:resin_brick_slab" }
+func (ResinBrickWall) ID() string              { return "minecraft:resin_brick_wall" }
+func (ChiseledResinBricks) ID() string         { return "minecraft:chiseled_resin_bricks" }
 func (NetherBricks) ID() string                { return "minecraft:nether_bricks" }
 func (NetherBrickFence) ID() string            { return "minecraft:nether_brick_fence" }
 func (NetherBrickStairs) ID() string           { return "minecraft:nether_brick_stairs" }
@@ -3829,6 +4351,7 @@ func (PottedJungleSapling) ID() string         { return "minecraft:potted_jungle
 func (PottedAcaciaSapling) ID() string         { return "minecraft:potted_acacia_sapling" }
 func (PottedCherrySapling) ID() string         { return "minecraft:potted_cherry_sapling" }
 func (PottedDarkOakSapling) ID() string        { return "minecraft:potted_dark_oak_sapling" }
+func (PottedPaleOakSapling) ID() string        { return "minecraft:potted_pale_oak_sapling" }
 func (PottedMangrovePropagule) ID() string     { return "minecraft:potted_mangrove_propagule" }
 func (PottedFern) ID() string                  { return "minecraft:potted_fern" }
 func (PottedDandelion) ID() string             { return "minecraft:potted_dandelion" }
@@ -3857,6 +4380,7 @@ func (JungleButton) ID() string                { return "minecraft:jungle_button
 func (AcaciaButton) ID() string                { return "minecraft:acacia_button" }
 func (CherryButton) ID() string                { return "minecraft:cherry_button" }
 func (DarkOakButton) ID() string               { return "minecraft:dark_oak_button" }
+func (PaleOakButton) ID() string               { return "minecraft:pale_oak_button" }
 func (MangroveButton) ID() string              { return "minecraft:mangrove_button" }
 func (BambooButton) ID() string                { return "minecraft:bamboo_button" }
 func (SkeletonSkull) ID() string               { return "minecraft:skeleton_skull" }
@@ -3925,6 +4449,7 @@ func (BlackStainedGlassPane) ID() string       { return "minecraft:black_stained
 func (AcaciaStairs) ID() string                { return "minecraft:acacia_stairs" }
 func (CherryStairs) ID() string                { return "minecraft:cherry_stairs" }
 func (DarkOakStairs) ID() string               { return "minecraft:dark_oak_stairs" }
+func (PaleOakStairs) ID() string               { return "minecraft:pale_oak_stairs" }
 func (MangroveStairs) ID() string              { return "minecraft:mangrove_stairs" }
 func (BambooStairs) ID() string                { return "minecraft:bamboo_stairs" }
 func (BambooMosaicStairs) ID() string          { return "minecraft:bamboo_mosaic_stairs" }
@@ -4011,6 +4536,7 @@ func (JungleSlab) ID() string                  { return "minecraft:jungle_slab" 
 func (AcaciaSlab) ID() string                  { return "minecraft:acacia_slab" }
 func (CherrySlab) ID() string                  { return "minecraft:cherry_slab" }
 func (DarkOakSlab) ID() string                 { return "minecraft:dark_oak_slab" }
+func (PaleOakSlab) ID() string                 { return "minecraft:pale_oak_slab" }
 func (MangroveSlab) ID() string                { return "minecraft:mangrove_slab" }
 func (BambooSlab) ID() string                  { return "minecraft:bamboo_slab" }
 func (BambooMosaicSlab) ID() string            { return "minecraft:bamboo_mosaic_slab" }
@@ -4038,6 +4564,7 @@ func (JungleFenceGate) ID() string             { return "minecraft:jungle_fence_
 func (AcaciaFenceGate) ID() string             { return "minecraft:acacia_fence_gate" }
 func (CherryFenceGate) ID() string             { return "minecraft:cherry_fence_gate" }
 func (DarkOakFenceGate) ID() string            { return "minecraft:dark_oak_fence_gate" }
+func (PaleOakFenceGate) ID() string            { return "minecraft:pale_oak_fence_gate" }
 func (MangroveFenceGate) ID() string           { return "minecraft:mangrove_fence_gate" }
 func (BambooFenceGate) ID() string             { return "minecraft:bamboo_fence_gate" }
 func (SpruceFence) ID() string                 { return "minecraft:spruce_fence" }
@@ -4046,6 +4573,7 @@ func (JungleFence) ID() string                 { return "minecraft:jungle_fence"
 func (AcaciaFence) ID() string                 { return "minecraft:acacia_fence" }
 func (CherryFence) ID() string                 { return "minecraft:cherry_fence" }
 func (DarkOakFence) ID() string                { return "minecraft:dark_oak_fence" }
+func (PaleOakFence) ID() string                { return "minecraft:pale_oak_fence" }
 func (MangroveFence) ID() string               { return "minecraft:mangrove_fence" }
 func (BambooFence) ID() string                 { return "minecraft:bamboo_fence" }
 func (SpruceDoor) ID() string                  { return "minecraft:spruce_door" }
@@ -4054,6 +4582,7 @@ func (JungleDoor) ID() string                  { return "minecraft:jungle_door" 
 func (AcaciaDoor) ID() string                  { return "minecraft:acacia_door" }
 func (CherryDoor) ID() string                  { return "minecraft:cherry_door" }
 func (DarkOakDoor) ID() string                 { return "minecraft:dark_oak_door" }
+func (PaleOakDoor) ID() string                 { return "minecraft:pale_oak_door" }
 func (MangroveDoor) ID() string                { return "minecraft:mangrove_door" }
 func (BambooDoor) ID() string                  { return "minecraft:bamboo_door" }
 func (EndRod) ID() string                      { return "minecraft:end_rod" }
@@ -4148,6 +4677,7 @@ func (KelpPlant) ID() string                   { return "minecraft:kelp_plant" }
 func (DriedKelpBlock) ID() string              { return "minecraft:dried_kelp_block" }
 func (TurtleEgg) ID() string                   { return "minecraft:turtle_egg" }
 func (SnifferEgg) ID() string                  { return "minecraft:sniffer_egg" }
+func (DriedGhast) ID() string                  { return "minecraft:dried_ghast" }
 func (DeadTubeCoralBlock) ID() string          { return "minecraft:dead_tube_coral_block" }
 func (DeadBrainCoralBlock) ID() string         { return "minecraft:dead_brain_coral_block" }
 func (DeadBubbleCoralBlock) ID() string        { return "minecraft:dead_bubble_coral_block" }
@@ -4251,6 +4781,14 @@ func (Stonecutter) ID() string                 { return "minecraft:stonecutter" 
 func (Bell) ID() string                        { return "minecraft:bell" }
 func (Lantern) ID() string                     { return "minecraft:lantern" }
 func (SoulLantern) ID() string                 { return "minecraft:soul_lantern" }
+func (CopperLantern) ID() string               { return "minecraft:copper_lantern" }
+func (ExposedCopperLantern) ID() string        { return "minecraft:exposed_copper_lantern" }
+func (WeatheredCopperLantern) ID() string      { return "minecraft:weathered_copper_lantern" }
+func (OxidizedCopperLantern) ID() string       { return "minecraft:oxidized_copper_lantern" }
+func (WaxedCopperLantern) ID() string          { return "minecraft:waxed_copper_lantern" }
+func (WaxedExposedCopperLantern) ID() string   { return "minecraft:waxed_exposed_copper_lantern" }
+func (WaxedWeatheredCopperLantern) ID() string { return "minecraft:waxed_weathered_copper_lantern" }
+func (WaxedOxidizedCopperLantern) ID() string  { return "minecraft:waxed_oxidized_copper_lantern" }
 func (Campfire) ID() string                    { return "minecraft:campfire" }
 func (SoulCampfire) ID() string                { return "minecraft:soul_campfire" }
 func (SweetBerryBush) ID() string              { return "minecraft:sweet_berry_bush" }
@@ -4299,6 +4837,8 @@ func (CrimsonWallSign) ID() string             { return "minecraft:crimson_wall_
 func (WarpedWallSign) ID() string              { return "minecraft:warped_wall_sign" }
 func (StructureBlock) ID() string              { return "minecraft:structure_block" }
 func (Jigsaw) ID() string                      { return "minecraft:jigsaw" }
+func (TestBlock) ID() string                   { return "minecraft:test_block" }
+func (TestInstanceBlock) ID() string           { return "minecraft:test_instance_block" }
 func (Composter) ID() string                   { return "minecraft:composter" }
 func (Target) ID() string                      { return "minecraft:target" }
 func (BeeNest) ID() string                     { return "minecraft:bee_nest" }
@@ -4477,1120 +5017,1265 @@ func (WaxedCopperBulb) ID() string              { return "minecraft:waxed_copper
 func (WaxedExposedCopperBulb) ID() string       { return "minecraft:waxed_exposed_copper_bulb" }
 func (WaxedWeatheredCopperBulb) ID() string     { return "minecraft:waxed_weathered_copper_bulb" }
 func (WaxedOxidizedCopperBulb) ID() string      { return "minecraft:waxed_oxidized_copper_bulb" }
-func (LightningRod) ID() string                 { return "minecraft:lightning_rod" }
-func (PointedDripstone) ID() string             { return "minecraft:pointed_dripstone" }
-func (DripstoneBlock) ID() string               { return "minecraft:dripstone_block" }
-func (CaveVines) ID() string                    { return "minecraft:cave_vines" }
-func (CaveVinesPlant) ID() string               { return "minecraft:cave_vines_plant" }
-func (SporeBlossom) ID() string                 { return "minecraft:spore_blossom" }
-func (Azalea) ID() string                       { return "minecraft:azalea" }
-func (FloweringAzalea) ID() string              { return "minecraft:flowering_azalea" }
-func (MossCarpet) ID() string                   { return "minecraft:moss_carpet" }
-func (PinkPetals) ID() string                   { return "minecraft:pink_petals" }
-func (MossBlock) ID() string                    { return "minecraft:moss_block" }
-func (BigDripleaf) ID() string                  { return "minecraft:big_dripleaf" }
-func (BigDripleafStem) ID() string              { return "minecraft:big_dripleaf_stem" }
-func (SmallDripleaf) ID() string                { return "minecraft:small_dripleaf" }
-func (HangingRoots) ID() string                 { return "minecraft:hanging_roots" }
-func (RootedDirt) ID() string                   { return "minecraft:rooted_dirt" }
-func (Mud) ID() string                          { return "minecraft:mud" }
-func (Deepslate) ID() string                    { return "minecraft:deepslate" }
-func (CobbledDeepslate) ID() string             { return "minecraft:cobbled_deepslate" }
-func (CobbledDeepslateStairs) ID() string       { return "minecraft:cobbled_deepslate_stairs" }
-func (CobbledDeepslateSlab) ID() string         { return "minecraft:cobbled_deepslate_slab" }
-func (CobbledDeepslateWall) ID() string         { return "minecraft:cobbled_deepslate_wall" }
-func (PolishedDeepslate) ID() string            { return "minecraft:polished_deepslate" }
-func (PolishedDeepslateStairs) ID() string      { return "minecraft:polished_deepslate_stairs" }
-func (PolishedDeepslateSlab) ID() string        { return "minecraft:polished_deepslate_slab" }
-func (PolishedDeepslateWall) ID() string        { return "minecraft:polished_deepslate_wall" }
-func (DeepslateTiles) ID() string               { return "minecraft:deepslate_tiles" }
-func (DeepslateTileStairs) ID() string          { return "minecraft:deepslate_tile_stairs" }
-func (DeepslateTileSlab) ID() string            { return "minecraft:deepslate_tile_slab" }
-func (DeepslateTileWall) ID() string            { return "minecraft:deepslate_tile_wall" }
-func (DeepslateBricks) ID() string              { return "minecraft:deepslate_bricks" }
-func (DeepslateBrickStairs) ID() string         { return "minecraft:deepslate_brick_stairs" }
-func (DeepslateBrickSlab) ID() string           { return "minecraft:deepslate_brick_slab" }
-func (DeepslateBrickWall) ID() string           { return "minecraft:deepslate_brick_wall" }
-func (ChiseledDeepslate) ID() string            { return "minecraft:chiseled_deepslate" }
-func (CrackedDeepslateBricks) ID() string       { return "minecraft:cracked_deepslate_bricks" }
-func (CrackedDeepslateTiles) ID() string        { return "minecraft:cracked_deepslate_tiles" }
-func (InfestedDeepslate) ID() string            { return "minecraft:infested_deepslate" }
-func (SmoothBasalt) ID() string                 { return "minecraft:smooth_basalt" }
-func (RawIronBlock) ID() string                 { return "minecraft:raw_iron_block" }
-func (RawCopperBlock) ID() string               { return "minecraft:raw_copper_block" }
-func (RawGoldBlock) ID() string                 { return "minecraft:raw_gold_block" }
-func (PottedAzaleaBush) ID() string             { return "minecraft:potted_azalea_bush" }
-func (PottedFloweringAzaleaBush) ID() string    { return "minecraft:potted_flowering_azalea_bush" }
-func (OchreFroglight) ID() string               { return "minecraft:ochre_froglight" }
-func (VerdantFroglight) ID() string             { return "minecraft:verdant_froglight" }
-func (PearlescentFroglight) ID() string         { return "minecraft:pearlescent_froglight" }
-func (Frogspawn) ID() string                    { return "minecraft:frogspawn" }
-func (ReinforcedDeepslate) ID() string          { return "minecraft:reinforced_deepslate" }
-func (DecoratedPot) ID() string                 { return "minecraft:decorated_pot" }
-func (Crafter) ID() string                      { return "minecraft:crafter" }
-func (TrialSpawner) ID() string                 { return "minecraft:trial_spawner" }
-func (Vault) ID() string                        { return "minecraft:vault" }
-func (HeavyCore) ID() string                    { return "minecraft:heavy_core" }
+func (CopperChest) ID() string                  { return "minecraft:copper_chest" }
+func (ExposedCopperChest) ID() string           { return "minecraft:exposed_copper_chest" }
+func (WeatheredCopperChest) ID() string         { return "minecraft:weathered_copper_chest" }
+func (OxidizedCopperChest) ID() string          { return "minecraft:oxidized_copper_chest" }
+func (WaxedCopperChest) ID() string             { return "minecraft:waxed_copper_chest" }
+func (WaxedExposedCopperChest) ID() string      { return "minecraft:waxed_exposed_copper_chest" }
+func (WaxedWeatheredCopperChest) ID() string    { return "minecraft:waxed_weathered_copper_chest" }
+func (WaxedOxidizedCopperChest) ID() string     { return "minecraft:waxed_oxidized_copper_chest" }
+func (CopperGolemStatue) ID() string            { return "minecraft:copper_golem_statue" }
+func (ExposedCopperGolemStatue) ID() string     { return "minecraft:exposed_copper_golem_statue" }
+func (WeatheredCopperGolemStatue) ID() string   { return "minecraft:weathered_copper_golem_statue" }
+func (OxidizedCopperGolemStatue) ID() string    { return "minecraft:oxidized_copper_golem_statue" }
+func (WaxedCopperGolemStatue) ID() string       { return "minecraft:waxed_copper_golem_statue" }
+func (WaxedExposedCopperGolemStatue) ID() string {
+	return "minecraft:waxed_exposed_copper_golem_statue"
+}
+func (WaxedWeatheredCopperGolemStatue) ID() string {
+	return "minecraft:waxed_weathered_copper_golem_statue"
+}
+func (WaxedOxidizedCopperGolemStatue) ID() string {
+	return "minecraft:waxed_oxidized_copper_golem_statue"
+}
+func (LightningRod) ID() string               { return "minecraft:lightning_rod" }
+func (ExposedLightningRod) ID() string        { return "minecraft:exposed_lightning_rod" }
+func (WeatheredLightningRod) ID() string      { return "minecraft:weathered_lightning_rod" }
+func (OxidizedLightningRod) ID() string       { return "minecraft:oxidized_lightning_rod" }
+func (WaxedLightningRod) ID() string          { return "minecraft:waxed_lightning_rod" }
+func (WaxedExposedLightningRod) ID() string   { return "minecraft:waxed_exposed_lightning_rod" }
+func (WaxedWeatheredLightningRod) ID() string { return "minecraft:waxed_weathered_lightning_rod" }
+func (WaxedOxidizedLightningRod) ID() string  { return "minecraft:waxed_oxidized_lightning_rod" }
+func (PointedDripstone) ID() string           { return "minecraft:pointed_dripstone" }
+func (DripstoneBlock) ID() string             { return "minecraft:dripstone_block" }
+func (CaveVines) ID() string                  { return "minecraft:cave_vines" }
+func (CaveVinesPlant) ID() string             { return "minecraft:cave_vines_plant" }
+func (SporeBlossom) ID() string               { return "minecraft:spore_blossom" }
+func (Azalea) ID() string                     { return "minecraft:azalea" }
+func (FloweringAzalea) ID() string            { return "minecraft:flowering_azalea" }
+func (MossCarpet) ID() string                 { return "minecraft:moss_carpet" }
+func (PinkPetals) ID() string                 { return "minecraft:pink_petals" }
+func (Wildflowers) ID() string                { return "minecraft:wildflowers" }
+func (LeafLitter) ID() string                 { return "minecraft:leaf_litter" }
+func (MossBlock) ID() string                  { return "minecraft:moss_block" }
+func (BigDripleaf) ID() string                { return "minecraft:big_dripleaf" }
+func (BigDripleafStem) ID() string            { return "minecraft:big_dripleaf_stem" }
+func (SmallDripleaf) ID() string              { return "minecraft:small_dripleaf" }
+func (HangingRoots) ID() string               { return "minecraft:hanging_roots" }
+func (RootedDirt) ID() string                 { return "minecraft:rooted_dirt" }
+func (Mud) ID() string                        { return "minecraft:mud" }
+func (Deepslate) ID() string                  { return "minecraft:deepslate" }
+func (CobbledDeepslate) ID() string           { return "minecraft:cobbled_deepslate" }
+func (CobbledDeepslateStairs) ID() string     { return "minecraft:cobbled_deepslate_stairs" }
+func (CobbledDeepslateSlab) ID() string       { return "minecraft:cobbled_deepslate_slab" }
+func (CobbledDeepslateWall) ID() string       { return "minecraft:cobbled_deepslate_wall" }
+func (PolishedDeepslate) ID() string          { return "minecraft:polished_deepslate" }
+func (PolishedDeepslateStairs) ID() string    { return "minecraft:polished_deepslate_stairs" }
+func (PolishedDeepslateSlab) ID() string      { return "minecraft:polished_deepslate_slab" }
+func (PolishedDeepslateWall) ID() string      { return "minecraft:polished_deepslate_wall" }
+func (DeepslateTiles) ID() string             { return "minecraft:deepslate_tiles" }
+func (DeepslateTileStairs) ID() string        { return "minecraft:deepslate_tile_stairs" }
+func (DeepslateTileSlab) ID() string          { return "minecraft:deepslate_tile_slab" }
+func (DeepslateTileWall) ID() string          { return "minecraft:deepslate_tile_wall" }
+func (DeepslateBricks) ID() string            { return "minecraft:deepslate_bricks" }
+func (DeepslateBrickStairs) ID() string       { return "minecraft:deepslate_brick_stairs" }
+func (DeepslateBrickSlab) ID() string         { return "minecraft:deepslate_brick_slab" }
+func (DeepslateBrickWall) ID() string         { return "minecraft:deepslate_brick_wall" }
+func (ChiseledDeepslate) ID() string          { return "minecraft:chiseled_deepslate" }
+func (CrackedDeepslateBricks) ID() string     { return "minecraft:cracked_deepslate_bricks" }
+func (CrackedDeepslateTiles) ID() string      { return "minecraft:cracked_deepslate_tiles" }
+func (InfestedDeepslate) ID() string          { return "minecraft:infested_deepslate" }
+func (SmoothBasalt) ID() string               { return "minecraft:smooth_basalt" }
+func (RawIronBlock) ID() string               { return "minecraft:raw_iron_block" }
+func (RawCopperBlock) ID() string             { return "minecraft:raw_copper_block" }
+func (RawGoldBlock) ID() string               { return "minecraft:raw_gold_block" }
+func (PottedAzaleaBush) ID() string           { return "minecraft:potted_azalea_bush" }
+func (PottedFloweringAzaleaBush) ID() string  { return "minecraft:potted_flowering_azalea_bush" }
+func (OchreFroglight) ID() string             { return "minecraft:ochre_froglight" }
+func (VerdantFroglight) ID() string           { return "minecraft:verdant_froglight" }
+func (PearlescentFroglight) ID() string       { return "minecraft:pearlescent_froglight" }
+func (Frogspawn) ID() string                  { return "minecraft:frogspawn" }
+func (ReinforcedDeepslate) ID() string        { return "minecraft:reinforced_deepslate" }
+func (DecoratedPot) ID() string               { return "minecraft:decorated_pot" }
+func (Crafter) ID() string                    { return "minecraft:crafter" }
+func (TrialSpawner) ID() string               { return "minecraft:trial_spawner" }
+func (Vault) ID() string                      { return "minecraft:vault" }
+func (HeavyCore) ID() string                  { return "minecraft:heavy_core" }
+func (PaleMossBlock) ID() string              { return "minecraft:pale_moss_block" }
+func (PaleMossCarpet) ID() string             { return "minecraft:pale_moss_carpet" }
+func (PaleHangingMoss) ID() string            { return "minecraft:pale_hanging_moss" }
+func (OpenEyeblossom) ID() string             { return "minecraft:open_eyeblossom" }
+func (ClosedEyeblossom) ID() string           { return "minecraft:closed_eyeblossom" }
+func (PottedOpenEyeblossom) ID() string       { return "minecraft:potted_open_eyeblossom" }
+func (PottedClosedEyeblossom) ID() string     { return "minecraft:potted_closed_eyeblossom" }
+func (FireflyBush) ID() string                { return "minecraft:firefly_bush" }
 
 var FromID = map[string]Block{
-	"minecraft:air":                                Air{},
-	"minecraft:stone":                              Stone{},
-	"minecraft:granite":                            Granite{},
-	"minecraft:polished_granite":                   PolishedGranite{},
-	"minecraft:diorite":                            Diorite{},
-	"minecraft:polished_diorite":                   PolishedDiorite{},
-	"minecraft:andesite":                           Andesite{},
-	"minecraft:polished_andesite":                  PolishedAndesite{},
-	"minecraft:grass_block":                        GrassBlock{},
-	"minecraft:dirt":                               Dirt{},
-	"minecraft:coarse_dirt":                        CoarseDirt{},
-	"minecraft:podzol":                             Podzol{},
-	"minecraft:cobblestone":                        Cobblestone{},
-	"minecraft:oak_planks":                         OakPlanks{},
-	"minecraft:spruce_planks":                      SprucePlanks{},
-	"minecraft:birch_planks":                       BirchPlanks{},
-	"minecraft:jungle_planks":                      JunglePlanks{},
-	"minecraft:acacia_planks":                      AcaciaPlanks{},
-	"minecraft:cherry_planks":                      CherryPlanks{},
-	"minecraft:dark_oak_planks":                    DarkOakPlanks{},
-	"minecraft:mangrove_planks":                    MangrovePlanks{},
-	"minecraft:bamboo_planks":                      BambooPlanks{},
-	"minecraft:bamboo_mosaic":                      BambooMosaic{},
-	"minecraft:oak_sapling":                        OakSapling{},
-	"minecraft:spruce_sapling":                     SpruceSapling{},
-	"minecraft:birch_sapling":                      BirchSapling{},
-	"minecraft:jungle_sapling":                     JungleSapling{},
-	"minecraft:acacia_sapling":                     AcaciaSapling{},
-	"minecraft:cherry_sapling":                     CherrySapling{},
-	"minecraft:dark_oak_sapling":                   DarkOakSapling{},
-	"minecraft:mangrove_propagule":                 MangrovePropagule{},
-	"minecraft:bedrock":                            Bedrock{},
-	"minecraft:water":                              Water{},
-	"minecraft:lava":                               Lava{},
-	"minecraft:sand":                               Sand{},
-	"minecraft:suspicious_sand":                    SuspiciousSand{},
-	"minecraft:red_sand":                           RedSand{},
-	"minecraft:gravel":                             Gravel{},
-	"minecraft:suspicious_gravel":                  SuspiciousGravel{},
-	"minecraft:gold_ore":                           GoldOre{},
-	"minecraft:deepslate_gold_ore":                 DeepslateGoldOre{},
-	"minecraft:iron_ore":                           IronOre{},
-	"minecraft:deepslate_iron_ore":                 DeepslateIronOre{},
-	"minecraft:coal_ore":                           CoalOre{},
-	"minecraft:deepslate_coal_ore":                 DeepslateCoalOre{},
-	"minecraft:nether_gold_ore":                    NetherGoldOre{},
-	"minecraft:oak_log":                            OakLog{},
-	"minecraft:spruce_log":                         SpruceLog{},
-	"minecraft:birch_log":                          BirchLog{},
-	"minecraft:jungle_log":                         JungleLog{},
-	"minecraft:acacia_log":                         AcaciaLog{},
-	"minecraft:cherry_log":                         CherryLog{},
-	"minecraft:dark_oak_log":                       DarkOakLog{},
-	"minecraft:mangrove_log":                       MangroveLog{},
-	"minecraft:mangrove_roots":                     MangroveRoots{},
-	"minecraft:muddy_mangrove_roots":               MuddyMangroveRoots{},
-	"minecraft:bamboo_block":                       BambooBlock{},
-	"minecraft:stripped_spruce_log":                StrippedSpruceLog{},
-	"minecraft:stripped_birch_log":                 StrippedBirchLog{},
-	"minecraft:stripped_jungle_log":                StrippedJungleLog{},
-	"minecraft:stripped_acacia_log":                StrippedAcaciaLog{},
-	"minecraft:stripped_cherry_log":                StrippedCherryLog{},
-	"minecraft:stripped_dark_oak_log":              StrippedDarkOakLog{},
-	"minecraft:stripped_oak_log":                   StrippedOakLog{},
-	"minecraft:stripped_mangrove_log":              StrippedMangroveLog{},
-	"minecraft:stripped_bamboo_block":              StrippedBambooBlock{},
-	"minecraft:oak_wood":                           OakWood{},
-	"minecraft:spruce_wood":                        SpruceWood{},
-	"minecraft:birch_wood":                         BirchWood{},
-	"minecraft:jungle_wood":                        JungleWood{},
-	"minecraft:acacia_wood":                        AcaciaWood{},
-	"minecraft:cherry_wood":                        CherryWood{},
-	"minecraft:dark_oak_wood":                      DarkOakWood{},
-	"minecraft:mangrove_wood":                      MangroveWood{},
-	"minecraft:stripped_oak_wood":                  StrippedOakWood{},
-	"minecraft:stripped_spruce_wood":               StrippedSpruceWood{},
-	"minecraft:stripped_birch_wood":                StrippedBirchWood{},
-	"minecraft:stripped_jungle_wood":               StrippedJungleWood{},
-	"minecraft:stripped_acacia_wood":               StrippedAcaciaWood{},
-	"minecraft:stripped_cherry_wood":               StrippedCherryWood{},
-	"minecraft:stripped_dark_oak_wood":             StrippedDarkOakWood{},
-	"minecraft:stripped_mangrove_wood":             StrippedMangroveWood{},
-	"minecraft:oak_leaves":                         OakLeaves{},
-	"minecraft:spruce_leaves":                      SpruceLeaves{},
-	"minecraft:birch_leaves":                       BirchLeaves{},
-	"minecraft:jungle_leaves":                      JungleLeaves{},
-	"minecraft:acacia_leaves":                      AcaciaLeaves{},
-	"minecraft:cherry_leaves":                      CherryLeaves{},
-	"minecraft:dark_oak_leaves":                    DarkOakLeaves{},
-	"minecraft:mangrove_leaves":                    MangroveLeaves{},
-	"minecraft:azalea_leaves":                      AzaleaLeaves{},
-	"minecraft:flowering_azalea_leaves":            FloweringAzaleaLeaves{},
-	"minecraft:sponge":                             Sponge{},
-	"minecraft:wet_sponge":                         WetSponge{},
-	"minecraft:glass":                              Glass{},
-	"minecraft:lapis_ore":                          LapisOre{},
-	"minecraft:deepslate_lapis_ore":                DeepslateLapisOre{},
-	"minecraft:lapis_block":                        LapisBlock{},
-	"minecraft:dispenser":                          Dispenser{},
-	"minecraft:sandstone":                          Sandstone{},
-	"minecraft:chiseled_sandstone":                 ChiseledSandstone{},
-	"minecraft:cut_sandstone":                      CutSandstone{},
-	"minecraft:note_block":                         NoteBlock{},
-	"minecraft:white_bed":                          WhiteBed{},
-	"minecraft:orange_bed":                         OrangeBed{},
-	"minecraft:magenta_bed":                        MagentaBed{},
-	"minecraft:light_blue_bed":                     LightBlueBed{},
-	"minecraft:yellow_bed":                         YellowBed{},
-	"minecraft:lime_bed":                           LimeBed{},
-	"minecraft:pink_bed":                           PinkBed{},
-	"minecraft:gray_bed":                           GrayBed{},
-	"minecraft:light_gray_bed":                     LightGrayBed{},
-	"minecraft:cyan_bed":                           CyanBed{},
-	"minecraft:purple_bed":                         PurpleBed{},
-	"minecraft:blue_bed":                           BlueBed{},
-	"minecraft:brown_bed":                          BrownBed{},
-	"minecraft:green_bed":                          GreenBed{},
-	"minecraft:red_bed":                            RedBed{},
-	"minecraft:black_bed":                          BlackBed{},
-	"minecraft:powered_rail":                       PoweredRail{},
-	"minecraft:detector_rail":                      DetectorRail{},
-	"minecraft:sticky_piston":                      StickyPiston{},
-	"minecraft:cobweb":                             Cobweb{},
-	"minecraft:short_grass":                        ShortGrass{},
-	"minecraft:fern":                               Fern{},
-	"minecraft:dead_bush":                          DeadBush{},
-	"minecraft:seagrass":                           Seagrass{},
-	"minecraft:tall_seagrass":                      TallSeagrass{},
-	"minecraft:piston":                             Piston{},
-	"minecraft:piston_head":                        PistonHead{},
-	"minecraft:white_wool":                         WhiteWool{},
-	"minecraft:orange_wool":                        OrangeWool{},
-	"minecraft:magenta_wool":                       MagentaWool{},
-	"minecraft:light_blue_wool":                    LightBlueWool{},
-	"minecraft:yellow_wool":                        YellowWool{},
-	"minecraft:lime_wool":                          LimeWool{},
-	"minecraft:pink_wool":                          PinkWool{},
-	"minecraft:gray_wool":                          GrayWool{},
-	"minecraft:light_gray_wool":                    LightGrayWool{},
-	"minecraft:cyan_wool":                          CyanWool{},
-	"minecraft:purple_wool":                        PurpleWool{},
-	"minecraft:blue_wool":                          BlueWool{},
-	"minecraft:brown_wool":                         BrownWool{},
-	"minecraft:green_wool":                         GreenWool{},
-	"minecraft:red_wool":                           RedWool{},
-	"minecraft:black_wool":                         BlackWool{},
-	"minecraft:moving_piston":                      MovingPiston{},
-	"minecraft:dandelion":                          Dandelion{},
-	"minecraft:torchflower":                        Torchflower{},
-	"minecraft:poppy":                              Poppy{},
-	"minecraft:blue_orchid":                        BlueOrchid{},
-	"minecraft:allium":                             Allium{},
-	"minecraft:azure_bluet":                        AzureBluet{},
-	"minecraft:red_tulip":                          RedTulip{},
-	"minecraft:orange_tulip":                       OrangeTulip{},
-	"minecraft:white_tulip":                        WhiteTulip{},
-	"minecraft:pink_tulip":                         PinkTulip{},
-	"minecraft:oxeye_daisy":                        OxeyeDaisy{},
-	"minecraft:cornflower":                         Cornflower{},
-	"minecraft:wither_rose":                        WitherRose{},
-	"minecraft:lily_of_the_valley":                 LilyOfTheValley{},
-	"minecraft:brown_mushroom":                     BrownMushroom{},
-	"minecraft:red_mushroom":                       RedMushroom{},
-	"minecraft:gold_block":                         GoldBlock{},
-	"minecraft:iron_block":                         IronBlock{},
-	"minecraft:bricks":                             Bricks{},
-	"minecraft:tnt":                                Tnt{},
-	"minecraft:bookshelf":                          Bookshelf{},
-	"minecraft:chiseled_bookshelf":                 ChiseledBookshelf{},
-	"minecraft:mossy_cobblestone":                  MossyCobblestone{},
-	"minecraft:obsidian":                           Obsidian{},
-	"minecraft:torch":                              Torch{},
-	"minecraft:wall_torch":                         WallTorch{},
-	"minecraft:fire":                               Fire{},
-	"minecraft:soul_fire":                          SoulFire{},
-	"minecraft:spawner":                            Spawner{},
-	"minecraft:oak_stairs":                         OakStairs{},
-	"minecraft:chest":                              Chest{},
-	"minecraft:redstone_wire":                      RedstoneWire{},
-	"minecraft:diamond_ore":                        DiamondOre{},
-	"minecraft:deepslate_diamond_ore":              DeepslateDiamondOre{},
-	"minecraft:diamond_block":                      DiamondBlock{},
-	"minecraft:crafting_table":                     CraftingTable{},
-	"minecraft:wheat":                              Wheat{},
-	"minecraft:farmland":                           Farmland{},
-	"minecraft:furnace":                            Furnace{},
-	"minecraft:oak_sign":                           OakSign{},
-	"minecraft:spruce_sign":                        SpruceSign{},
-	"minecraft:birch_sign":                         BirchSign{},
-	"minecraft:acacia_sign":                        AcaciaSign{},
-	"minecraft:cherry_sign":                        CherrySign{},
-	"minecraft:jungle_sign":                        JungleSign{},
-	"minecraft:dark_oak_sign":                      DarkOakSign{},
-	"minecraft:mangrove_sign":                      MangroveSign{},
-	"minecraft:bamboo_sign":                        BambooSign{},
-	"minecraft:oak_door":                           OakDoor{},
-	"minecraft:ladder":                             Ladder{},
-	"minecraft:rail":                               Rail{},
-	"minecraft:cobblestone_stairs":                 CobblestoneStairs{},
-	"minecraft:oak_wall_sign":                      OakWallSign{},
-	"minecraft:spruce_wall_sign":                   SpruceWallSign{},
-	"minecraft:birch_wall_sign":                    BirchWallSign{},
-	"minecraft:acacia_wall_sign":                   AcaciaWallSign{},
-	"minecraft:cherry_wall_sign":                   CherryWallSign{},
-	"minecraft:jungle_wall_sign":                   JungleWallSign{},
-	"minecraft:dark_oak_wall_sign":                 DarkOakWallSign{},
-	"minecraft:mangrove_wall_sign":                 MangroveWallSign{},
-	"minecraft:bamboo_wall_sign":                   BambooWallSign{},
-	"minecraft:oak_hanging_sign":                   OakHangingSign{},
-	"minecraft:spruce_hanging_sign":                SpruceHangingSign{},
-	"minecraft:birch_hanging_sign":                 BirchHangingSign{},
-	"minecraft:acacia_hanging_sign":                AcaciaHangingSign{},
-	"minecraft:cherry_hanging_sign":                CherryHangingSign{},
-	"minecraft:jungle_hanging_sign":                JungleHangingSign{},
-	"minecraft:dark_oak_hanging_sign":              DarkOakHangingSign{},
-	"minecraft:crimson_hanging_sign":               CrimsonHangingSign{},
-	"minecraft:warped_hanging_sign":                WarpedHangingSign{},
-	"minecraft:mangrove_hanging_sign":              MangroveHangingSign{},
-	"minecraft:bamboo_hanging_sign":                BambooHangingSign{},
-	"minecraft:oak_wall_hanging_sign":              OakWallHangingSign{},
-	"minecraft:spruce_wall_hanging_sign":           SpruceWallHangingSign{},
-	"minecraft:birch_wall_hanging_sign":            BirchWallHangingSign{},
-	"minecraft:acacia_wall_hanging_sign":           AcaciaWallHangingSign{},
-	"minecraft:cherry_wall_hanging_sign":           CherryWallHangingSign{},
-	"minecraft:jungle_wall_hanging_sign":           JungleWallHangingSign{},
-	"minecraft:dark_oak_wall_hanging_sign":         DarkOakWallHangingSign{},
-	"minecraft:mangrove_wall_hanging_sign":         MangroveWallHangingSign{},
-	"minecraft:crimson_wall_hanging_sign":          CrimsonWallHangingSign{},
-	"minecraft:warped_wall_hanging_sign":           WarpedWallHangingSign{},
-	"minecraft:bamboo_wall_hanging_sign":           BambooWallHangingSign{},
-	"minecraft:lever":                              Lever{},
-	"minecraft:stone_pressure_plate":               StonePressurePlate{},
-	"minecraft:iron_door":                          IronDoor{},
-	"minecraft:oak_pressure_plate":                 OakPressurePlate{},
-	"minecraft:spruce_pressure_plate":              SprucePressurePlate{},
-	"minecraft:birch_pressure_plate":               BirchPressurePlate{},
-	"minecraft:jungle_pressure_plate":              JunglePressurePlate{},
-	"minecraft:acacia_pressure_plate":              AcaciaPressurePlate{},
-	"minecraft:cherry_pressure_plate":              CherryPressurePlate{},
-	"minecraft:dark_oak_pressure_plate":            DarkOakPressurePlate{},
-	"minecraft:mangrove_pressure_plate":            MangrovePressurePlate{},
-	"minecraft:bamboo_pressure_plate":              BambooPressurePlate{},
-	"minecraft:redstone_ore":                       RedstoneOre{},
-	"minecraft:deepslate_redstone_ore":             DeepslateRedstoneOre{},
-	"minecraft:redstone_torch":                     RedstoneTorch{},
-	"minecraft:redstone_wall_torch":                RedstoneWallTorch{},
-	"minecraft:stone_button":                       StoneButton{},
-	"minecraft:snow":                               Snow{},
-	"minecraft:ice":                                Ice{},
-	"minecraft:snow_block":                         SnowBlock{},
-	"minecraft:cactus":                             Cactus{},
-	"minecraft:clay":                               Clay{},
-	"minecraft:sugar_cane":                         SugarCane{},
-	"minecraft:jukebox":                            Jukebox{},
-	"minecraft:oak_fence":                          OakFence{},
-	"minecraft:netherrack":                         Netherrack{},
-	"minecraft:soul_sand":                          SoulSand{},
-	"minecraft:soul_soil":                          SoulSoil{},
-	"minecraft:basalt":                             Basalt{},
-	"minecraft:polished_basalt":                    PolishedBasalt{},
-	"minecraft:soul_torch":                         SoulTorch{},
-	"minecraft:soul_wall_torch":                    SoulWallTorch{},
-	"minecraft:glowstone":                          Glowstone{},
-	"minecraft:nether_portal":                      NetherPortal{},
-	"minecraft:carved_pumpkin":                     CarvedPumpkin{},
-	"minecraft:jack_o_lantern":                     JackOLantern{},
-	"minecraft:cake":                               Cake{},
-	"minecraft:repeater":                           Repeater{},
-	"minecraft:white_stained_glass":                WhiteStainedGlass{},
-	"minecraft:orange_stained_glass":               OrangeStainedGlass{},
-	"minecraft:magenta_stained_glass":              MagentaStainedGlass{},
-	"minecraft:light_blue_stained_glass":           LightBlueStainedGlass{},
-	"minecraft:yellow_stained_glass":               YellowStainedGlass{},
-	"minecraft:lime_stained_glass":                 LimeStainedGlass{},
-	"minecraft:pink_stained_glass":                 PinkStainedGlass{},
-	"minecraft:gray_stained_glass":                 GrayStainedGlass{},
-	"minecraft:light_gray_stained_glass":           LightGrayStainedGlass{},
-	"minecraft:cyan_stained_glass":                 CyanStainedGlass{},
-	"minecraft:purple_stained_glass":               PurpleStainedGlass{},
-	"minecraft:blue_stained_glass":                 BlueStainedGlass{},
-	"minecraft:brown_stained_glass":                BrownStainedGlass{},
-	"minecraft:green_stained_glass":                GreenStainedGlass{},
-	"minecraft:red_stained_glass":                  RedStainedGlass{},
-	"minecraft:black_stained_glass":                BlackStainedGlass{},
-	"minecraft:oak_trapdoor":                       OakTrapdoor{},
-	"minecraft:spruce_trapdoor":                    SpruceTrapdoor{},
-	"minecraft:birch_trapdoor":                     BirchTrapdoor{},
-	"minecraft:jungle_trapdoor":                    JungleTrapdoor{},
-	"minecraft:acacia_trapdoor":                    AcaciaTrapdoor{},
-	"minecraft:cherry_trapdoor":                    CherryTrapdoor{},
-	"minecraft:dark_oak_trapdoor":                  DarkOakTrapdoor{},
-	"minecraft:mangrove_trapdoor":                  MangroveTrapdoor{},
-	"minecraft:bamboo_trapdoor":                    BambooTrapdoor{},
-	"minecraft:stone_bricks":                       StoneBricks{},
-	"minecraft:mossy_stone_bricks":                 MossyStoneBricks{},
-	"minecraft:cracked_stone_bricks":               CrackedStoneBricks{},
-	"minecraft:chiseled_stone_bricks":              ChiseledStoneBricks{},
-	"minecraft:packed_mud":                         PackedMud{},
-	"minecraft:mud_bricks":                         MudBricks{},
-	"minecraft:infested_stone":                     InfestedStone{},
-	"minecraft:infested_cobblestone":               InfestedCobblestone{},
-	"minecraft:infested_stone_bricks":              InfestedStoneBricks{},
-	"minecraft:infested_mossy_stone_bricks":        InfestedMossyStoneBricks{},
-	"minecraft:infested_cracked_stone_bricks":      InfestedCrackedStoneBricks{},
-	"minecraft:infested_chiseled_stone_bricks":     InfestedChiseledStoneBricks{},
-	"minecraft:brown_mushroom_block":               BrownMushroomBlock{},
-	"minecraft:red_mushroom_block":                 RedMushroomBlock{},
-	"minecraft:mushroom_stem":                      MushroomStem{},
-	"minecraft:iron_bars":                          IronBars{},
-	"minecraft:chain":                              Chain{},
-	"minecraft:glass_pane":                         GlassPane{},
-	"minecraft:pumpkin":                            Pumpkin{},
-	"minecraft:melon":                              Melon{},
-	"minecraft:attached_pumpkin_stem":              AttachedPumpkinStem{},
-	"minecraft:attached_melon_stem":                AttachedMelonStem{},
-	"minecraft:pumpkin_stem":                       PumpkinStem{},
-	"minecraft:melon_stem":                         MelonStem{},
-	"minecraft:vine":                               Vine{},
-	"minecraft:glow_lichen":                        GlowLichen{},
-	"minecraft:oak_fence_gate":                     OakFenceGate{},
-	"minecraft:brick_stairs":                       BrickStairs{},
-	"minecraft:stone_brick_stairs":                 StoneBrickStairs{},
-	"minecraft:mud_brick_stairs":                   MudBrickStairs{},
-	"minecraft:mycelium":                           Mycelium{},
-	"minecraft:lily_pad":                           LilyPad{},
-	"minecraft:nether_bricks":                      NetherBricks{},
-	"minecraft:nether_brick_fence":                 NetherBrickFence{},
-	"minecraft:nether_brick_stairs":                NetherBrickStairs{},
-	"minecraft:nether_wart":                        NetherWart{},
-	"minecraft:enchanting_table":                   EnchantingTable{},
-	"minecraft:brewing_stand":                      BrewingStand{},
-	"minecraft:cauldron":                           Cauldron{},
-	"minecraft:water_cauldron":                     WaterCauldron{},
-	"minecraft:lava_cauldron":                      LavaCauldron{},
-	"minecraft:powder_snow_cauldron":               PowderSnowCauldron{},
-	"minecraft:end_portal":                         EndPortal{},
-	"minecraft:end_portal_frame":                   EndPortalFrame{},
-	"minecraft:end_stone":                          EndStone{},
-	"minecraft:dragon_egg":                         DragonEgg{},
-	"minecraft:redstone_lamp":                      RedstoneLamp{},
-	"minecraft:cocoa":                              Cocoa{},
-	"minecraft:sandstone_stairs":                   SandstoneStairs{},
-	"minecraft:emerald_ore":                        EmeraldOre{},
-	"minecraft:deepslate_emerald_ore":              DeepslateEmeraldOre{},
-	"minecraft:ender_chest":                        EnderChest{},
-	"minecraft:tripwire_hook":                      TripwireHook{},
-	"minecraft:tripwire":                           Tripwire{},
-	"minecraft:emerald_block":                      EmeraldBlock{},
-	"minecraft:spruce_stairs":                      SpruceStairs{},
-	"minecraft:birch_stairs":                       BirchStairs{},
-	"minecraft:jungle_stairs":                      JungleStairs{},
-	"minecraft:command_block":                      CommandBlock{},
-	"minecraft:beacon":                             Beacon{},
-	"minecraft:cobblestone_wall":                   CobblestoneWall{},
-	"minecraft:mossy_cobblestone_wall":             MossyCobblestoneWall{},
-	"minecraft:flower_pot":                         FlowerPot{},
-	"minecraft:potted_torchflower":                 PottedTorchflower{},
-	"minecraft:potted_oak_sapling":                 PottedOakSapling{},
-	"minecraft:potted_spruce_sapling":              PottedSpruceSapling{},
-	"minecraft:potted_birch_sapling":               PottedBirchSapling{},
-	"minecraft:potted_jungle_sapling":              PottedJungleSapling{},
-	"minecraft:potted_acacia_sapling":              PottedAcaciaSapling{},
-	"minecraft:potted_cherry_sapling":              PottedCherrySapling{},
-	"minecraft:potted_dark_oak_sapling":            PottedDarkOakSapling{},
-	"minecraft:potted_mangrove_propagule":          PottedMangrovePropagule{},
-	"minecraft:potted_fern":                        PottedFern{},
-	"minecraft:potted_dandelion":                   PottedDandelion{},
-	"minecraft:potted_poppy":                       PottedPoppy{},
-	"minecraft:potted_blue_orchid":                 PottedBlueOrchid{},
-	"minecraft:potted_allium":                      PottedAllium{},
-	"minecraft:potted_azure_bluet":                 PottedAzureBluet{},
-	"minecraft:potted_red_tulip":                   PottedRedTulip{},
-	"minecraft:potted_orange_tulip":                PottedOrangeTulip{},
-	"minecraft:potted_white_tulip":                 PottedWhiteTulip{},
-	"minecraft:potted_pink_tulip":                  PottedPinkTulip{},
-	"minecraft:potted_oxeye_daisy":                 PottedOxeyeDaisy{},
-	"minecraft:potted_cornflower":                  PottedCornflower{},
-	"minecraft:potted_lily_of_the_valley":          PottedLilyOfTheValley{},
-	"minecraft:potted_wither_rose":                 PottedWitherRose{},
-	"minecraft:potted_red_mushroom":                PottedRedMushroom{},
-	"minecraft:potted_brown_mushroom":              PottedBrownMushroom{},
-	"minecraft:potted_dead_bush":                   PottedDeadBush{},
-	"minecraft:potted_cactus":                      PottedCactus{},
-	"minecraft:carrots":                            Carrots{},
-	"minecraft:potatoes":                           Potatoes{},
-	"minecraft:oak_button":                         OakButton{},
-	"minecraft:spruce_button":                      SpruceButton{},
-	"minecraft:birch_button":                       BirchButton{},
-	"minecraft:jungle_button":                      JungleButton{},
-	"minecraft:acacia_button":                      AcaciaButton{},
-	"minecraft:cherry_button":                      CherryButton{},
-	"minecraft:dark_oak_button":                    DarkOakButton{},
-	"minecraft:mangrove_button":                    MangroveButton{},
-	"minecraft:bamboo_button":                      BambooButton{},
-	"minecraft:skeleton_skull":                     SkeletonSkull{},
-	"minecraft:skeleton_wall_skull":                SkeletonWallSkull{},
-	"minecraft:wither_skeleton_skull":              WitherSkeletonSkull{},
-	"minecraft:wither_skeleton_wall_skull":         WitherSkeletonWallSkull{},
-	"minecraft:zombie_head":                        ZombieHead{},
-	"minecraft:zombie_wall_head":                   ZombieWallHead{},
-	"minecraft:player_head":                        PlayerHead{},
-	"minecraft:player_wall_head":                   PlayerWallHead{},
-	"minecraft:creeper_head":                       CreeperHead{},
-	"minecraft:creeper_wall_head":                  CreeperWallHead{},
-	"minecraft:dragon_head":                        DragonHead{},
-	"minecraft:dragon_wall_head":                   DragonWallHead{},
-	"minecraft:piglin_head":                        PiglinHead{},
-	"minecraft:piglin_wall_head":                   PiglinWallHead{},
-	"minecraft:anvil":                              Anvil{},
-	"minecraft:chipped_anvil":                      ChippedAnvil{},
-	"minecraft:damaged_anvil":                      DamagedAnvil{},
-	"minecraft:trapped_chest":                      TrappedChest{},
-	"minecraft:light_weighted_pressure_plate":      LightWeightedPressurePlate{},
-	"minecraft:heavy_weighted_pressure_plate":      HeavyWeightedPressurePlate{},
-	"minecraft:comparator":                         Comparator{},
-	"minecraft:daylight_detector":                  DaylightDetector{},
-	"minecraft:redstone_block":                     RedstoneBlock{},
-	"minecraft:nether_quartz_ore":                  NetherQuartzOre{},
-	"minecraft:hopper":                             Hopper{},
-	"minecraft:quartz_block":                       QuartzBlock{},
-	"minecraft:chiseled_quartz_block":              ChiseledQuartzBlock{},
-	"minecraft:quartz_pillar":                      QuartzPillar{},
-	"minecraft:quartz_stairs":                      QuartzStairs{},
-	"minecraft:activator_rail":                     ActivatorRail{},
-	"minecraft:dropper":                            Dropper{},
-	"minecraft:white_terracotta":                   WhiteTerracotta{},
-	"minecraft:orange_terracotta":                  OrangeTerracotta{},
-	"minecraft:magenta_terracotta":                 MagentaTerracotta{},
-	"minecraft:light_blue_terracotta":              LightBlueTerracotta{},
-	"minecraft:yellow_terracotta":                  YellowTerracotta{},
-	"minecraft:lime_terracotta":                    LimeTerracotta{},
-	"minecraft:pink_terracotta":                    PinkTerracotta{},
-	"minecraft:gray_terracotta":                    GrayTerracotta{},
-	"minecraft:light_gray_terracotta":              LightGrayTerracotta{},
-	"minecraft:cyan_terracotta":                    CyanTerracotta{},
-	"minecraft:purple_terracotta":                  PurpleTerracotta{},
-	"minecraft:blue_terracotta":                    BlueTerracotta{},
-	"minecraft:brown_terracotta":                   BrownTerracotta{},
-	"minecraft:green_terracotta":                   GreenTerracotta{},
-	"minecraft:red_terracotta":                     RedTerracotta{},
-	"minecraft:black_terracotta":                   BlackTerracotta{},
-	"minecraft:white_stained_glass_pane":           WhiteStainedGlassPane{},
-	"minecraft:orange_stained_glass_pane":          OrangeStainedGlassPane{},
-	"minecraft:magenta_stained_glass_pane":         MagentaStainedGlassPane{},
-	"minecraft:light_blue_stained_glass_pane":      LightBlueStainedGlassPane{},
-	"minecraft:yellow_stained_glass_pane":          YellowStainedGlassPane{},
-	"minecraft:lime_stained_glass_pane":            LimeStainedGlassPane{},
-	"minecraft:pink_stained_glass_pane":            PinkStainedGlassPane{},
-	"minecraft:gray_stained_glass_pane":            GrayStainedGlassPane{},
-	"minecraft:light_gray_stained_glass_pane":      LightGrayStainedGlassPane{},
-	"minecraft:cyan_stained_glass_pane":            CyanStainedGlassPane{},
-	"minecraft:purple_stained_glass_pane":          PurpleStainedGlassPane{},
-	"minecraft:blue_stained_glass_pane":            BlueStainedGlassPane{},
-	"minecraft:brown_stained_glass_pane":           BrownStainedGlassPane{},
-	"minecraft:green_stained_glass_pane":           GreenStainedGlassPane{},
-	"minecraft:red_stained_glass_pane":             RedStainedGlassPane{},
-	"minecraft:black_stained_glass_pane":           BlackStainedGlassPane{},
-	"minecraft:acacia_stairs":                      AcaciaStairs{},
-	"minecraft:cherry_stairs":                      CherryStairs{},
-	"minecraft:dark_oak_stairs":                    DarkOakStairs{},
-	"minecraft:mangrove_stairs":                    MangroveStairs{},
-	"minecraft:bamboo_stairs":                      BambooStairs{},
-	"minecraft:bamboo_mosaic_stairs":               BambooMosaicStairs{},
-	"minecraft:slime_block":                        SlimeBlock{},
-	"minecraft:barrier":                            Barrier{},
-	"minecraft:light":                              Light{},
-	"minecraft:iron_trapdoor":                      IronTrapdoor{},
-	"minecraft:prismarine":                         Prismarine{},
-	"minecraft:prismarine_bricks":                  PrismarineBricks{},
-	"minecraft:dark_prismarine":                    DarkPrismarine{},
-	"minecraft:prismarine_stairs":                  PrismarineStairs{},
-	"minecraft:prismarine_brick_stairs":            PrismarineBrickStairs{},
-	"minecraft:dark_prismarine_stairs":             DarkPrismarineStairs{},
-	"minecraft:prismarine_slab":                    PrismarineSlab{},
-	"minecraft:prismarine_brick_slab":              PrismarineBrickSlab{},
-	"minecraft:dark_prismarine_slab":               DarkPrismarineSlab{},
-	"minecraft:sea_lantern":                        SeaLantern{},
-	"minecraft:hay_block":                          HayBlock{},
-	"minecraft:white_carpet":                       WhiteCarpet{},
-	"minecraft:orange_carpet":                      OrangeCarpet{},
-	"minecraft:magenta_carpet":                     MagentaCarpet{},
-	"minecraft:light_blue_carpet":                  LightBlueCarpet{},
-	"minecraft:yellow_carpet":                      YellowCarpet{},
-	"minecraft:lime_carpet":                        LimeCarpet{},
-	"minecraft:pink_carpet":                        PinkCarpet{},
-	"minecraft:gray_carpet":                        GrayCarpet{},
-	"minecraft:light_gray_carpet":                  LightGrayCarpet{},
-	"minecraft:cyan_carpet":                        CyanCarpet{},
-	"minecraft:purple_carpet":                      PurpleCarpet{},
-	"minecraft:blue_carpet":                        BlueCarpet{},
-	"minecraft:brown_carpet":                       BrownCarpet{},
-	"minecraft:green_carpet":                       GreenCarpet{},
-	"minecraft:red_carpet":                         RedCarpet{},
-	"minecraft:black_carpet":                       BlackCarpet{},
-	"minecraft:terracotta":                         Terracotta{},
-	"minecraft:coal_block":                         CoalBlock{},
-	"minecraft:packed_ice":                         PackedIce{},
-	"minecraft:sunflower":                          Sunflower{},
-	"minecraft:lilac":                              Lilac{},
-	"minecraft:rose_bush":                          RoseBush{},
-	"minecraft:peony":                              Peony{},
-	"minecraft:tall_grass":                         TallGrass{},
-	"minecraft:large_fern":                         LargeFern{},
-	"minecraft:white_banner":                       WhiteBanner{},
-	"minecraft:orange_banner":                      OrangeBanner{},
-	"minecraft:magenta_banner":                     MagentaBanner{},
-	"minecraft:light_blue_banner":                  LightBlueBanner{},
-	"minecraft:yellow_banner":                      YellowBanner{},
-	"minecraft:lime_banner":                        LimeBanner{},
-	"minecraft:pink_banner":                        PinkBanner{},
-	"minecraft:gray_banner":                        GrayBanner{},
-	"minecraft:light_gray_banner":                  LightGrayBanner{},
-	"minecraft:cyan_banner":                        CyanBanner{},
-	"minecraft:purple_banner":                      PurpleBanner{},
-	"minecraft:blue_banner":                        BlueBanner{},
-	"minecraft:brown_banner":                       BrownBanner{},
-	"minecraft:green_banner":                       GreenBanner{},
-	"minecraft:red_banner":                         RedBanner{},
-	"minecraft:black_banner":                       BlackBanner{},
-	"minecraft:white_wall_banner":                  WhiteWallBanner{},
-	"minecraft:orange_wall_banner":                 OrangeWallBanner{},
-	"minecraft:magenta_wall_banner":                MagentaWallBanner{},
-	"minecraft:light_blue_wall_banner":             LightBlueWallBanner{},
-	"minecraft:yellow_wall_banner":                 YellowWallBanner{},
-	"minecraft:lime_wall_banner":                   LimeWallBanner{},
-	"minecraft:pink_wall_banner":                   PinkWallBanner{},
-	"minecraft:gray_wall_banner":                   GrayWallBanner{},
-	"minecraft:light_gray_wall_banner":             LightGrayWallBanner{},
-	"minecraft:cyan_wall_banner":                   CyanWallBanner{},
-	"minecraft:purple_wall_banner":                 PurpleWallBanner{},
-	"minecraft:blue_wall_banner":                   BlueWallBanner{},
-	"minecraft:brown_wall_banner":                  BrownWallBanner{},
-	"minecraft:green_wall_banner":                  GreenWallBanner{},
-	"minecraft:red_wall_banner":                    RedWallBanner{},
-	"minecraft:black_wall_banner":                  BlackWallBanner{},
-	"minecraft:red_sandstone":                      RedSandstone{},
-	"minecraft:chiseled_red_sandstone":             ChiseledRedSandstone{},
-	"minecraft:cut_red_sandstone":                  CutRedSandstone{},
-	"minecraft:red_sandstone_stairs":               RedSandstoneStairs{},
-	"minecraft:oak_slab":                           OakSlab{},
-	"minecraft:spruce_slab":                        SpruceSlab{},
-	"minecraft:birch_slab":                         BirchSlab{},
-	"minecraft:jungle_slab":                        JungleSlab{},
-	"minecraft:acacia_slab":                        AcaciaSlab{},
-	"minecraft:cherry_slab":                        CherrySlab{},
-	"minecraft:dark_oak_slab":                      DarkOakSlab{},
-	"minecraft:mangrove_slab":                      MangroveSlab{},
-	"minecraft:bamboo_slab":                        BambooSlab{},
-	"minecraft:bamboo_mosaic_slab":                 BambooMosaicSlab{},
-	"minecraft:stone_slab":                         StoneSlab{},
-	"minecraft:smooth_stone_slab":                  SmoothStoneSlab{},
-	"minecraft:sandstone_slab":                     SandstoneSlab{},
-	"minecraft:cut_sandstone_slab":                 CutSandstoneSlab{},
-	"minecraft:petrified_oak_slab":                 PetrifiedOakSlab{},
-	"minecraft:cobblestone_slab":                   CobblestoneSlab{},
-	"minecraft:brick_slab":                         BrickSlab{},
-	"minecraft:stone_brick_slab":                   StoneBrickSlab{},
-	"minecraft:mud_brick_slab":                     MudBrickSlab{},
-	"minecraft:nether_brick_slab":                  NetherBrickSlab{},
-	"minecraft:quartz_slab":                        QuartzSlab{},
-	"minecraft:red_sandstone_slab":                 RedSandstoneSlab{},
-	"minecraft:cut_red_sandstone_slab":             CutRedSandstoneSlab{},
-	"minecraft:purpur_slab":                        PurpurSlab{},
-	"minecraft:smooth_stone":                       SmoothStone{},
-	"minecraft:smooth_sandstone":                   SmoothSandstone{},
-	"minecraft:smooth_quartz":                      SmoothQuartz{},
-	"minecraft:smooth_red_sandstone":               SmoothRedSandstone{},
-	"minecraft:spruce_fence_gate":                  SpruceFenceGate{},
-	"minecraft:birch_fence_gate":                   BirchFenceGate{},
-	"minecraft:jungle_fence_gate":                  JungleFenceGate{},
-	"minecraft:acacia_fence_gate":                  AcaciaFenceGate{},
-	"minecraft:cherry_fence_gate":                  CherryFenceGate{},
-	"minecraft:dark_oak_fence_gate":                DarkOakFenceGate{},
-	"minecraft:mangrove_fence_gate":                MangroveFenceGate{},
-	"minecraft:bamboo_fence_gate":                  BambooFenceGate{},
-	"minecraft:spruce_fence":                       SpruceFence{},
-	"minecraft:birch_fence":                        BirchFence{},
-	"minecraft:jungle_fence":                       JungleFence{},
-	"minecraft:acacia_fence":                       AcaciaFence{},
-	"minecraft:cherry_fence":                       CherryFence{},
-	"minecraft:dark_oak_fence":                     DarkOakFence{},
-	"minecraft:mangrove_fence":                     MangroveFence{},
-	"minecraft:bamboo_fence":                       BambooFence{},
-	"minecraft:spruce_door":                        SpruceDoor{},
-	"minecraft:birch_door":                         BirchDoor{},
-	"minecraft:jungle_door":                        JungleDoor{},
-	"minecraft:acacia_door":                        AcaciaDoor{},
-	"minecraft:cherry_door":                        CherryDoor{},
-	"minecraft:dark_oak_door":                      DarkOakDoor{},
-	"minecraft:mangrove_door":                      MangroveDoor{},
-	"minecraft:bamboo_door":                        BambooDoor{},
-	"minecraft:end_rod":                            EndRod{},
-	"minecraft:chorus_plant":                       ChorusPlant{},
-	"minecraft:chorus_flower":                      ChorusFlower{},
-	"minecraft:purpur_block":                       PurpurBlock{},
-	"minecraft:purpur_pillar":                      PurpurPillar{},
-	"minecraft:purpur_stairs":                      PurpurStairs{},
-	"minecraft:end_stone_bricks":                   EndStoneBricks{},
-	"minecraft:torchflower_crop":                   TorchflowerCrop{},
-	"minecraft:pitcher_crop":                       PitcherCrop{},
-	"minecraft:pitcher_plant":                      PitcherPlant{},
-	"minecraft:beetroots":                          Beetroots{},
-	"minecraft:dirt_path":                          DirtPath{},
-	"minecraft:end_gateway":                        EndGateway{},
-	"minecraft:repeating_command_block":            RepeatingCommandBlock{},
-	"minecraft:chain_command_block":                ChainCommandBlock{},
-	"minecraft:frosted_ice":                        FrostedIce{},
-	"minecraft:magma_block":                        MagmaBlock{},
-	"minecraft:nether_wart_block":                  NetherWartBlock{},
-	"minecraft:red_nether_bricks":                  RedNetherBricks{},
-	"minecraft:bone_block":                         BoneBlock{},
-	"minecraft:structure_void":                     StructureVoid{},
-	"minecraft:observer":                           Observer{},
-	"minecraft:shulker_box":                        ShulkerBox{},
-	"minecraft:white_shulker_box":                  WhiteShulkerBox{},
-	"minecraft:orange_shulker_box":                 OrangeShulkerBox{},
-	"minecraft:magenta_shulker_box":                MagentaShulkerBox{},
-	"minecraft:light_blue_shulker_box":             LightBlueShulkerBox{},
-	"minecraft:yellow_shulker_box":                 YellowShulkerBox{},
-	"minecraft:lime_shulker_box":                   LimeShulkerBox{},
-	"minecraft:pink_shulker_box":                   PinkShulkerBox{},
-	"minecraft:gray_shulker_box":                   GrayShulkerBox{},
-	"minecraft:light_gray_shulker_box":             LightGrayShulkerBox{},
-	"minecraft:cyan_shulker_box":                   CyanShulkerBox{},
-	"minecraft:purple_shulker_box":                 PurpleShulkerBox{},
-	"minecraft:blue_shulker_box":                   BlueShulkerBox{},
-	"minecraft:brown_shulker_box":                  BrownShulkerBox{},
-	"minecraft:green_shulker_box":                  GreenShulkerBox{},
-	"minecraft:red_shulker_box":                    RedShulkerBox{},
-	"minecraft:black_shulker_box":                  BlackShulkerBox{},
-	"minecraft:white_glazed_terracotta":            WhiteGlazedTerracotta{},
-	"minecraft:orange_glazed_terracotta":           OrangeGlazedTerracotta{},
-	"minecraft:magenta_glazed_terracotta":          MagentaGlazedTerracotta{},
-	"minecraft:light_blue_glazed_terracotta":       LightBlueGlazedTerracotta{},
-	"minecraft:yellow_glazed_terracotta":           YellowGlazedTerracotta{},
-	"minecraft:lime_glazed_terracotta":             LimeGlazedTerracotta{},
-	"minecraft:pink_glazed_terracotta":             PinkGlazedTerracotta{},
-	"minecraft:gray_glazed_terracotta":             GrayGlazedTerracotta{},
-	"minecraft:light_gray_glazed_terracotta":       LightGrayGlazedTerracotta{},
-	"minecraft:cyan_glazed_terracotta":             CyanGlazedTerracotta{},
-	"minecraft:purple_glazed_terracotta":           PurpleGlazedTerracotta{},
-	"minecraft:blue_glazed_terracotta":             BlueGlazedTerracotta{},
-	"minecraft:brown_glazed_terracotta":            BrownGlazedTerracotta{},
-	"minecraft:green_glazed_terracotta":            GreenGlazedTerracotta{},
-	"minecraft:red_glazed_terracotta":              RedGlazedTerracotta{},
-	"minecraft:black_glazed_terracotta":            BlackGlazedTerracotta{},
-	"minecraft:white_concrete":                     WhiteConcrete{},
-	"minecraft:orange_concrete":                    OrangeConcrete{},
-	"minecraft:magenta_concrete":                   MagentaConcrete{},
-	"minecraft:light_blue_concrete":                LightBlueConcrete{},
-	"minecraft:yellow_concrete":                    YellowConcrete{},
-	"minecraft:lime_concrete":                      LimeConcrete{},
-	"minecraft:pink_concrete":                      PinkConcrete{},
-	"minecraft:gray_concrete":                      GrayConcrete{},
-	"minecraft:light_gray_concrete":                LightGrayConcrete{},
-	"minecraft:cyan_concrete":                      CyanConcrete{},
-	"minecraft:purple_concrete":                    PurpleConcrete{},
-	"minecraft:blue_concrete":                      BlueConcrete{},
-	"minecraft:brown_concrete":                     BrownConcrete{},
-	"minecraft:green_concrete":                     GreenConcrete{},
-	"minecraft:red_concrete":                       RedConcrete{},
-	"minecraft:black_concrete":                     BlackConcrete{},
-	"minecraft:white_concrete_powder":              WhiteConcretePowder{},
-	"minecraft:orange_concrete_powder":             OrangeConcretePowder{},
-	"minecraft:magenta_concrete_powder":            MagentaConcretePowder{},
-	"minecraft:light_blue_concrete_powder":         LightBlueConcretePowder{},
-	"minecraft:yellow_concrete_powder":             YellowConcretePowder{},
-	"minecraft:lime_concrete_powder":               LimeConcretePowder{},
-	"minecraft:pink_concrete_powder":               PinkConcretePowder{},
-	"minecraft:gray_concrete_powder":               GrayConcretePowder{},
-	"minecraft:light_gray_concrete_powder":         LightGrayConcretePowder{},
-	"minecraft:cyan_concrete_powder":               CyanConcretePowder{},
-	"minecraft:purple_concrete_powder":             PurpleConcretePowder{},
-	"minecraft:blue_concrete_powder":               BlueConcretePowder{},
-	"minecraft:brown_concrete_powder":              BrownConcretePowder{},
-	"minecraft:green_concrete_powder":              GreenConcretePowder{},
-	"minecraft:red_concrete_powder":                RedConcretePowder{},
-	"minecraft:black_concrete_powder":              BlackConcretePowder{},
-	"minecraft:kelp":                               Kelp{},
-	"minecraft:kelp_plant":                         KelpPlant{},
-	"minecraft:dried_kelp_block":                   DriedKelpBlock{},
-	"minecraft:turtle_egg":                         TurtleEgg{},
-	"minecraft:sniffer_egg":                        SnifferEgg{},
-	"minecraft:dead_tube_coral_block":              DeadTubeCoralBlock{},
-	"minecraft:dead_brain_coral_block":             DeadBrainCoralBlock{},
-	"minecraft:dead_bubble_coral_block":            DeadBubbleCoralBlock{},
-	"minecraft:dead_fire_coral_block":              DeadFireCoralBlock{},
-	"minecraft:dead_horn_coral_block":              DeadHornCoralBlock{},
-	"minecraft:tube_coral_block":                   TubeCoralBlock{},
-	"minecraft:brain_coral_block":                  BrainCoralBlock{},
-	"minecraft:bubble_coral_block":                 BubbleCoralBlock{},
-	"minecraft:fire_coral_block":                   FireCoralBlock{},
-	"minecraft:horn_coral_block":                   HornCoralBlock{},
-	"minecraft:dead_tube_coral":                    DeadTubeCoral{},
-	"minecraft:dead_brain_coral":                   DeadBrainCoral{},
-	"minecraft:dead_bubble_coral":                  DeadBubbleCoral{},
-	"minecraft:dead_fire_coral":                    DeadFireCoral{},
-	"minecraft:dead_horn_coral":                    DeadHornCoral{},
-	"minecraft:tube_coral":                         TubeCoral{},
-	"minecraft:brain_coral":                        BrainCoral{},
-	"minecraft:bubble_coral":                       BubbleCoral{},
-	"minecraft:fire_coral":                         FireCoral{},
-	"minecraft:horn_coral":                         HornCoral{},
-	"minecraft:dead_tube_coral_fan":                DeadTubeCoralFan{},
-	"minecraft:dead_brain_coral_fan":               DeadBrainCoralFan{},
-	"minecraft:dead_bubble_coral_fan":              DeadBubbleCoralFan{},
-	"minecraft:dead_fire_coral_fan":                DeadFireCoralFan{},
-	"minecraft:dead_horn_coral_fan":                DeadHornCoralFan{},
-	"minecraft:tube_coral_fan":                     TubeCoralFan{},
-	"minecraft:brain_coral_fan":                    BrainCoralFan{},
-	"minecraft:bubble_coral_fan":                   BubbleCoralFan{},
-	"minecraft:fire_coral_fan":                     FireCoralFan{},
-	"minecraft:horn_coral_fan":                     HornCoralFan{},
-	"minecraft:dead_tube_coral_wall_fan":           DeadTubeCoralWallFan{},
-	"minecraft:dead_brain_coral_wall_fan":          DeadBrainCoralWallFan{},
-	"minecraft:dead_bubble_coral_wall_fan":         DeadBubbleCoralWallFan{},
-	"minecraft:dead_fire_coral_wall_fan":           DeadFireCoralWallFan{},
-	"minecraft:dead_horn_coral_wall_fan":           DeadHornCoralWallFan{},
-	"minecraft:tube_coral_wall_fan":                TubeCoralWallFan{},
-	"minecraft:brain_coral_wall_fan":               BrainCoralWallFan{},
-	"minecraft:bubble_coral_wall_fan":              BubbleCoralWallFan{},
-	"minecraft:fire_coral_wall_fan":                FireCoralWallFan{},
-	"minecraft:horn_coral_wall_fan":                HornCoralWallFan{},
-	"minecraft:sea_pickle":                         SeaPickle{},
-	"minecraft:blue_ice":                           BlueIce{},
-	"minecraft:conduit":                            Conduit{},
-	"minecraft:bamboo_sapling":                     BambooSapling{},
-	"minecraft:bamboo":                             Bamboo{},
-	"minecraft:potted_bamboo":                      PottedBamboo{},
-	"minecraft:void_air":                           VoidAir{},
-	"minecraft:cave_air":                           CaveAir{},
-	"minecraft:bubble_column":                      BubbleColumn{},
-	"minecraft:polished_granite_stairs":            PolishedGraniteStairs{},
-	"minecraft:smooth_red_sandstone_stairs":        SmoothRedSandstoneStairs{},
-	"minecraft:mossy_stone_brick_stairs":           MossyStoneBrickStairs{},
-	"minecraft:polished_diorite_stairs":            PolishedDioriteStairs{},
-	"minecraft:mossy_cobblestone_stairs":           MossyCobblestoneStairs{},
-	"minecraft:end_stone_brick_stairs":             EndStoneBrickStairs{},
-	"minecraft:stone_stairs":                       StoneStairs{},
-	"minecraft:smooth_sandstone_stairs":            SmoothSandstoneStairs{},
-	"minecraft:smooth_quartz_stairs":               SmoothQuartzStairs{},
-	"minecraft:granite_stairs":                     GraniteStairs{},
-	"minecraft:andesite_stairs":                    AndesiteStairs{},
-	"minecraft:red_nether_brick_stairs":            RedNetherBrickStairs{},
-	"minecraft:polished_andesite_stairs":           PolishedAndesiteStairs{},
-	"minecraft:diorite_stairs":                     DioriteStairs{},
-	"minecraft:polished_granite_slab":              PolishedGraniteSlab{},
-	"minecraft:smooth_red_sandstone_slab":          SmoothRedSandstoneSlab{},
-	"minecraft:mossy_stone_brick_slab":             MossyStoneBrickSlab{},
-	"minecraft:polished_diorite_slab":              PolishedDioriteSlab{},
-	"minecraft:mossy_cobblestone_slab":             MossyCobblestoneSlab{},
-	"minecraft:end_stone_brick_slab":               EndStoneBrickSlab{},
-	"minecraft:smooth_sandstone_slab":              SmoothSandstoneSlab{},
-	"minecraft:smooth_quartz_slab":                 SmoothQuartzSlab{},
-	"minecraft:granite_slab":                       GraniteSlab{},
-	"minecraft:andesite_slab":                      AndesiteSlab{},
-	"minecraft:red_nether_brick_slab":              RedNetherBrickSlab{},
-	"minecraft:polished_andesite_slab":             PolishedAndesiteSlab{},
-	"minecraft:diorite_slab":                       DioriteSlab{},
-	"minecraft:brick_wall":                         BrickWall{},
-	"minecraft:prismarine_wall":                    PrismarineWall{},
-	"minecraft:red_sandstone_wall":                 RedSandstoneWall{},
-	"minecraft:mossy_stone_brick_wall":             MossyStoneBrickWall{},
-	"minecraft:granite_wall":                       GraniteWall{},
-	"minecraft:stone_brick_wall":                   StoneBrickWall{},
-	"minecraft:mud_brick_wall":                     MudBrickWall{},
-	"minecraft:nether_brick_wall":                  NetherBrickWall{},
-	"minecraft:andesite_wall":                      AndesiteWall{},
-	"minecraft:red_nether_brick_wall":              RedNetherBrickWall{},
-	"minecraft:sandstone_wall":                     SandstoneWall{},
-	"minecraft:end_stone_brick_wall":               EndStoneBrickWall{},
-	"minecraft:diorite_wall":                       DioriteWall{},
-	"minecraft:scaffolding":                        Scaffolding{},
-	"minecraft:loom":                               Loom{},
-	"minecraft:barrel":                             Barrel{},
-	"minecraft:smoker":                             Smoker{},
-	"minecraft:blast_furnace":                      BlastFurnace{},
-	"minecraft:cartography_table":                  CartographyTable{},
-	"minecraft:fletching_table":                    FletchingTable{},
-	"minecraft:grindstone":                         Grindstone{},
-	"minecraft:lectern":                            Lectern{},
-	"minecraft:smithing_table":                     SmithingTable{},
-	"minecraft:stonecutter":                        Stonecutter{},
-	"minecraft:bell":                               Bell{},
-	"minecraft:lantern":                            Lantern{},
-	"minecraft:soul_lantern":                       SoulLantern{},
-	"minecraft:campfire":                           Campfire{},
-	"minecraft:soul_campfire":                      SoulCampfire{},
-	"minecraft:sweet_berry_bush":                   SweetBerryBush{},
-	"minecraft:warped_stem":                        WarpedStem{},
-	"minecraft:stripped_warped_stem":               StrippedWarpedStem{},
-	"minecraft:warped_hyphae":                      WarpedHyphae{},
-	"minecraft:stripped_warped_hyphae":             StrippedWarpedHyphae{},
-	"minecraft:warped_nylium":                      WarpedNylium{},
-	"minecraft:warped_fungus":                      WarpedFungus{},
-	"minecraft:warped_wart_block":                  WarpedWartBlock{},
-	"minecraft:warped_roots":                       WarpedRoots{},
-	"minecraft:nether_sprouts":                     NetherSprouts{},
-	"minecraft:crimson_stem":                       CrimsonStem{},
-	"minecraft:stripped_crimson_stem":              StrippedCrimsonStem{},
-	"minecraft:crimson_hyphae":                     CrimsonHyphae{},
-	"minecraft:stripped_crimson_hyphae":            StrippedCrimsonHyphae{},
-	"minecraft:crimson_nylium":                     CrimsonNylium{},
-	"minecraft:crimson_fungus":                     CrimsonFungus{},
-	"minecraft:shroomlight":                        Shroomlight{},
-	"minecraft:weeping_vines":                      WeepingVines{},
-	"minecraft:weeping_vines_plant":                WeepingVinesPlant{},
-	"minecraft:twisting_vines":                     TwistingVines{},
-	"minecraft:twisting_vines_plant":               TwistingVinesPlant{},
-	"minecraft:crimson_roots":                      CrimsonRoots{},
-	"minecraft:crimson_planks":                     CrimsonPlanks{},
-	"minecraft:warped_planks":                      WarpedPlanks{},
-	"minecraft:crimson_slab":                       CrimsonSlab{},
-	"minecraft:warped_slab":                        WarpedSlab{},
-	"minecraft:crimson_pressure_plate":             CrimsonPressurePlate{},
-	"minecraft:warped_pressure_plate":              WarpedPressurePlate{},
-	"minecraft:crimson_fence":                      CrimsonFence{},
-	"minecraft:warped_fence":                       WarpedFence{},
-	"minecraft:crimson_trapdoor":                   CrimsonTrapdoor{},
-	"minecraft:warped_trapdoor":                    WarpedTrapdoor{},
-	"minecraft:crimson_fence_gate":                 CrimsonFenceGate{},
-	"minecraft:warped_fence_gate":                  WarpedFenceGate{},
-	"minecraft:crimson_stairs":                     CrimsonStairs{},
-	"minecraft:warped_stairs":                      WarpedStairs{},
-	"minecraft:crimson_button":                     CrimsonButton{},
-	"minecraft:warped_button":                      WarpedButton{},
-	"minecraft:crimson_door":                       CrimsonDoor{},
-	"minecraft:warped_door":                        WarpedDoor{},
-	"minecraft:crimson_sign":                       CrimsonSign{},
-	"minecraft:warped_sign":                        WarpedSign{},
-	"minecraft:crimson_wall_sign":                  CrimsonWallSign{},
-	"minecraft:warped_wall_sign":                   WarpedWallSign{},
-	"minecraft:structure_block":                    StructureBlock{},
-	"minecraft:jigsaw":                             Jigsaw{},
-	"minecraft:composter":                          Composter{},
-	"minecraft:target":                             Target{},
-	"minecraft:bee_nest":                           BeeNest{},
-	"minecraft:beehive":                            Beehive{},
-	"minecraft:honey_block":                        HoneyBlock{},
-	"minecraft:honeycomb_block":                    HoneycombBlock{},
-	"minecraft:netherite_block":                    NetheriteBlock{},
-	"minecraft:ancient_debris":                     AncientDebris{},
-	"minecraft:crying_obsidian":                    CryingObsidian{},
-	"minecraft:respawn_anchor":                     RespawnAnchor{},
-	"minecraft:potted_crimson_fungus":              PottedCrimsonFungus{},
-	"minecraft:potted_warped_fungus":               PottedWarpedFungus{},
-	"minecraft:potted_crimson_roots":               PottedCrimsonRoots{},
-	"minecraft:potted_warped_roots":                PottedWarpedRoots{},
-	"minecraft:lodestone":                          Lodestone{},
-	"minecraft:blackstone":                         Blackstone{},
-	"minecraft:blackstone_stairs":                  BlackstoneStairs{},
-	"minecraft:blackstone_wall":                    BlackstoneWall{},
-	"minecraft:blackstone_slab":                    BlackstoneSlab{},
-	"minecraft:polished_blackstone":                PolishedBlackstone{},
-	"minecraft:polished_blackstone_bricks":         PolishedBlackstoneBricks{},
-	"minecraft:cracked_polished_blackstone_bricks": CrackedPolishedBlackstoneBricks{},
-	"minecraft:chiseled_polished_blackstone":       ChiseledPolishedBlackstone{},
-	"minecraft:polished_blackstone_brick_slab":     PolishedBlackstoneBrickSlab{},
-	"minecraft:polished_blackstone_brick_stairs":   PolishedBlackstoneBrickStairs{},
-	"minecraft:polished_blackstone_brick_wall":     PolishedBlackstoneBrickWall{},
-	"minecraft:gilded_blackstone":                  GildedBlackstone{},
-	"minecraft:polished_blackstone_stairs":         PolishedBlackstoneStairs{},
-	"minecraft:polished_blackstone_slab":           PolishedBlackstoneSlab{},
-	"minecraft:polished_blackstone_pressure_plate": PolishedBlackstonePressurePlate{},
-	"minecraft:polished_blackstone_button":         PolishedBlackstoneButton{},
-	"minecraft:polished_blackstone_wall":           PolishedBlackstoneWall{},
-	"minecraft:chiseled_nether_bricks":             ChiseledNetherBricks{},
-	"minecraft:cracked_nether_bricks":              CrackedNetherBricks{},
-	"minecraft:quartz_bricks":                      QuartzBricks{},
-	"minecraft:candle":                             Candle{},
-	"minecraft:white_candle":                       WhiteCandle{},
-	"minecraft:orange_candle":                      OrangeCandle{},
-	"minecraft:magenta_candle":                     MagentaCandle{},
-	"minecraft:light_blue_candle":                  LightBlueCandle{},
-	"minecraft:yellow_candle":                      YellowCandle{},
-	"minecraft:lime_candle":                        LimeCandle{},
-	"minecraft:pink_candle":                        PinkCandle{},
-	"minecraft:gray_candle":                        GrayCandle{},
-	"minecraft:light_gray_candle":                  LightGrayCandle{},
-	"minecraft:cyan_candle":                        CyanCandle{},
-	"minecraft:purple_candle":                      PurpleCandle{},
-	"minecraft:blue_candle":                        BlueCandle{},
-	"minecraft:brown_candle":                       BrownCandle{},
-	"minecraft:green_candle":                       GreenCandle{},
-	"minecraft:red_candle":                         RedCandle{},
-	"minecraft:black_candle":                       BlackCandle{},
-	"minecraft:candle_cake":                        CandleCake{},
-	"minecraft:white_candle_cake":                  WhiteCandleCake{},
-	"minecraft:orange_candle_cake":                 OrangeCandleCake{},
-	"minecraft:magenta_candle_cake":                MagentaCandleCake{},
-	"minecraft:light_blue_candle_cake":             LightBlueCandleCake{},
-	"minecraft:yellow_candle_cake":                 YellowCandleCake{},
-	"minecraft:lime_candle_cake":                   LimeCandleCake{},
-	"minecraft:pink_candle_cake":                   PinkCandleCake{},
-	"minecraft:gray_candle_cake":                   GrayCandleCake{},
-	"minecraft:light_gray_candle_cake":             LightGrayCandleCake{},
-	"minecraft:cyan_candle_cake":                   CyanCandleCake{},
-	"minecraft:purple_candle_cake":                 PurpleCandleCake{},
-	"minecraft:blue_candle_cake":                   BlueCandleCake{},
-	"minecraft:brown_candle_cake":                  BrownCandleCake{},
-	"minecraft:green_candle_cake":                  GreenCandleCake{},
-	"minecraft:red_candle_cake":                    RedCandleCake{},
-	"minecraft:black_candle_cake":                  BlackCandleCake{},
-	"minecraft:amethyst_block":                     AmethystBlock{},
-	"minecraft:budding_amethyst":                   BuddingAmethyst{},
-	"minecraft:amethyst_cluster":                   AmethystCluster{},
-	"minecraft:large_amethyst_bud":                 LargeAmethystBud{},
-	"minecraft:medium_amethyst_bud":                MediumAmethystBud{},
-	"minecraft:small_amethyst_bud":                 SmallAmethystBud{},
-	"minecraft:tuff":                               Tuff{},
-	"minecraft:tuff_slab":                          TuffSlab{},
-	"minecraft:tuff_stairs":                        TuffStairs{},
-	"minecraft:tuff_wall":                          TuffWall{},
-	"minecraft:polished_tuff":                      PolishedTuff{},
-	"minecraft:polished_tuff_slab":                 PolishedTuffSlab{},
-	"minecraft:polished_tuff_stairs":               PolishedTuffStairs{},
-	"minecraft:polished_tuff_wall":                 PolishedTuffWall{},
-	"minecraft:chiseled_tuff":                      ChiseledTuff{},
-	"minecraft:tuff_bricks":                        TuffBricks{},
-	"minecraft:tuff_brick_slab":                    TuffBrickSlab{},
-	"minecraft:tuff_brick_stairs":                  TuffBrickStairs{},
-	"minecraft:tuff_brick_wall":                    TuffBrickWall{},
-	"minecraft:chiseled_tuff_bricks":               ChiseledTuffBricks{},
-	"minecraft:calcite":                            Calcite{},
-	"minecraft:tinted_glass":                       TintedGlass{},
-	"minecraft:powder_snow":                        PowderSnow{},
-	"minecraft:sculk_sensor":                       SculkSensor{},
-	"minecraft:calibrated_sculk_sensor":            CalibratedSculkSensor{},
-	"minecraft:sculk":                              Sculk{},
-	"minecraft:sculk_vein":                         SculkVein{},
-	"minecraft:sculk_catalyst":                     SculkCatalyst{},
-	"minecraft:sculk_shrieker":                     SculkShrieker{},
-	"minecraft:copper_block":                       CopperBlock{},
-	"minecraft:exposed_copper":                     ExposedCopper{},
-	"minecraft:weathered_copper":                   WeatheredCopper{},
-	"minecraft:oxidized_copper":                    OxidizedCopper{},
-	"minecraft:copper_ore":                         CopperOre{},
-	"minecraft:deepslate_copper_ore":               DeepslateCopperOre{},
-	"minecraft:oxidized_cut_copper":                OxidizedCutCopper{},
-	"minecraft:weathered_cut_copper":               WeatheredCutCopper{},
-	"minecraft:exposed_cut_copper":                 ExposedCutCopper{},
-	"minecraft:cut_copper":                         CutCopper{},
-	"minecraft:oxidized_chiseled_copper":           OxidizedChiseledCopper{},
-	"minecraft:weathered_chiseled_copper":          WeatheredChiseledCopper{},
-	"minecraft:exposed_chiseled_copper":            ExposedChiseledCopper{},
-	"minecraft:chiseled_copper":                    ChiseledCopper{},
-	"minecraft:waxed_oxidized_chiseled_copper":     WaxedOxidizedChiseledCopper{},
-	"minecraft:waxed_weathered_chiseled_copper":    WaxedWeatheredChiseledCopper{},
-	"minecraft:waxed_exposed_chiseled_copper":      WaxedExposedChiseledCopper{},
-	"minecraft:waxed_chiseled_copper":              WaxedChiseledCopper{},
-	"minecraft:oxidized_cut_copper_stairs":         OxidizedCutCopperStairs{},
-	"minecraft:weathered_cut_copper_stairs":        WeatheredCutCopperStairs{},
-	"minecraft:exposed_cut_copper_stairs":          ExposedCutCopperStairs{},
-	"minecraft:cut_copper_stairs":                  CutCopperStairs{},
-	"minecraft:oxidized_cut_copper_slab":           OxidizedCutCopperSlab{},
-	"minecraft:weathered_cut_copper_slab":          WeatheredCutCopperSlab{},
-	"minecraft:exposed_cut_copper_slab":            ExposedCutCopperSlab{},
-	"minecraft:cut_copper_slab":                    CutCopperSlab{},
-	"minecraft:waxed_copper_block":                 WaxedCopperBlock{},
-	"minecraft:waxed_weathered_copper":             WaxedWeatheredCopper{},
-	"minecraft:waxed_exposed_copper":               WaxedExposedCopper{},
-	"minecraft:waxed_oxidized_copper":              WaxedOxidizedCopper{},
-	"minecraft:waxed_oxidized_cut_copper":          WaxedOxidizedCutCopper{},
-	"minecraft:waxed_weathered_cut_copper":         WaxedWeatheredCutCopper{},
-	"minecraft:waxed_exposed_cut_copper":           WaxedExposedCutCopper{},
-	"minecraft:waxed_cut_copper":                   WaxedCutCopper{},
-	"minecraft:waxed_oxidized_cut_copper_stairs":   WaxedOxidizedCutCopperStairs{},
-	"minecraft:waxed_weathered_cut_copper_stairs":  WaxedWeatheredCutCopperStairs{},
-	"minecraft:waxed_exposed_cut_copper_stairs":    WaxedExposedCutCopperStairs{},
-	"minecraft:waxed_cut_copper_stairs":            WaxedCutCopperStairs{},
-	"minecraft:waxed_oxidized_cut_copper_slab":     WaxedOxidizedCutCopperSlab{},
-	"minecraft:waxed_weathered_cut_copper_slab":    WaxedWeatheredCutCopperSlab{},
-	"minecraft:waxed_exposed_cut_copper_slab":      WaxedExposedCutCopperSlab{},
-	"minecraft:waxed_cut_copper_slab":              WaxedCutCopperSlab{},
-	"minecraft:copper_door":                        CopperDoor{},
-	"minecraft:exposed_copper_door":                ExposedCopperDoor{},
-	"minecraft:oxidized_copper_door":               OxidizedCopperDoor{},
-	"minecraft:weathered_copper_door":              WeatheredCopperDoor{},
-	"minecraft:waxed_copper_door":                  WaxedCopperDoor{},
-	"minecraft:waxed_exposed_copper_door":          WaxedExposedCopperDoor{},
-	"minecraft:waxed_oxidized_copper_door":         WaxedOxidizedCopperDoor{},
-	"minecraft:waxed_weathered_copper_door":        WaxedWeatheredCopperDoor{},
-	"minecraft:copper_trapdoor":                    CopperTrapdoor{},
-	"minecraft:exposed_copper_trapdoor":            ExposedCopperTrapdoor{},
-	"minecraft:oxidized_copper_trapdoor":           OxidizedCopperTrapdoor{},
-	"minecraft:weathered_copper_trapdoor":          WeatheredCopperTrapdoor{},
-	"minecraft:waxed_copper_trapdoor":              WaxedCopperTrapdoor{},
-	"minecraft:waxed_exposed_copper_trapdoor":      WaxedExposedCopperTrapdoor{},
-	"minecraft:waxed_oxidized_copper_trapdoor":     WaxedOxidizedCopperTrapdoor{},
-	"minecraft:waxed_weathered_copper_trapdoor":    WaxedWeatheredCopperTrapdoor{},
-	"minecraft:copper_grate":                       CopperGrate{},
-	"minecraft:exposed_copper_grate":               ExposedCopperGrate{},
-	"minecraft:weathered_copper_grate":             WeatheredCopperGrate{},
-	"minecraft:oxidized_copper_grate":              OxidizedCopperGrate{},
-	"minecraft:waxed_copper_grate":                 WaxedCopperGrate{},
-	"minecraft:waxed_exposed_copper_grate":         WaxedExposedCopperGrate{},
-	"minecraft:waxed_weathered_copper_grate":       WaxedWeatheredCopperGrate{},
-	"minecraft:waxed_oxidized_copper_grate":        WaxedOxidizedCopperGrate{},
-	"minecraft:copper_bulb":                        CopperBulb{},
-	"minecraft:exposed_copper_bulb":                ExposedCopperBulb{},
-	"minecraft:weathered_copper_bulb":              WeatheredCopperBulb{},
-	"minecraft:oxidized_copper_bulb":               OxidizedCopperBulb{},
-	"minecraft:waxed_copper_bulb":                  WaxedCopperBulb{},
-	"minecraft:waxed_exposed_copper_bulb":          WaxedExposedCopperBulb{},
-	"minecraft:waxed_weathered_copper_bulb":        WaxedWeatheredCopperBulb{},
-	"minecraft:waxed_oxidized_copper_bulb":         WaxedOxidizedCopperBulb{},
-	"minecraft:lightning_rod":                      LightningRod{},
-	"minecraft:pointed_dripstone":                  PointedDripstone{},
-	"minecraft:dripstone_block":                    DripstoneBlock{},
-	"minecraft:cave_vines":                         CaveVines{},
-	"minecraft:cave_vines_plant":                   CaveVinesPlant{},
-	"minecraft:spore_blossom":                      SporeBlossom{},
-	"minecraft:azalea":                             Azalea{},
-	"minecraft:flowering_azalea":                   FloweringAzalea{},
-	"minecraft:moss_carpet":                        MossCarpet{},
-	"minecraft:pink_petals":                        PinkPetals{},
-	"minecraft:moss_block":                         MossBlock{},
-	"minecraft:big_dripleaf":                       BigDripleaf{},
-	"minecraft:big_dripleaf_stem":                  BigDripleafStem{},
-	"minecraft:small_dripleaf":                     SmallDripleaf{},
-	"minecraft:hanging_roots":                      HangingRoots{},
-	"minecraft:rooted_dirt":                        RootedDirt{},
-	"minecraft:mud":                                Mud{},
-	"minecraft:deepslate":                          Deepslate{},
-	"minecraft:cobbled_deepslate":                  CobbledDeepslate{},
-	"minecraft:cobbled_deepslate_stairs":           CobbledDeepslateStairs{},
-	"minecraft:cobbled_deepslate_slab":             CobbledDeepslateSlab{},
-	"minecraft:cobbled_deepslate_wall":             CobbledDeepslateWall{},
-	"minecraft:polished_deepslate":                 PolishedDeepslate{},
-	"minecraft:polished_deepslate_stairs":          PolishedDeepslateStairs{},
-	"minecraft:polished_deepslate_slab":            PolishedDeepslateSlab{},
-	"minecraft:polished_deepslate_wall":            PolishedDeepslateWall{},
-	"minecraft:deepslate_tiles":                    DeepslateTiles{},
-	"minecraft:deepslate_tile_stairs":              DeepslateTileStairs{},
-	"minecraft:deepslate_tile_slab":                DeepslateTileSlab{},
-	"minecraft:deepslate_tile_wall":                DeepslateTileWall{},
-	"minecraft:deepslate_bricks":                   DeepslateBricks{},
-	"minecraft:deepslate_brick_stairs":             DeepslateBrickStairs{},
-	"minecraft:deepslate_brick_slab":               DeepslateBrickSlab{},
-	"minecraft:deepslate_brick_wall":               DeepslateBrickWall{},
-	"minecraft:chiseled_deepslate":                 ChiseledDeepslate{},
-	"minecraft:cracked_deepslate_bricks":           CrackedDeepslateBricks{},
-	"minecraft:cracked_deepslate_tiles":            CrackedDeepslateTiles{},
-	"minecraft:infested_deepslate":                 InfestedDeepslate{},
-	"minecraft:smooth_basalt":                      SmoothBasalt{},
-	"minecraft:raw_iron_block":                     RawIronBlock{},
-	"minecraft:raw_copper_block":                   RawCopperBlock{},
-	"minecraft:raw_gold_block":                     RawGoldBlock{},
-	"minecraft:potted_azalea_bush":                 PottedAzaleaBush{},
-	"minecraft:potted_flowering_azalea_bush":       PottedFloweringAzaleaBush{},
-	"minecraft:ochre_froglight":                    OchreFroglight{},
-	"minecraft:verdant_froglight":                  VerdantFroglight{},
-	"minecraft:pearlescent_froglight":              PearlescentFroglight{},
-	"minecraft:frogspawn":                          Frogspawn{},
-	"minecraft:reinforced_deepslate":               ReinforcedDeepslate{},
-	"minecraft:decorated_pot":                      DecoratedPot{},
-	"minecraft:crafter":                            Crafter{},
-	"minecraft:trial_spawner":                      TrialSpawner{},
-	"minecraft:vault":                              Vault{},
-	"minecraft:heavy_core":                         HeavyCore{},
+	"minecraft:air":                                 Air{},
+	"minecraft:stone":                               Stone{},
+	"minecraft:granite":                             Granite{},
+	"minecraft:polished_granite":                    PolishedGranite{},
+	"minecraft:diorite":                             Diorite{},
+	"minecraft:polished_diorite":                    PolishedDiorite{},
+	"minecraft:andesite":                            Andesite{},
+	"minecraft:polished_andesite":                   PolishedAndesite{},
+	"minecraft:grass_block":                         GrassBlock{},
+	"minecraft:dirt":                                Dirt{},
+	"minecraft:coarse_dirt":                         CoarseDirt{},
+	"minecraft:podzol":                              Podzol{},
+	"minecraft:cobblestone":                         Cobblestone{},
+	"minecraft:oak_planks":                          OakPlanks{},
+	"minecraft:spruce_planks":                       SprucePlanks{},
+	"minecraft:birch_planks":                        BirchPlanks{},
+	"minecraft:jungle_planks":                       JunglePlanks{},
+	"minecraft:acacia_planks":                       AcaciaPlanks{},
+	"minecraft:cherry_planks":                       CherryPlanks{},
+	"minecraft:dark_oak_planks":                     DarkOakPlanks{},
+	"minecraft:pale_oak_wood":                       PaleOakWood{},
+	"minecraft:pale_oak_planks":                     PaleOakPlanks{},
+	"minecraft:mangrove_planks":                     MangrovePlanks{},
+	"minecraft:bamboo_planks":                       BambooPlanks{},
+	"minecraft:bamboo_mosaic":                       BambooMosaic{},
+	"minecraft:oak_sapling":                         OakSapling{},
+	"minecraft:spruce_sapling":                      SpruceSapling{},
+	"minecraft:birch_sapling":                       BirchSapling{},
+	"minecraft:jungle_sapling":                      JungleSapling{},
+	"minecraft:acacia_sapling":                      AcaciaSapling{},
+	"minecraft:cherry_sapling":                      CherrySapling{},
+	"minecraft:dark_oak_sapling":                    DarkOakSapling{},
+	"minecraft:pale_oak_sapling":                    PaleOakSapling{},
+	"minecraft:mangrove_propagule":                  MangrovePropagule{},
+	"minecraft:bedrock":                             Bedrock{},
+	"minecraft:water":                               Water{},
+	"minecraft:lava":                                Lava{},
+	"minecraft:sand":                                Sand{},
+	"minecraft:suspicious_sand":                     SuspiciousSand{},
+	"minecraft:red_sand":                            RedSand{},
+	"minecraft:gravel":                              Gravel{},
+	"minecraft:suspicious_gravel":                   SuspiciousGravel{},
+	"minecraft:gold_ore":                            GoldOre{},
+	"minecraft:deepslate_gold_ore":                  DeepslateGoldOre{},
+	"minecraft:iron_ore":                            IronOre{},
+	"minecraft:deepslate_iron_ore":                  DeepslateIronOre{},
+	"minecraft:coal_ore":                            CoalOre{},
+	"minecraft:deepslate_coal_ore":                  DeepslateCoalOre{},
+	"minecraft:nether_gold_ore":                     NetherGoldOre{},
+	"minecraft:oak_log":                             OakLog{},
+	"minecraft:spruce_log":                          SpruceLog{},
+	"minecraft:birch_log":                           BirchLog{},
+	"minecraft:jungle_log":                          JungleLog{},
+	"minecraft:acacia_log":                          AcaciaLog{},
+	"minecraft:cherry_log":                          CherryLog{},
+	"minecraft:dark_oak_log":                        DarkOakLog{},
+	"minecraft:pale_oak_log":                        PaleOakLog{},
+	"minecraft:mangrove_log":                        MangroveLog{},
+	"minecraft:mangrove_roots":                      MangroveRoots{},
+	"minecraft:muddy_mangrove_roots":                MuddyMangroveRoots{},
+	"minecraft:bamboo_block":                        BambooBlock{},
+	"minecraft:stripped_spruce_log":                 StrippedSpruceLog{},
+	"minecraft:stripped_birch_log":                  StrippedBirchLog{},
+	"minecraft:stripped_jungle_log":                 StrippedJungleLog{},
+	"minecraft:stripped_acacia_log":                 StrippedAcaciaLog{},
+	"minecraft:stripped_cherry_log":                 StrippedCherryLog{},
+	"minecraft:stripped_dark_oak_log":               StrippedDarkOakLog{},
+	"minecraft:stripped_pale_oak_log":               StrippedPaleOakLog{},
+	"minecraft:stripped_oak_log":                    StrippedOakLog{},
+	"minecraft:stripped_mangrove_log":               StrippedMangroveLog{},
+	"minecraft:stripped_bamboo_block":               StrippedBambooBlock{},
+	"minecraft:oak_wood":                            OakWood{},
+	"minecraft:spruce_wood":                         SpruceWood{},
+	"minecraft:birch_wood":                          BirchWood{},
+	"minecraft:jungle_wood":                         JungleWood{},
+	"minecraft:acacia_wood":                         AcaciaWood{},
+	"minecraft:cherry_wood":                         CherryWood{},
+	"minecraft:dark_oak_wood":                       DarkOakWood{},
+	"minecraft:mangrove_wood":                       MangroveWood{},
+	"minecraft:stripped_oak_wood":                   StrippedOakWood{},
+	"minecraft:stripped_spruce_wood":                StrippedSpruceWood{},
+	"minecraft:stripped_birch_wood":                 StrippedBirchWood{},
+	"minecraft:stripped_jungle_wood":                StrippedJungleWood{},
+	"minecraft:stripped_acacia_wood":                StrippedAcaciaWood{},
+	"minecraft:stripped_cherry_wood":                StrippedCherryWood{},
+	"minecraft:stripped_dark_oak_wood":              StrippedDarkOakWood{},
+	"minecraft:stripped_pale_oak_wood":              StrippedPaleOakWood{},
+	"minecraft:stripped_mangrove_wood":              StrippedMangroveWood{},
+	"minecraft:oak_leaves":                          OakLeaves{},
+	"minecraft:spruce_leaves":                       SpruceLeaves{},
+	"minecraft:birch_leaves":                        BirchLeaves{},
+	"minecraft:jungle_leaves":                       JungleLeaves{},
+	"minecraft:acacia_leaves":                       AcaciaLeaves{},
+	"minecraft:cherry_leaves":                       CherryLeaves{},
+	"minecraft:dark_oak_leaves":                     DarkOakLeaves{},
+	"minecraft:pale_oak_leaves":                     PaleOakLeaves{},
+	"minecraft:mangrove_leaves":                     MangroveLeaves{},
+	"minecraft:azalea_leaves":                       AzaleaLeaves{},
+	"minecraft:flowering_azalea_leaves":             FloweringAzaleaLeaves{},
+	"minecraft:sponge":                              Sponge{},
+	"minecraft:wet_sponge":                          WetSponge{},
+	"minecraft:glass":                               Glass{},
+	"minecraft:lapis_ore":                           LapisOre{},
+	"minecraft:deepslate_lapis_ore":                 DeepslateLapisOre{},
+	"minecraft:lapis_block":                         LapisBlock{},
+	"minecraft:dispenser":                           Dispenser{},
+	"minecraft:sandstone":                           Sandstone{},
+	"minecraft:chiseled_sandstone":                  ChiseledSandstone{},
+	"minecraft:cut_sandstone":                       CutSandstone{},
+	"minecraft:note_block":                          NoteBlock{},
+	"minecraft:white_bed":                           WhiteBed{},
+	"minecraft:orange_bed":                          OrangeBed{},
+	"minecraft:magenta_bed":                         MagentaBed{},
+	"minecraft:light_blue_bed":                      LightBlueBed{},
+	"minecraft:yellow_bed":                          YellowBed{},
+	"minecraft:lime_bed":                            LimeBed{},
+	"minecraft:pink_bed":                            PinkBed{},
+	"minecraft:gray_bed":                            GrayBed{},
+	"minecraft:light_gray_bed":                      LightGrayBed{},
+	"minecraft:cyan_bed":                            CyanBed{},
+	"minecraft:purple_bed":                          PurpleBed{},
+	"minecraft:blue_bed":                            BlueBed{},
+	"minecraft:brown_bed":                           BrownBed{},
+	"minecraft:green_bed":                           GreenBed{},
+	"minecraft:red_bed":                             RedBed{},
+	"minecraft:black_bed":                           BlackBed{},
+	"minecraft:powered_rail":                        PoweredRail{},
+	"minecraft:detector_rail":                       DetectorRail{},
+	"minecraft:sticky_piston":                       StickyPiston{},
+	"minecraft:cobweb":                              Cobweb{},
+	"minecraft:short_grass":                         ShortGrass{},
+	"minecraft:fern":                                Fern{},
+	"minecraft:dead_bush":                           DeadBush{},
+	"minecraft:bush":                                Bush{},
+	"minecraft:short_dry_grass":                     ShortDryGrass{},
+	"minecraft:tall_dry_grass":                      TallDryGrass{},
+	"minecraft:seagrass":                            Seagrass{},
+	"minecraft:tall_seagrass":                       TallSeagrass{},
+	"minecraft:piston":                              Piston{},
+	"minecraft:piston_head":                         PistonHead{},
+	"minecraft:white_wool":                          WhiteWool{},
+	"minecraft:orange_wool":                         OrangeWool{},
+	"minecraft:magenta_wool":                        MagentaWool{},
+	"minecraft:light_blue_wool":                     LightBlueWool{},
+	"minecraft:yellow_wool":                         YellowWool{},
+	"minecraft:lime_wool":                           LimeWool{},
+	"minecraft:pink_wool":                           PinkWool{},
+	"minecraft:gray_wool":                           GrayWool{},
+	"minecraft:light_gray_wool":                     LightGrayWool{},
+	"minecraft:cyan_wool":                           CyanWool{},
+	"minecraft:purple_wool":                         PurpleWool{},
+	"minecraft:blue_wool":                           BlueWool{},
+	"minecraft:brown_wool":                          BrownWool{},
+	"minecraft:green_wool":                          GreenWool{},
+	"minecraft:red_wool":                            RedWool{},
+	"minecraft:black_wool":                          BlackWool{},
+	"minecraft:moving_piston":                       MovingPiston{},
+	"minecraft:dandelion":                           Dandelion{},
+	"minecraft:torchflower":                         Torchflower{},
+	"minecraft:poppy":                               Poppy{},
+	"minecraft:blue_orchid":                         BlueOrchid{},
+	"minecraft:allium":                              Allium{},
+	"minecraft:azure_bluet":                         AzureBluet{},
+	"minecraft:red_tulip":                           RedTulip{},
+	"minecraft:orange_tulip":                        OrangeTulip{},
+	"minecraft:white_tulip":                         WhiteTulip{},
+	"minecraft:pink_tulip":                          PinkTulip{},
+	"minecraft:oxeye_daisy":                         OxeyeDaisy{},
+	"minecraft:cornflower":                          Cornflower{},
+	"minecraft:wither_rose":                         WitherRose{},
+	"minecraft:lily_of_the_valley":                  LilyOfTheValley{},
+	"minecraft:brown_mushroom":                      BrownMushroom{},
+	"minecraft:red_mushroom":                        RedMushroom{},
+	"minecraft:gold_block":                          GoldBlock{},
+	"minecraft:iron_block":                          IronBlock{},
+	"minecraft:bricks":                              Bricks{},
+	"minecraft:tnt":                                 Tnt{},
+	"minecraft:bookshelf":                           Bookshelf{},
+	"minecraft:chiseled_bookshelf":                  ChiseledBookshelf{},
+	"minecraft:acacia_shelf":                        AcaciaShelf{},
+	"minecraft:bamboo_shelf":                        BambooShelf{},
+	"minecraft:birch_shelf":                         BirchShelf{},
+	"minecraft:cherry_shelf":                        CherryShelf{},
+	"minecraft:crimson_shelf":                       CrimsonShelf{},
+	"minecraft:dark_oak_shelf":                      DarkOakShelf{},
+	"minecraft:jungle_shelf":                        JungleShelf{},
+	"minecraft:mangrove_shelf":                      MangroveShelf{},
+	"minecraft:oak_shelf":                           OakShelf{},
+	"minecraft:pale_oak_shelf":                      PaleOakShelf{},
+	"minecraft:spruce_shelf":                        SpruceShelf{},
+	"minecraft:warped_shelf":                        WarpedShelf{},
+	"minecraft:mossy_cobblestone":                   MossyCobblestone{},
+	"minecraft:obsidian":                            Obsidian{},
+	"minecraft:torch":                               Torch{},
+	"minecraft:wall_torch":                          WallTorch{},
+	"minecraft:fire":                                Fire{},
+	"minecraft:soul_fire":                           SoulFire{},
+	"minecraft:spawner":                             Spawner{},
+	"minecraft:creaking_heart":                      CreakingHeart{},
+	"minecraft:oak_stairs":                          OakStairs{},
+	"minecraft:chest":                               Chest{},
+	"minecraft:redstone_wire":                       RedstoneWire{},
+	"minecraft:diamond_ore":                         DiamondOre{},
+	"minecraft:deepslate_diamond_ore":               DeepslateDiamondOre{},
+	"minecraft:diamond_block":                       DiamondBlock{},
+	"minecraft:crafting_table":                      CraftingTable{},
+	"minecraft:wheat":                               Wheat{},
+	"minecraft:farmland":                            Farmland{},
+	"minecraft:furnace":                             Furnace{},
+	"minecraft:oak_sign":                            OakSign{},
+	"minecraft:spruce_sign":                         SpruceSign{},
+	"minecraft:birch_sign":                          BirchSign{},
+	"minecraft:acacia_sign":                         AcaciaSign{},
+	"minecraft:cherry_sign":                         CherrySign{},
+	"minecraft:jungle_sign":                         JungleSign{},
+	"minecraft:dark_oak_sign":                       DarkOakSign{},
+	"minecraft:pale_oak_sign":                       PaleOakSign{},
+	"minecraft:mangrove_sign":                       MangroveSign{},
+	"minecraft:bamboo_sign":                         BambooSign{},
+	"minecraft:oak_door":                            OakDoor{},
+	"minecraft:ladder":                              Ladder{},
+	"minecraft:rail":                                Rail{},
+	"minecraft:cobblestone_stairs":                  CobblestoneStairs{},
+	"minecraft:oak_wall_sign":                       OakWallSign{},
+	"minecraft:spruce_wall_sign":                    SpruceWallSign{},
+	"minecraft:birch_wall_sign":                     BirchWallSign{},
+	"minecraft:acacia_wall_sign":                    AcaciaWallSign{},
+	"minecraft:cherry_wall_sign":                    CherryWallSign{},
+	"minecraft:jungle_wall_sign":                    JungleWallSign{},
+	"minecraft:dark_oak_wall_sign":                  DarkOakWallSign{},
+	"minecraft:pale_oak_wall_sign":                  PaleOakWallSign{},
+	"minecraft:mangrove_wall_sign":                  MangroveWallSign{},
+	"minecraft:bamboo_wall_sign":                    BambooWallSign{},
+	"minecraft:oak_hanging_sign":                    OakHangingSign{},
+	"minecraft:spruce_hanging_sign":                 SpruceHangingSign{},
+	"minecraft:birch_hanging_sign":                  BirchHangingSign{},
+	"minecraft:acacia_hanging_sign":                 AcaciaHangingSign{},
+	"minecraft:cherry_hanging_sign":                 CherryHangingSign{},
+	"minecraft:jungle_hanging_sign":                 JungleHangingSign{},
+	"minecraft:dark_oak_hanging_sign":               DarkOakHangingSign{},
+	"minecraft:pale_oak_hanging_sign":               PaleOakHangingSign{},
+	"minecraft:crimson_hanging_sign":                CrimsonHangingSign{},
+	"minecraft:warped_hanging_sign":                 WarpedHangingSign{},
+	"minecraft:mangrove_hanging_sign":               MangroveHangingSign{},
+	"minecraft:bamboo_hanging_sign":                 BambooHangingSign{},
+	"minecraft:oak_wall_hanging_sign":               OakWallHangingSign{},
+	"minecraft:spruce_wall_hanging_sign":            SpruceWallHangingSign{},
+	"minecraft:birch_wall_hanging_sign":             BirchWallHangingSign{},
+	"minecraft:acacia_wall_hanging_sign":            AcaciaWallHangingSign{},
+	"minecraft:cherry_wall_hanging_sign":            CherryWallHangingSign{},
+	"minecraft:jungle_wall_hanging_sign":            JungleWallHangingSign{},
+	"minecraft:dark_oak_wall_hanging_sign":          DarkOakWallHangingSign{},
+	"minecraft:pale_oak_wall_hanging_sign":          PaleOakWallHangingSign{},
+	"minecraft:mangrove_wall_hanging_sign":          MangroveWallHangingSign{},
+	"minecraft:crimson_wall_hanging_sign":           CrimsonWallHangingSign{},
+	"minecraft:warped_wall_hanging_sign":            WarpedWallHangingSign{},
+	"minecraft:bamboo_wall_hanging_sign":            BambooWallHangingSign{},
+	"minecraft:lever":                               Lever{},
+	"minecraft:stone_pressure_plate":                StonePressurePlate{},
+	"minecraft:iron_door":                           IronDoor{},
+	"minecraft:oak_pressure_plate":                  OakPressurePlate{},
+	"minecraft:spruce_pressure_plate":               SprucePressurePlate{},
+	"minecraft:birch_pressure_plate":                BirchPressurePlate{},
+	"minecraft:jungle_pressure_plate":               JunglePressurePlate{},
+	"minecraft:acacia_pressure_plate":               AcaciaPressurePlate{},
+	"minecraft:cherry_pressure_plate":               CherryPressurePlate{},
+	"minecraft:dark_oak_pressure_plate":             DarkOakPressurePlate{},
+	"minecraft:pale_oak_pressure_plate":             PaleOakPressurePlate{},
+	"minecraft:mangrove_pressure_plate":             MangrovePressurePlate{},
+	"minecraft:bamboo_pressure_plate":               BambooPressurePlate{},
+	"minecraft:redstone_ore":                        RedstoneOre{},
+	"minecraft:deepslate_redstone_ore":              DeepslateRedstoneOre{},
+	"minecraft:redstone_torch":                      RedstoneTorch{},
+	"minecraft:redstone_wall_torch":                 RedstoneWallTorch{},
+	"minecraft:stone_button":                        StoneButton{},
+	"minecraft:snow":                                Snow{},
+	"minecraft:ice":                                 Ice{},
+	"minecraft:snow_block":                          SnowBlock{},
+	"minecraft:cactus":                              Cactus{},
+	"minecraft:cactus_flower":                       CactusFlower{},
+	"minecraft:clay":                                Clay{},
+	"minecraft:sugar_cane":                          SugarCane{},
+	"minecraft:jukebox":                             Jukebox{},
+	"minecraft:oak_fence":                           OakFence{},
+	"minecraft:netherrack":                          Netherrack{},
+	"minecraft:soul_sand":                           SoulSand{},
+	"minecraft:soul_soil":                           SoulSoil{},
+	"minecraft:basalt":                              Basalt{},
+	"minecraft:polished_basalt":                     PolishedBasalt{},
+	"minecraft:soul_torch":                          SoulTorch{},
+	"minecraft:soul_wall_torch":                     SoulWallTorch{},
+	"minecraft:copper_torch":                        CopperTorch{},
+	"minecraft:copper_wall_torch":                   CopperWallTorch{},
+	"minecraft:glowstone":                           Glowstone{},
+	"minecraft:nether_portal":                       NetherPortal{},
+	"minecraft:carved_pumpkin":                      CarvedPumpkin{},
+	"minecraft:jack_o_lantern":                      JackOLantern{},
+	"minecraft:cake":                                Cake{},
+	"minecraft:repeater":                            Repeater{},
+	"minecraft:white_stained_glass":                 WhiteStainedGlass{},
+	"minecraft:orange_stained_glass":                OrangeStainedGlass{},
+	"minecraft:magenta_stained_glass":               MagentaStainedGlass{},
+	"minecraft:light_blue_stained_glass":            LightBlueStainedGlass{},
+	"minecraft:yellow_stained_glass":                YellowStainedGlass{},
+	"minecraft:lime_stained_glass":                  LimeStainedGlass{},
+	"minecraft:pink_stained_glass":                  PinkStainedGlass{},
+	"minecraft:gray_stained_glass":                  GrayStainedGlass{},
+	"minecraft:light_gray_stained_glass":            LightGrayStainedGlass{},
+	"minecraft:cyan_stained_glass":                  CyanStainedGlass{},
+	"minecraft:purple_stained_glass":                PurpleStainedGlass{},
+	"minecraft:blue_stained_glass":                  BlueStainedGlass{},
+	"minecraft:brown_stained_glass":                 BrownStainedGlass{},
+	"minecraft:green_stained_glass":                 GreenStainedGlass{},
+	"minecraft:red_stained_glass":                   RedStainedGlass{},
+	"minecraft:black_stained_glass":                 BlackStainedGlass{},
+	"minecraft:oak_trapdoor":                        OakTrapdoor{},
+	"minecraft:spruce_trapdoor":                     SpruceTrapdoor{},
+	"minecraft:birch_trapdoor":                      BirchTrapdoor{},
+	"minecraft:jungle_trapdoor":                     JungleTrapdoor{},
+	"minecraft:acacia_trapdoor":                     AcaciaTrapdoor{},
+	"minecraft:cherry_trapdoor":                     CherryTrapdoor{},
+	"minecraft:dark_oak_trapdoor":                   DarkOakTrapdoor{},
+	"minecraft:pale_oak_trapdoor":                   PaleOakTrapdoor{},
+	"minecraft:mangrove_trapdoor":                   MangroveTrapdoor{},
+	"minecraft:bamboo_trapdoor":                     BambooTrapdoor{},
+	"minecraft:stone_bricks":                        StoneBricks{},
+	"minecraft:mossy_stone_bricks":                  MossyStoneBricks{},
+	"minecraft:cracked_stone_bricks":                CrackedStoneBricks{},
+	"minecraft:chiseled_stone_bricks":               ChiseledStoneBricks{},
+	"minecraft:packed_mud":                          PackedMud{},
+	"minecraft:mud_bricks":                          MudBricks{},
+	"minecraft:infested_stone":                      InfestedStone{},
+	"minecraft:infested_cobblestone":                InfestedCobblestone{},
+	"minecraft:infested_stone_bricks":               InfestedStoneBricks{},
+	"minecraft:infested_mossy_stone_bricks":         InfestedMossyStoneBricks{},
+	"minecraft:infested_cracked_stone_bricks":       InfestedCrackedStoneBricks{},
+	"minecraft:infested_chiseled_stone_bricks":      InfestedChiseledStoneBricks{},
+	"minecraft:brown_mushroom_block":                BrownMushroomBlock{},
+	"minecraft:red_mushroom_block":                  RedMushroomBlock{},
+	"minecraft:mushroom_stem":                       MushroomStem{},
+	"minecraft:iron_bars":                           IronBars{},
+	"minecraft:copper_bars":                         CopperBars{},
+	"minecraft:exposed_copper_bars":                 ExposedCopperBars{},
+	"minecraft:weathered_copper_bars":               WeatheredCopperBars{},
+	"minecraft:oxidized_copper_bars":                OxidizedCopperBars{},
+	"minecraft:waxed_copper_bars":                   WaxedCopperBars{},
+	"minecraft:waxed_exposed_copper_bars":           WaxedExposedCopperBars{},
+	"minecraft:waxed_weathered_copper_bars":         WaxedWeatheredCopperBars{},
+	"minecraft:waxed_oxidized_copper_bars":          WaxedOxidizedCopperBars{},
+	"minecraft:iron_chain":                          IronChain{},
+	"minecraft:copper_chain":                        CopperChain{},
+	"minecraft:exposed_copper_chain":                ExposedCopperChain{},
+	"minecraft:weathered_copper_chain":              WeatheredCopperChain{},
+	"minecraft:oxidized_copper_chain":               OxidizedCopperChain{},
+	"minecraft:waxed_copper_chain":                  WaxedCopperChain{},
+	"minecraft:waxed_exposed_copper_chain":          WaxedExposedCopperChain{},
+	"minecraft:waxed_weathered_copper_chain":        WaxedWeatheredCopperChain{},
+	"minecraft:waxed_oxidized_copper_chain":         WaxedOxidizedCopperChain{},
+	"minecraft:glass_pane":                          GlassPane{},
+	"minecraft:pumpkin":                             Pumpkin{},
+	"minecraft:melon":                               Melon{},
+	"minecraft:attached_pumpkin_stem":               AttachedPumpkinStem{},
+	"minecraft:attached_melon_stem":                 AttachedMelonStem{},
+	"minecraft:pumpkin_stem":                        PumpkinStem{},
+	"minecraft:melon_stem":                          MelonStem{},
+	"minecraft:vine":                                Vine{},
+	"minecraft:glow_lichen":                         GlowLichen{},
+	"minecraft:resin_clump":                         ResinClump{},
+	"minecraft:oak_fence_gate":                      OakFenceGate{},
+	"minecraft:brick_stairs":                        BrickStairs{},
+	"minecraft:stone_brick_stairs":                  StoneBrickStairs{},
+	"minecraft:mud_brick_stairs":                    MudBrickStairs{},
+	"minecraft:mycelium":                            Mycelium{},
+	"minecraft:lily_pad":                            LilyPad{},
+	"minecraft:resin_block":                         ResinBlock{},
+	"minecraft:resin_bricks":                        ResinBricks{},
+	"minecraft:resin_brick_stairs":                  ResinBrickStairs{},
+	"minecraft:resin_brick_slab":                    ResinBrickSlab{},
+	"minecraft:resin_brick_wall":                    ResinBrickWall{},
+	"minecraft:chiseled_resin_bricks":               ChiseledResinBricks{},
+	"minecraft:nether_bricks":                       NetherBricks{},
+	"minecraft:nether_brick_fence":                  NetherBrickFence{},
+	"minecraft:nether_brick_stairs":                 NetherBrickStairs{},
+	"minecraft:nether_wart":                         NetherWart{},
+	"minecraft:enchanting_table":                    EnchantingTable{},
+	"minecraft:brewing_stand":                       BrewingStand{},
+	"minecraft:cauldron":                            Cauldron{},
+	"minecraft:water_cauldron":                      WaterCauldron{},
+	"minecraft:lava_cauldron":                       LavaCauldron{},
+	"minecraft:powder_snow_cauldron":                PowderSnowCauldron{},
+	"minecraft:end_portal":                          EndPortal{},
+	"minecraft:end_portal_frame":                    EndPortalFrame{},
+	"minecraft:end_stone":                           EndStone{},
+	"minecraft:dragon_egg":                          DragonEgg{},
+	"minecraft:redstone_lamp":                       RedstoneLamp{},
+	"minecraft:cocoa":                               Cocoa{},
+	"minecraft:sandstone_stairs":                    SandstoneStairs{},
+	"minecraft:emerald_ore":                         EmeraldOre{},
+	"minecraft:deepslate_emerald_ore":               DeepslateEmeraldOre{},
+	"minecraft:ender_chest":                         EnderChest{},
+	"minecraft:tripwire_hook":                       TripwireHook{},
+	"minecraft:tripwire":                            Tripwire{},
+	"minecraft:emerald_block":                       EmeraldBlock{},
+	"minecraft:spruce_stairs":                       SpruceStairs{},
+	"minecraft:birch_stairs":                        BirchStairs{},
+	"minecraft:jungle_stairs":                       JungleStairs{},
+	"minecraft:command_block":                       CommandBlock{},
+	"minecraft:beacon":                              Beacon{},
+	"minecraft:cobblestone_wall":                    CobblestoneWall{},
+	"minecraft:mossy_cobblestone_wall":              MossyCobblestoneWall{},
+	"minecraft:flower_pot":                          FlowerPot{},
+	"minecraft:potted_torchflower":                  PottedTorchflower{},
+	"minecraft:potted_oak_sapling":                  PottedOakSapling{},
+	"minecraft:potted_spruce_sapling":               PottedSpruceSapling{},
+	"minecraft:potted_birch_sapling":                PottedBirchSapling{},
+	"minecraft:potted_jungle_sapling":               PottedJungleSapling{},
+	"minecraft:potted_acacia_sapling":               PottedAcaciaSapling{},
+	"minecraft:potted_cherry_sapling":               PottedCherrySapling{},
+	"minecraft:potted_dark_oak_sapling":             PottedDarkOakSapling{},
+	"minecraft:potted_pale_oak_sapling":             PottedPaleOakSapling{},
+	"minecraft:potted_mangrove_propagule":           PottedMangrovePropagule{},
+	"minecraft:potted_fern":                         PottedFern{},
+	"minecraft:potted_dandelion":                    PottedDandelion{},
+	"minecraft:potted_poppy":                        PottedPoppy{},
+	"minecraft:potted_blue_orchid":                  PottedBlueOrchid{},
+	"minecraft:potted_allium":                       PottedAllium{},
+	"minecraft:potted_azure_bluet":                  PottedAzureBluet{},
+	"minecraft:potted_red_tulip":                    PottedRedTulip{},
+	"minecraft:potted_orange_tulip":                 PottedOrangeTulip{},
+	"minecraft:potted_white_tulip":                  PottedWhiteTulip{},
+	"minecraft:potted_pink_tulip":                   PottedPinkTulip{},
+	"minecraft:potted_oxeye_daisy":                  PottedOxeyeDaisy{},
+	"minecraft:potted_cornflower":                   PottedCornflower{},
+	"minecraft:potted_lily_of_the_valley":           PottedLilyOfTheValley{},
+	"minecraft:potted_wither_rose":                  PottedWitherRose{},
+	"minecraft:potted_red_mushroom":                 PottedRedMushroom{},
+	"minecraft:potted_brown_mushroom":               PottedBrownMushroom{},
+	"minecraft:potted_dead_bush":                    PottedDeadBush{},
+	"minecraft:potted_cactus":                       PottedCactus{},
+	"minecraft:carrots":                             Carrots{},
+	"minecraft:potatoes":                            Potatoes{},
+	"minecraft:oak_button":                          OakButton{},
+	"minecraft:spruce_button":                       SpruceButton{},
+	"minecraft:birch_button":                        BirchButton{},
+	"minecraft:jungle_button":                       JungleButton{},
+	"minecraft:acacia_button":                       AcaciaButton{},
+	"minecraft:cherry_button":                       CherryButton{},
+	"minecraft:dark_oak_button":                     DarkOakButton{},
+	"minecraft:pale_oak_button":                     PaleOakButton{},
+	"minecraft:mangrove_button":                     MangroveButton{},
+	"minecraft:bamboo_button":                       BambooButton{},
+	"minecraft:skeleton_skull":                      SkeletonSkull{},
+	"minecraft:skeleton_wall_skull":                 SkeletonWallSkull{},
+	"minecraft:wither_skeleton_skull":               WitherSkeletonSkull{},
+	"minecraft:wither_skeleton_wall_skull":          WitherSkeletonWallSkull{},
+	"minecraft:zombie_head":                         ZombieHead{},
+	"minecraft:zombie_wall_head":                    ZombieWallHead{},
+	"minecraft:player_head":                         PlayerHead{},
+	"minecraft:player_wall_head":                    PlayerWallHead{},
+	"minecraft:creeper_head":                        CreeperHead{},
+	"minecraft:creeper_wall_head":                   CreeperWallHead{},
+	"minecraft:dragon_head":                         DragonHead{},
+	"minecraft:dragon_wall_head":                    DragonWallHead{},
+	"minecraft:piglin_head":                         PiglinHead{},
+	"minecraft:piglin_wall_head":                    PiglinWallHead{},
+	"minecraft:anvil":                               Anvil{},
+	"minecraft:chipped_anvil":                       ChippedAnvil{},
+	"minecraft:damaged_anvil":                       DamagedAnvil{},
+	"minecraft:trapped_chest":                       TrappedChest{},
+	"minecraft:light_weighted_pressure_plate":       LightWeightedPressurePlate{},
+	"minecraft:heavy_weighted_pressure_plate":       HeavyWeightedPressurePlate{},
+	"minecraft:comparator":                          Comparator{},
+	"minecraft:daylight_detector":                   DaylightDetector{},
+	"minecraft:redstone_block":                      RedstoneBlock{},
+	"minecraft:nether_quartz_ore":                   NetherQuartzOre{},
+	"minecraft:hopper":                              Hopper{},
+	"minecraft:quartz_block":                        QuartzBlock{},
+	"minecraft:chiseled_quartz_block":               ChiseledQuartzBlock{},
+	"minecraft:quartz_pillar":                       QuartzPillar{},
+	"minecraft:quartz_stairs":                       QuartzStairs{},
+	"minecraft:activator_rail":                      ActivatorRail{},
+	"minecraft:dropper":                             Dropper{},
+	"minecraft:white_terracotta":                    WhiteTerracotta{},
+	"minecraft:orange_terracotta":                   OrangeTerracotta{},
+	"minecraft:magenta_terracotta":                  MagentaTerracotta{},
+	"minecraft:light_blue_terracotta":               LightBlueTerracotta{},
+	"minecraft:yellow_terracotta":                   YellowTerracotta{},
+	"minecraft:lime_terracotta":                     LimeTerracotta{},
+	"minecraft:pink_terracotta":                     PinkTerracotta{},
+	"minecraft:gray_terracotta":                     GrayTerracotta{},
+	"minecraft:light_gray_terracotta":               LightGrayTerracotta{},
+	"minecraft:cyan_terracotta":                     CyanTerracotta{},
+	"minecraft:purple_terracotta":                   PurpleTerracotta{},
+	"minecraft:blue_terracotta":                     BlueTerracotta{},
+	"minecraft:brown_terracotta":                    BrownTerracotta{},
+	"minecraft:green_terracotta":                    GreenTerracotta{},
+	"minecraft:red_terracotta":                      RedTerracotta{},
+	"minecraft:black_terracotta":                    BlackTerracotta{},
+	"minecraft:white_stained_glass_pane":            WhiteStainedGlassPane{},
+	"minecraft:orange_stained_glass_pane":           OrangeStainedGlassPane{},
+	"minecraft:magenta_stained_glass_pane":          MagentaStainedGlassPane{},
+	"minecraft:light_blue_stained_glass_pane":       LightBlueStainedGlassPane{},
+	"minecraft:yellow_stained_glass_pane":           YellowStainedGlassPane{},
+	"minecraft:lime_stained_glass_pane":             LimeStainedGlassPane{},
+	"minecraft:pink_stained_glass_pane":             PinkStainedGlassPane{},
+	"minecraft:gray_stained_glass_pane":             GrayStainedGlassPane{},
+	"minecraft:light_gray_stained_glass_pane":       LightGrayStainedGlassPane{},
+	"minecraft:cyan_stained_glass_pane":             CyanStainedGlassPane{},
+	"minecraft:purple_stained_glass_pane":           PurpleStainedGlassPane{},
+	"minecraft:blue_stained_glass_pane":             BlueStainedGlassPane{},
+	"minecraft:brown_stained_glass_pane":            BrownStainedGlassPane{},
+	"minecraft:green_stained_glass_pane":            GreenStainedGlassPane{},
+	"minecraft:red_stained_glass_pane":              RedStainedGlassPane{},
+	"minecraft:black_stained_glass_pane":            BlackStainedGlassPane{},
+	"minecraft:acacia_stairs":                       AcaciaStairs{},
+	"minecraft:cherry_stairs":                       CherryStairs{},
+	"minecraft:dark_oak_stairs":                     DarkOakStairs{},
+	"minecraft:pale_oak_stairs":                     PaleOakStairs{},
+	"minecraft:mangrove_stairs":                     MangroveStairs{},
+	"minecraft:bamboo_stairs":                       BambooStairs{},
+	"minecraft:bamboo_mosaic_stairs":                BambooMosaicStairs{},
+	"minecraft:slime_block":                         SlimeBlock{},
+	"minecraft:barrier":                             Barrier{},
+	"minecraft:light":                               Light{},
+	"minecraft:iron_trapdoor":                       IronTrapdoor{},
+	"minecraft:prismarine":                          Prismarine{},
+	"minecraft:prismarine_bricks":                   PrismarineBricks{},
+	"minecraft:dark_prismarine":                     DarkPrismarine{},
+	"minecraft:prismarine_stairs":                   PrismarineStairs{},
+	"minecraft:prismarine_brick_stairs":             PrismarineBrickStairs{},
+	"minecraft:dark_prismarine_stairs":              DarkPrismarineStairs{},
+	"minecraft:prismarine_slab":                     PrismarineSlab{},
+	"minecraft:prismarine_brick_slab":               PrismarineBrickSlab{},
+	"minecraft:dark_prismarine_slab":                DarkPrismarineSlab{},
+	"minecraft:sea_lantern":                         SeaLantern{},
+	"minecraft:hay_block":                           HayBlock{},
+	"minecraft:white_carpet":                        WhiteCarpet{},
+	"minecraft:orange_carpet":                       OrangeCarpet{},
+	"minecraft:magenta_carpet":                      MagentaCarpet{},
+	"minecraft:light_blue_carpet":                   LightBlueCarpet{},
+	"minecraft:yellow_carpet":                       YellowCarpet{},
+	"minecraft:lime_carpet":                         LimeCarpet{},
+	"minecraft:pink_carpet":                         PinkCarpet{},
+	"minecraft:gray_carpet":                         GrayCarpet{},
+	"minecraft:light_gray_carpet":                   LightGrayCarpet{},
+	"minecraft:cyan_carpet":                         CyanCarpet{},
+	"minecraft:purple_carpet":                       PurpleCarpet{},
+	"minecraft:blue_carpet":                         BlueCarpet{},
+	"minecraft:brown_carpet":                        BrownCarpet{},
+	"minecraft:green_carpet":                        GreenCarpet{},
+	"minecraft:red_carpet":                          RedCarpet{},
+	"minecraft:black_carpet":                        BlackCarpet{},
+	"minecraft:terracotta":                          Terracotta{},
+	"minecraft:coal_block":                          CoalBlock{},
+	"minecraft:packed_ice":                          PackedIce{},
+	"minecraft:sunflower":                           Sunflower{},
+	"minecraft:lilac":                               Lilac{},
+	"minecraft:rose_bush":                           RoseBush{},
+	"minecraft:peony":                               Peony{},
+	"minecraft:tall_grass":                          TallGrass{},
+	"minecraft:large_fern":                          LargeFern{},
+	"minecraft:white_banner":                        WhiteBanner{},
+	"minecraft:orange_banner":                       OrangeBanner{},
+	"minecraft:magenta_banner":                      MagentaBanner{},
+	"minecraft:light_blue_banner":                   LightBlueBanner{},
+	"minecraft:yellow_banner":                       YellowBanner{},
+	"minecraft:lime_banner":                         LimeBanner{},
+	"minecraft:pink_banner":                         PinkBanner{},
+	"minecraft:gray_banner":                         GrayBanner{},
+	"minecraft:light_gray_banner":                   LightGrayBanner{},
+	"minecraft:cyan_banner":                         CyanBanner{},
+	"minecraft:purple_banner":                       PurpleBanner{},
+	"minecraft:blue_banner":                         BlueBanner{},
+	"minecraft:brown_banner":                        BrownBanner{},
+	"minecraft:green_banner":                        GreenBanner{},
+	"minecraft:red_banner":                          RedBanner{},
+	"minecraft:black_banner":                        BlackBanner{},
+	"minecraft:white_wall_banner":                   WhiteWallBanner{},
+	"minecraft:orange_wall_banner":                  OrangeWallBanner{},
+	"minecraft:magenta_wall_banner":                 MagentaWallBanner{},
+	"minecraft:light_blue_wall_banner":              LightBlueWallBanner{},
+	"minecraft:yellow_wall_banner":                  YellowWallBanner{},
+	"minecraft:lime_wall_banner":                    LimeWallBanner{},
+	"minecraft:pink_wall_banner":                    PinkWallBanner{},
+	"minecraft:gray_wall_banner":                    GrayWallBanner{},
+	"minecraft:light_gray_wall_banner":              LightGrayWallBanner{},
+	"minecraft:cyan_wall_banner":                    CyanWallBanner{},
+	"minecraft:purple_wall_banner":                  PurpleWallBanner{},
+	"minecraft:blue_wall_banner":                    BlueWallBanner{},
+	"minecraft:brown_wall_banner":                   BrownWallBanner{},
+	"minecraft:green_wall_banner":                   GreenWallBanner{},
+	"minecraft:red_wall_banner":                     RedWallBanner{},
+	"minecraft:black_wall_banner":                   BlackWallBanner{},
+	"minecraft:red_sandstone":                       RedSandstone{},
+	"minecraft:chiseled_red_sandstone":              ChiseledRedSandstone{},
+	"minecraft:cut_red_sandstone":                   CutRedSandstone{},
+	"minecraft:red_sandstone_stairs":                RedSandstoneStairs{},
+	"minecraft:oak_slab":                            OakSlab{},
+	"minecraft:spruce_slab":                         SpruceSlab{},
+	"minecraft:birch_slab":                          BirchSlab{},
+	"minecraft:jungle_slab":                         JungleSlab{},
+	"minecraft:acacia_slab":                         AcaciaSlab{},
+	"minecraft:cherry_slab":                         CherrySlab{},
+	"minecraft:dark_oak_slab":                       DarkOakSlab{},
+	"minecraft:pale_oak_slab":                       PaleOakSlab{},
+	"minecraft:mangrove_slab":                       MangroveSlab{},
+	"minecraft:bamboo_slab":                         BambooSlab{},
+	"minecraft:bamboo_mosaic_slab":                  BambooMosaicSlab{},
+	"minecraft:stone_slab":                          StoneSlab{},
+	"minecraft:smooth_stone_slab":                   SmoothStoneSlab{},
+	"minecraft:sandstone_slab":                      SandstoneSlab{},
+	"minecraft:cut_sandstone_slab":                  CutSandstoneSlab{},
+	"minecraft:petrified_oak_slab":                  PetrifiedOakSlab{},
+	"minecraft:cobblestone_slab":                    CobblestoneSlab{},
+	"minecraft:brick_slab":                          BrickSlab{},
+	"minecraft:stone_brick_slab":                    StoneBrickSlab{},
+	"minecraft:mud_brick_slab":                      MudBrickSlab{},
+	"minecraft:nether_brick_slab":                   NetherBrickSlab{},
+	"minecraft:quartz_slab":                         QuartzSlab{},
+	"minecraft:red_sandstone_slab":                  RedSandstoneSlab{},
+	"minecraft:cut_red_sandstone_slab":              CutRedSandstoneSlab{},
+	"minecraft:purpur_slab":                         PurpurSlab{},
+	"minecraft:smooth_stone":                        SmoothStone{},
+	"minecraft:smooth_sandstone":                    SmoothSandstone{},
+	"minecraft:smooth_quartz":                       SmoothQuartz{},
+	"minecraft:smooth_red_sandstone":                SmoothRedSandstone{},
+	"minecraft:spruce_fence_gate":                   SpruceFenceGate{},
+	"minecraft:birch_fence_gate":                    BirchFenceGate{},
+	"minecraft:jungle_fence_gate":                   JungleFenceGate{},
+	"minecraft:acacia_fence_gate":                   AcaciaFenceGate{},
+	"minecraft:cherry_fence_gate":                   CherryFenceGate{},
+	"minecraft:dark_oak_fence_gate":                 DarkOakFenceGate{},
+	"minecraft:pale_oak_fence_gate":                 PaleOakFenceGate{},
+	"minecraft:mangrove_fence_gate":                 MangroveFenceGate{},
+	"minecraft:bamboo_fence_gate":                   BambooFenceGate{},
+	"minecraft:spruce_fence":                        SpruceFence{},
+	"minecraft:birch_fence":                         BirchFence{},
+	"minecraft:jungle_fence":                        JungleFence{},
+	"minecraft:acacia_fence":                        AcaciaFence{},
+	"minecraft:cherry_fence":                        CherryFence{},
+	"minecraft:dark_oak_fence":                      DarkOakFence{},
+	"minecraft:pale_oak_fence":                      PaleOakFence{},
+	"minecraft:mangrove_fence":                      MangroveFence{},
+	"minecraft:bamboo_fence":                        BambooFence{},
+	"minecraft:spruce_door":                         SpruceDoor{},
+	"minecraft:birch_door":                          BirchDoor{},
+	"minecraft:jungle_door":                         JungleDoor{},
+	"minecraft:acacia_door":                         AcaciaDoor{},
+	"minecraft:cherry_door":                         CherryDoor{},
+	"minecraft:dark_oak_door":                       DarkOakDoor{},
+	"minecraft:pale_oak_door":                       PaleOakDoor{},
+	"minecraft:mangrove_door":                       MangroveDoor{},
+	"minecraft:bamboo_door":                         BambooDoor{},
+	"minecraft:end_rod":                             EndRod{},
+	"minecraft:chorus_plant":                        ChorusPlant{},
+	"minecraft:chorus_flower":                       ChorusFlower{},
+	"minecraft:purpur_block":                        PurpurBlock{},
+	"minecraft:purpur_pillar":                       PurpurPillar{},
+	"minecraft:purpur_stairs":                       PurpurStairs{},
+	"minecraft:end_stone_bricks":                    EndStoneBricks{},
+	"minecraft:torchflower_crop":                    TorchflowerCrop{},
+	"minecraft:pitcher_crop":                        PitcherCrop{},
+	"minecraft:pitcher_plant":                       PitcherPlant{},
+	"minecraft:beetroots":                           Beetroots{},
+	"minecraft:dirt_path":                           DirtPath{},
+	"minecraft:end_gateway":                         EndGateway{},
+	"minecraft:repeating_command_block":             RepeatingCommandBlock{},
+	"minecraft:chain_command_block":                 ChainCommandBlock{},
+	"minecraft:frosted_ice":                         FrostedIce{},
+	"minecraft:magma_block":                         MagmaBlock{},
+	"minecraft:nether_wart_block":                   NetherWartBlock{},
+	"minecraft:red_nether_bricks":                   RedNetherBricks{},
+	"minecraft:bone_block":                          BoneBlock{},
+	"minecraft:structure_void":                      StructureVoid{},
+	"minecraft:observer":                            Observer{},
+	"minecraft:shulker_box":                         ShulkerBox{},
+	"minecraft:white_shulker_box":                   WhiteShulkerBox{},
+	"minecraft:orange_shulker_box":                  OrangeShulkerBox{},
+	"minecraft:magenta_shulker_box":                 MagentaShulkerBox{},
+	"minecraft:light_blue_shulker_box":              LightBlueShulkerBox{},
+	"minecraft:yellow_shulker_box":                  YellowShulkerBox{},
+	"minecraft:lime_shulker_box":                    LimeShulkerBox{},
+	"minecraft:pink_shulker_box":                    PinkShulkerBox{},
+	"minecraft:gray_shulker_box":                    GrayShulkerBox{},
+	"minecraft:light_gray_shulker_box":              LightGrayShulkerBox{},
+	"minecraft:cyan_shulker_box":                    CyanShulkerBox{},
+	"minecraft:purple_shulker_box":                  PurpleShulkerBox{},
+	"minecraft:blue_shulker_box":                    BlueShulkerBox{},
+	"minecraft:brown_shulker_box":                   BrownShulkerBox{},
+	"minecraft:green_shulker_box":                   GreenShulkerBox{},
+	"minecraft:red_shulker_box":                     RedShulkerBox{},
+	"minecraft:black_shulker_box":                   BlackShulkerBox{},
+	"minecraft:white_glazed_terracotta":             WhiteGlazedTerracotta{},
+	"minecraft:orange_glazed_terracotta":            OrangeGlazedTerracotta{},
+	"minecraft:magenta_glazed_terracotta":           MagentaGlazedTerracotta{},
+	"minecraft:light_blue_glazed_terracotta":        LightBlueGlazedTerracotta{},
+	"minecraft:yellow_glazed_terracotta":            YellowGlazedTerracotta{},
+	"minecraft:lime_glazed_terracotta":              LimeGlazedTerracotta{},
+	"minecraft:pink_glazed_terracotta":              PinkGlazedTerracotta{},
+	"minecraft:gray_glazed_terracotta":              GrayGlazedTerracotta{},
+	"minecraft:light_gray_glazed_terracotta":        LightGrayGlazedTerracotta{},
+	"minecraft:cyan_glazed_terracotta":              CyanGlazedTerracotta{},
+	"minecraft:purple_glazed_terracotta":            PurpleGlazedTerracotta{},
+	"minecraft:blue_glazed_terracotta":              BlueGlazedTerracotta{},
+	"minecraft:brown_glazed_terracotta":             BrownGlazedTerracotta{},
+	"minecraft:green_glazed_terracotta":             GreenGlazedTerracotta{},
+	"minecraft:red_glazed_terracotta":               RedGlazedTerracotta{},
+	"minecraft:black_glazed_terracotta":             BlackGlazedTerracotta{},
+	"minecraft:white_concrete":                      WhiteConcrete{},
+	"minecraft:orange_concrete":                     OrangeConcrete{},
+	"minecraft:magenta_concrete":                    MagentaConcrete{},
+	"minecraft:light_blue_concrete":                 LightBlueConcrete{},
+	"minecraft:yellow_concrete":                     YellowConcrete{},
+	"minecraft:lime_concrete":                       LimeConcrete{},
+	"minecraft:pink_concrete":                       PinkConcrete{},
+	"minecraft:gray_concrete":                       GrayConcrete{},
+	"minecraft:light_gray_concrete":                 LightGrayConcrete{},
+	"minecraft:cyan_concrete":                       CyanConcrete{},
+	"minecraft:purple_concrete":                     PurpleConcrete{},
+	"minecraft:blue_concrete":                       BlueConcrete{},
+	"minecraft:brown_concrete":                      BrownConcrete{},
+	"minecraft:green_concrete":                      GreenConcrete{},
+	"minecraft:red_concrete":                        RedConcrete{},
+	"minecraft:black_concrete":                      BlackConcrete{},
+	"minecraft:white_concrete_powder":               WhiteConcretePowder{},
+	"minecraft:orange_concrete_powder":              OrangeConcretePowder{},
+	"minecraft:magenta_concrete_powder":             MagentaConcretePowder{},
+	"minecraft:light_blue_concrete_powder":          LightBlueConcretePowder{},
+	"minecraft:yellow_concrete_powder":              YellowConcretePowder{},
+	"minecraft:lime_concrete_powder":                LimeConcretePowder{},
+	"minecraft:pink_concrete_powder":                PinkConcretePowder{},
+	"minecraft:gray_concrete_powder":                GrayConcretePowder{},
+	"minecraft:light_gray_concrete_powder":          LightGrayConcretePowder{},
+	"minecraft:cyan_concrete_powder":                CyanConcretePowder{},
+	"minecraft:purple_concrete_powder":              PurpleConcretePowder{},
+	"minecraft:blue_concrete_powder":                BlueConcretePowder{},
+	"minecraft:brown_concrete_powder":               BrownConcretePowder{},
+	"minecraft:green_concrete_powder":               GreenConcretePowder{},
+	"minecraft:red_concrete_powder":                 RedConcretePowder{},
+	"minecraft:black_concrete_powder":               BlackConcretePowder{},
+	"minecraft:kelp":                                Kelp{},
+	"minecraft:kelp_plant":                          KelpPlant{},
+	"minecraft:dried_kelp_block":                    DriedKelpBlock{},
+	"minecraft:turtle_egg":                          TurtleEgg{},
+	"minecraft:sniffer_egg":                         SnifferEgg{},
+	"minecraft:dried_ghast":                         DriedGhast{},
+	"minecraft:dead_tube_coral_block":               DeadTubeCoralBlock{},
+	"minecraft:dead_brain_coral_block":              DeadBrainCoralBlock{},
+	"minecraft:dead_bubble_coral_block":             DeadBubbleCoralBlock{},
+	"minecraft:dead_fire_coral_block":               DeadFireCoralBlock{},
+	"minecraft:dead_horn_coral_block":               DeadHornCoralBlock{},
+	"minecraft:tube_coral_block":                    TubeCoralBlock{},
+	"minecraft:brain_coral_block":                   BrainCoralBlock{},
+	"minecraft:bubble_coral_block":                  BubbleCoralBlock{},
+	"minecraft:fire_coral_block":                    FireCoralBlock{},
+	"minecraft:horn_coral_block":                    HornCoralBlock{},
+	"minecraft:dead_tube_coral":                     DeadTubeCoral{},
+	"minecraft:dead_brain_coral":                    DeadBrainCoral{},
+	"minecraft:dead_bubble_coral":                   DeadBubbleCoral{},
+	"minecraft:dead_fire_coral":                     DeadFireCoral{},
+	"minecraft:dead_horn_coral":                     DeadHornCoral{},
+	"minecraft:tube_coral":                          TubeCoral{},
+	"minecraft:brain_coral":                         BrainCoral{},
+	"minecraft:bubble_coral":                        BubbleCoral{},
+	"minecraft:fire_coral":                          FireCoral{},
+	"minecraft:horn_coral":                          HornCoral{},
+	"minecraft:dead_tube_coral_fan":                 DeadTubeCoralFan{},
+	"minecraft:dead_brain_coral_fan":                DeadBrainCoralFan{},
+	"minecraft:dead_bubble_coral_fan":               DeadBubbleCoralFan{},
+	"minecraft:dead_fire_coral_fan":                 DeadFireCoralFan{},
+	"minecraft:dead_horn_coral_fan":                 DeadHornCoralFan{},
+	"minecraft:tube_coral_fan":                      TubeCoralFan{},
+	"minecraft:brain_coral_fan":                     BrainCoralFan{},
+	"minecraft:bubble_coral_fan":                    BubbleCoralFan{},
+	"minecraft:fire_coral_fan":                      FireCoralFan{},
+	"minecraft:horn_coral_fan":                      HornCoralFan{},
+	"minecraft:dead_tube_coral_wall_fan":            DeadTubeCoralWallFan{},
+	"minecraft:dead_brain_coral_wall_fan":           DeadBrainCoralWallFan{},
+	"minecraft:dead_bubble_coral_wall_fan":          DeadBubbleCoralWallFan{},
+	"minecraft:dead_fire_coral_wall_fan":            DeadFireCoralWallFan{},
+	"minecraft:dead_horn_coral_wall_fan":            DeadHornCoralWallFan{},
+	"minecraft:tube_coral_wall_fan":                 TubeCoralWallFan{},
+	"minecraft:brain_coral_wall_fan":                BrainCoralWallFan{},
+	"minecraft:bubble_coral_wall_fan":               BubbleCoralWallFan{},
+	"minecraft:fire_coral_wall_fan":                 FireCoralWallFan{},
+	"minecraft:horn_coral_wall_fan":                 HornCoralWallFan{},
+	"minecraft:sea_pickle":                          SeaPickle{},
+	"minecraft:blue_ice":                            BlueIce{},
+	"minecraft:conduit":                             Conduit{},
+	"minecraft:bamboo_sapling":                      BambooSapling{},
+	"minecraft:bamboo":                              Bamboo{},
+	"minecraft:potted_bamboo":                       PottedBamboo{},
+	"minecraft:void_air":                            VoidAir{},
+	"minecraft:cave_air":                            CaveAir{},
+	"minecraft:bubble_column":                       BubbleColumn{},
+	"minecraft:polished_granite_stairs":             PolishedGraniteStairs{},
+	"minecraft:smooth_red_sandstone_stairs":         SmoothRedSandstoneStairs{},
+	"minecraft:mossy_stone_brick_stairs":            MossyStoneBrickStairs{},
+	"minecraft:polished_diorite_stairs":             PolishedDioriteStairs{},
+	"minecraft:mossy_cobblestone_stairs":            MossyCobblestoneStairs{},
+	"minecraft:end_stone_brick_stairs":              EndStoneBrickStairs{},
+	"minecraft:stone_stairs":                        StoneStairs{},
+	"minecraft:smooth_sandstone_stairs":             SmoothSandstoneStairs{},
+	"minecraft:smooth_quartz_stairs":                SmoothQuartzStairs{},
+	"minecraft:granite_stairs":                      GraniteStairs{},
+	"minecraft:andesite_stairs":                     AndesiteStairs{},
+	"minecraft:red_nether_brick_stairs":             RedNetherBrickStairs{},
+	"minecraft:polished_andesite_stairs":            PolishedAndesiteStairs{},
+	"minecraft:diorite_stairs":                      DioriteStairs{},
+	"minecraft:polished_granite_slab":               PolishedGraniteSlab{},
+	"minecraft:smooth_red_sandstone_slab":           SmoothRedSandstoneSlab{},
+	"minecraft:mossy_stone_brick_slab":              MossyStoneBrickSlab{},
+	"minecraft:polished_diorite_slab":               PolishedDioriteSlab{},
+	"minecraft:mossy_cobblestone_slab":              MossyCobblestoneSlab{},
+	"minecraft:end_stone_brick_slab":                EndStoneBrickSlab{},
+	"minecraft:smooth_sandstone_slab":               SmoothSandstoneSlab{},
+	"minecraft:smooth_quartz_slab":                  SmoothQuartzSlab{},
+	"minecraft:granite_slab":                        GraniteSlab{},
+	"minecraft:andesite_slab":                       AndesiteSlab{},
+	"minecraft:red_nether_brick_slab":               RedNetherBrickSlab{},
+	"minecraft:polished_andesite_slab":              PolishedAndesiteSlab{},
+	"minecraft:diorite_slab":                        DioriteSlab{},
+	"minecraft:brick_wall":                          BrickWall{},
+	"minecraft:prismarine_wall":                     PrismarineWall{},
+	"minecraft:red_sandstone_wall":                  RedSandstoneWall{},
+	"minecraft:mossy_stone_brick_wall":              MossyStoneBrickWall{},
+	"minecraft:granite_wall":                        GraniteWall{},
+	"minecraft:stone_brick_wall":                    StoneBrickWall{},
+	"minecraft:mud_brick_wall":                      MudBrickWall{},
+	"minecraft:nether_brick_wall":                   NetherBrickWall{},
+	"minecraft:andesite_wall":                       AndesiteWall{},
+	"minecraft:red_nether_brick_wall":               RedNetherBrickWall{},
+	"minecraft:sandstone_wall":                      SandstoneWall{},
+	"minecraft:end_stone_brick_wall":                EndStoneBrickWall{},
+	"minecraft:diorite_wall":                        DioriteWall{},
+	"minecraft:scaffolding":                         Scaffolding{},
+	"minecraft:loom":                                Loom{},
+	"minecraft:barrel":                              Barrel{},
+	"minecraft:smoker":                              Smoker{},
+	"minecraft:blast_furnace":                       BlastFurnace{},
+	"minecraft:cartography_table":                   CartographyTable{},
+	"minecraft:fletching_table":                     FletchingTable{},
+	"minecraft:grindstone":                          Grindstone{},
+	"minecraft:lectern":                             Lectern{},
+	"minecraft:smithing_table":                      SmithingTable{},
+	"minecraft:stonecutter":                         Stonecutter{},
+	"minecraft:bell":                                Bell{},
+	"minecraft:lantern":                             Lantern{},
+	"minecraft:soul_lantern":                        SoulLantern{},
+	"minecraft:copper_lantern":                      CopperLantern{},
+	"minecraft:exposed_copper_lantern":              ExposedCopperLantern{},
+	"minecraft:weathered_copper_lantern":            WeatheredCopperLantern{},
+	"minecraft:oxidized_copper_lantern":             OxidizedCopperLantern{},
+	"minecraft:waxed_copper_lantern":                WaxedCopperLantern{},
+	"minecraft:waxed_exposed_copper_lantern":        WaxedExposedCopperLantern{},
+	"minecraft:waxed_weathered_copper_lantern":      WaxedWeatheredCopperLantern{},
+	"minecraft:waxed_oxidized_copper_lantern":       WaxedOxidizedCopperLantern{},
+	"minecraft:campfire":                            Campfire{},
+	"minecraft:soul_campfire":                       SoulCampfire{},
+	"minecraft:sweet_berry_bush":                    SweetBerryBush{},
+	"minecraft:warped_stem":                         WarpedStem{},
+	"minecraft:stripped_warped_stem":                StrippedWarpedStem{},
+	"minecraft:warped_hyphae":                       WarpedHyphae{},
+	"minecraft:stripped_warped_hyphae":              StrippedWarpedHyphae{},
+	"minecraft:warped_nylium":                       WarpedNylium{},
+	"minecraft:warped_fungus":                       WarpedFungus{},
+	"minecraft:warped_wart_block":                   WarpedWartBlock{},
+	"minecraft:warped_roots":                        WarpedRoots{},
+	"minecraft:nether_sprouts":                      NetherSprouts{},
+	"minecraft:crimson_stem":                        CrimsonStem{},
+	"minecraft:stripped_crimson_stem":               StrippedCrimsonStem{},
+	"minecraft:crimson_hyphae":                      CrimsonHyphae{},
+	"minecraft:stripped_crimson_hyphae":             StrippedCrimsonHyphae{},
+	"minecraft:crimson_nylium":                      CrimsonNylium{},
+	"minecraft:crimson_fungus":                      CrimsonFungus{},
+	"minecraft:shroomlight":                         Shroomlight{},
+	"minecraft:weeping_vines":                       WeepingVines{},
+	"minecraft:weeping_vines_plant":                 WeepingVinesPlant{},
+	"minecraft:twisting_vines":                      TwistingVines{},
+	"minecraft:twisting_vines_plant":                TwistingVinesPlant{},
+	"minecraft:crimson_roots":                       CrimsonRoots{},
+	"minecraft:crimson_planks":                      CrimsonPlanks{},
+	"minecraft:warped_planks":                       WarpedPlanks{},
+	"minecraft:crimson_slab":                        CrimsonSlab{},
+	"minecraft:warped_slab":                         WarpedSlab{},
+	"minecraft:crimson_pressure_plate":              CrimsonPressurePlate{},
+	"minecraft:warped_pressure_plate":               WarpedPressurePlate{},
+	"minecraft:crimson_fence":                       CrimsonFence{},
+	"minecraft:warped_fence":                        WarpedFence{},
+	"minecraft:crimson_trapdoor":                    CrimsonTrapdoor{},
+	"minecraft:warped_trapdoor":                     WarpedTrapdoor{},
+	"minecraft:crimson_fence_gate":                  CrimsonFenceGate{},
+	"minecraft:warped_fence_gate":                   WarpedFenceGate{},
+	"minecraft:crimson_stairs":                      CrimsonStairs{},
+	"minecraft:warped_stairs":                       WarpedStairs{},
+	"minecraft:crimson_button":                      CrimsonButton{},
+	"minecraft:warped_button":                       WarpedButton{},
+	"minecraft:crimson_door":                        CrimsonDoor{},
+	"minecraft:warped_door":                         WarpedDoor{},
+	"minecraft:crimson_sign":                        CrimsonSign{},
+	"minecraft:warped_sign":                         WarpedSign{},
+	"minecraft:crimson_wall_sign":                   CrimsonWallSign{},
+	"minecraft:warped_wall_sign":                    WarpedWallSign{},
+	"minecraft:structure_block":                     StructureBlock{},
+	"minecraft:jigsaw":                              Jigsaw{},
+	"minecraft:test_block":                          TestBlock{},
+	"minecraft:test_instance_block":                 TestInstanceBlock{},
+	"minecraft:composter":                           Composter{},
+	"minecraft:target":                              Target{},
+	"minecraft:bee_nest":                            BeeNest{},
+	"minecraft:beehive":                             Beehive{},
+	"minecraft:honey_block":                         HoneyBlock{},
+	"minecraft:honeycomb_block":                     HoneycombBlock{},
+	"minecraft:netherite_block":                     NetheriteBlock{},
+	"minecraft:ancient_debris":                      AncientDebris{},
+	"minecraft:crying_obsidian":                     CryingObsidian{},
+	"minecraft:respawn_anchor":                      RespawnAnchor{},
+	"minecraft:potted_crimson_fungus":               PottedCrimsonFungus{},
+	"minecraft:potted_warped_fungus":                PottedWarpedFungus{},
+	"minecraft:potted_crimson_roots":                PottedCrimsonRoots{},
+	"minecraft:potted_warped_roots":                 PottedWarpedRoots{},
+	"minecraft:lodestone":                           Lodestone{},
+	"minecraft:blackstone":                          Blackstone{},
+	"minecraft:blackstone_stairs":                   BlackstoneStairs{},
+	"minecraft:blackstone_wall":                     BlackstoneWall{},
+	"minecraft:blackstone_slab":                     BlackstoneSlab{},
+	"minecraft:polished_blackstone":                 PolishedBlackstone{},
+	"minecraft:polished_blackstone_bricks":          PolishedBlackstoneBricks{},
+	"minecraft:cracked_polished_blackstone_bricks":  CrackedPolishedBlackstoneBricks{},
+	"minecraft:chiseled_polished_blackstone":        ChiseledPolishedBlackstone{},
+	"minecraft:polished_blackstone_brick_slab":      PolishedBlackstoneBrickSlab{},
+	"minecraft:polished_blackstone_brick_stairs":    PolishedBlackstoneBrickStairs{},
+	"minecraft:polished_blackstone_brick_wall":      PolishedBlackstoneBrickWall{},
+	"minecraft:gilded_blackstone":                   GildedBlackstone{},
+	"minecraft:polished_blackstone_stairs":          PolishedBlackstoneStairs{},
+	"minecraft:polished_blackstone_slab":            PolishedBlackstoneSlab{},
+	"minecraft:polished_blackstone_pressure_plate":  PolishedBlackstonePressurePlate{},
+	"minecraft:polished_blackstone_button":          PolishedBlackstoneButton{},
+	"minecraft:polished_blackstone_wall":            PolishedBlackstoneWall{},
+	"minecraft:chiseled_nether_bricks":              ChiseledNetherBricks{},
+	"minecraft:cracked_nether_bricks":               CrackedNetherBricks{},
+	"minecraft:quartz_bricks":                       QuartzBricks{},
+	"minecraft:candle":                              Candle{},
+	"minecraft:white_candle":                        WhiteCandle{},
+	"minecraft:orange_candle":                       OrangeCandle{},
+	"minecraft:magenta_candle":                      MagentaCandle{},
+	"minecraft:light_blue_candle":                   LightBlueCandle{},
+	"minecraft:yellow_candle":                       YellowCandle{},
+	"minecraft:lime_candle":                         LimeCandle{},
+	"minecraft:pink_candle":                         PinkCandle{},
+	"minecraft:gray_candle":                         GrayCandle{},
+	"minecraft:light_gray_candle":                   LightGrayCandle{},
+	"minecraft:cyan_candle":                         CyanCandle{},
+	"minecraft:purple_candle":                       PurpleCandle{},
+	"minecraft:blue_candle":                         BlueCandle{},
+	"minecraft:brown_candle":                        BrownCandle{},
+	"minecraft:green_candle":                        GreenCandle{},
+	"minecraft:red_candle":                          RedCandle{},
+	"minecraft:black_candle":                        BlackCandle{},
+	"minecraft:candle_cake":                         CandleCake{},
+	"minecraft:white_candle_cake":                   WhiteCandleCake{},
+	"minecraft:orange_candle_cake":                  OrangeCandleCake{},
+	"minecraft:magenta_candle_cake":                 MagentaCandleCake{},
+	"minecraft:light_blue_candle_cake":              LightBlueCandleCake{},
+	"minecraft:yellow_candle_cake":                  YellowCandleCake{},
+	"minecraft:lime_candle_cake":                    LimeCandleCake{},
+	"minecraft:pink_candle_cake":                    PinkCandleCake{},
+	"minecraft:gray_candle_cake":                    GrayCandleCake{},
+	"minecraft:light_gray_candle_cake":              LightGrayCandleCake{},
+	"minecraft:cyan_candle_cake":                    CyanCandleCake{},
+	"minecraft:purple_candle_cake":                  PurpleCandleCake{},
+	"minecraft:blue_candle_cake":                    BlueCandleCake{},
+	"minecraft:brown_candle_cake":                   BrownCandleCake{},
+	"minecraft:green_candle_cake":                   GreenCandleCake{},
+	"minecraft:red_candle_cake":                     RedCandleCake{},
+	"minecraft:black_candle_cake":                   BlackCandleCake{},
+	"minecraft:amethyst_block":                      AmethystBlock{},
+	"minecraft:budding_amethyst":                    BuddingAmethyst{},
+	"minecraft:amethyst_cluster":                    AmethystCluster{},
+	"minecraft:large_amethyst_bud":                  LargeAmethystBud{},
+	"minecraft:medium_amethyst_bud":                 MediumAmethystBud{},
+	"minecraft:small_amethyst_bud":                  SmallAmethystBud{},
+	"minecraft:tuff":                                Tuff{},
+	"minecraft:tuff_slab":                           TuffSlab{},
+	"minecraft:tuff_stairs":                         TuffStairs{},
+	"minecraft:tuff_wall":                           TuffWall{},
+	"minecraft:polished_tuff":                       PolishedTuff{},
+	"minecraft:polished_tuff_slab":                  PolishedTuffSlab{},
+	"minecraft:polished_tuff_stairs":                PolishedTuffStairs{},
+	"minecraft:polished_tuff_wall":                  PolishedTuffWall{},
+	"minecraft:chiseled_tuff":                       ChiseledTuff{},
+	"minecraft:tuff_bricks":                         TuffBricks{},
+	"minecraft:tuff_brick_slab":                     TuffBrickSlab{},
+	"minecraft:tuff_brick_stairs":                   TuffBrickStairs{},
+	"minecraft:tuff_brick_wall":                     TuffBrickWall{},
+	"minecraft:chiseled_tuff_bricks":                ChiseledTuffBricks{},
+	"minecraft:calcite":                             Calcite{},
+	"minecraft:tinted_glass":                        TintedGlass{},
+	"minecraft:powder_snow":                         PowderSnow{},
+	"minecraft:sculk_sensor":                        SculkSensor{},
+	"minecraft:calibrated_sculk_sensor":             CalibratedSculkSensor{},
+	"minecraft:sculk":                               Sculk{},
+	"minecraft:sculk_vein":                          SculkVein{},
+	"minecraft:sculk_catalyst":                      SculkCatalyst{},
+	"minecraft:sculk_shrieker":                      SculkShrieker{},
+	"minecraft:copper_block":                        CopperBlock{},
+	"minecraft:exposed_copper":                      ExposedCopper{},
+	"minecraft:weathered_copper":                    WeatheredCopper{},
+	"minecraft:oxidized_copper":                     OxidizedCopper{},
+	"minecraft:copper_ore":                          CopperOre{},
+	"minecraft:deepslate_copper_ore":                DeepslateCopperOre{},
+	"minecraft:oxidized_cut_copper":                 OxidizedCutCopper{},
+	"minecraft:weathered_cut_copper":                WeatheredCutCopper{},
+	"minecraft:exposed_cut_copper":                  ExposedCutCopper{},
+	"minecraft:cut_copper":                          CutCopper{},
+	"minecraft:oxidized_chiseled_copper":            OxidizedChiseledCopper{},
+	"minecraft:weathered_chiseled_copper":           WeatheredChiseledCopper{},
+	"minecraft:exposed_chiseled_copper":             ExposedChiseledCopper{},
+	"minecraft:chiseled_copper":                     ChiseledCopper{},
+	"minecraft:waxed_oxidized_chiseled_copper":      WaxedOxidizedChiseledCopper{},
+	"minecraft:waxed_weathered_chiseled_copper":     WaxedWeatheredChiseledCopper{},
+	"minecraft:waxed_exposed_chiseled_copper":       WaxedExposedChiseledCopper{},
+	"minecraft:waxed_chiseled_copper":               WaxedChiseledCopper{},
+	"minecraft:oxidized_cut_copper_stairs":          OxidizedCutCopperStairs{},
+	"minecraft:weathered_cut_copper_stairs":         WeatheredCutCopperStairs{},
+	"minecraft:exposed_cut_copper_stairs":           ExposedCutCopperStairs{},
+	"minecraft:cut_copper_stairs":                   CutCopperStairs{},
+	"minecraft:oxidized_cut_copper_slab":            OxidizedCutCopperSlab{},
+	"minecraft:weathered_cut_copper_slab":           WeatheredCutCopperSlab{},
+	"minecraft:exposed_cut_copper_slab":             ExposedCutCopperSlab{},
+	"minecraft:cut_copper_slab":                     CutCopperSlab{},
+	"minecraft:waxed_copper_block":                  WaxedCopperBlock{},
+	"minecraft:waxed_weathered_copper":              WaxedWeatheredCopper{},
+	"minecraft:waxed_exposed_copper":                WaxedExposedCopper{},
+	"minecraft:waxed_oxidized_copper":               WaxedOxidizedCopper{},
+	"minecraft:waxed_oxidized_cut_copper":           WaxedOxidizedCutCopper{},
+	"minecraft:waxed_weathered_cut_copper":          WaxedWeatheredCutCopper{},
+	"minecraft:waxed_exposed_cut_copper":            WaxedExposedCutCopper{},
+	"minecraft:waxed_cut_copper":                    WaxedCutCopper{},
+	"minecraft:waxed_oxidized_cut_copper_stairs":    WaxedOxidizedCutCopperStairs{},
+	"minecraft:waxed_weathered_cut_copper_stairs":   WaxedWeatheredCutCopperStairs{},
+	"minecraft:waxed_exposed_cut_copper_stairs":     WaxedExposedCutCopperStairs{},
+	"minecraft:waxed_cut_copper_stairs":             WaxedCutCopperStairs{},
+	"minecraft:waxed_oxidized_cut_copper_slab":      WaxedOxidizedCutCopperSlab{},
+	"minecraft:waxed_weathered_cut_copper_slab":     WaxedWeatheredCutCopperSlab{},
+	"minecraft:waxed_exposed_cut_copper_slab":       WaxedExposedCutCopperSlab{},
+	"minecraft:waxed_cut_copper_slab":               WaxedCutCopperSlab{},
+	"minecraft:copper_door":                         CopperDoor{},
+	"minecraft:exposed_copper_door":                 ExposedCopperDoor{},
+	"minecraft:oxidized_copper_door":                OxidizedCopperDoor{},
+	"minecraft:weathered_copper_door":               WeatheredCopperDoor{},
+	"minecraft:waxed_copper_door":                   WaxedCopperDoor{},
+	"minecraft:waxed_exposed_copper_door":           WaxedExposedCopperDoor{},
+	"minecraft:waxed_oxidized_copper_door":          WaxedOxidizedCopperDoor{},
+	"minecraft:waxed_weathered_copper_door":         WaxedWeatheredCopperDoor{},
+	"minecraft:copper_trapdoor":                     CopperTrapdoor{},
+	"minecraft:exposed_copper_trapdoor":             ExposedCopperTrapdoor{},
+	"minecraft:oxidized_copper_trapdoor":            OxidizedCopperTrapdoor{},
+	"minecraft:weathered_copper_trapdoor":           WeatheredCopperTrapdoor{},
+	"minecraft:waxed_copper_trapdoor":               WaxedCopperTrapdoor{},
+	"minecraft:waxed_exposed_copper_trapdoor":       WaxedExposedCopperTrapdoor{},
+	"minecraft:waxed_oxidized_copper_trapdoor":      WaxedOxidizedCopperTrapdoor{},
+	"minecraft:waxed_weathered_copper_trapdoor":     WaxedWeatheredCopperTrapdoor{},
+	"minecraft:copper_grate":                        CopperGrate{},
+	"minecraft:exposed_copper_grate":                ExposedCopperGrate{},
+	"minecraft:weathered_copper_grate":              WeatheredCopperGrate{},
+	"minecraft:oxidized_copper_grate":               OxidizedCopperGrate{},
+	"minecraft:waxed_copper_grate":                  WaxedCopperGrate{},
+	"minecraft:waxed_exposed_copper_grate":          WaxedExposedCopperGrate{},
+	"minecraft:waxed_weathered_copper_grate":        WaxedWeatheredCopperGrate{},
+	"minecraft:waxed_oxidized_copper_grate":         WaxedOxidizedCopperGrate{},
+	"minecraft:copper_bulb":                         CopperBulb{},
+	"minecraft:exposed_copper_bulb":                 ExposedCopperBulb{},
+	"minecraft:weathered_copper_bulb":               WeatheredCopperBulb{},
+	"minecraft:oxidized_copper_bulb":                OxidizedCopperBulb{},
+	"minecraft:waxed_copper_bulb":                   WaxedCopperBulb{},
+	"minecraft:waxed_exposed_copper_bulb":           WaxedExposedCopperBulb{},
+	"minecraft:waxed_weathered_copper_bulb":         WaxedWeatheredCopperBulb{},
+	"minecraft:waxed_oxidized_copper_bulb":          WaxedOxidizedCopperBulb{},
+	"minecraft:copper_chest":                        CopperChest{},
+	"minecraft:exposed_copper_chest":                ExposedCopperChest{},
+	"minecraft:weathered_copper_chest":              WeatheredCopperChest{},
+	"minecraft:oxidized_copper_chest":               OxidizedCopperChest{},
+	"minecraft:waxed_copper_chest":                  WaxedCopperChest{},
+	"minecraft:waxed_exposed_copper_chest":          WaxedExposedCopperChest{},
+	"minecraft:waxed_weathered_copper_chest":        WaxedWeatheredCopperChest{},
+	"minecraft:waxed_oxidized_copper_chest":         WaxedOxidizedCopperChest{},
+	"minecraft:copper_golem_statue":                 CopperGolemStatue{},
+	"minecraft:exposed_copper_golem_statue":         ExposedCopperGolemStatue{},
+	"minecraft:weathered_copper_golem_statue":       WeatheredCopperGolemStatue{},
+	"minecraft:oxidized_copper_golem_statue":        OxidizedCopperGolemStatue{},
+	"minecraft:waxed_copper_golem_statue":           WaxedCopperGolemStatue{},
+	"minecraft:waxed_exposed_copper_golem_statue":   WaxedExposedCopperGolemStatue{},
+	"minecraft:waxed_weathered_copper_golem_statue": WaxedWeatheredCopperGolemStatue{},
+	"minecraft:waxed_oxidized_copper_golem_statue":  WaxedOxidizedCopperGolemStatue{},
+	"minecraft:lightning_rod":                       LightningRod{},
+	"minecraft:exposed_lightning_rod":               ExposedLightningRod{},
+	"minecraft:weathered_lightning_rod":             WeatheredLightningRod{},
+	"minecraft:oxidized_lightning_rod":              OxidizedLightningRod{},
+	"minecraft:waxed_lightning_rod":                 WaxedLightningRod{},
+	"minecraft:waxed_exposed_lightning_rod":         WaxedExposedLightningRod{},
+	"minecraft:waxed_weathered_lightning_rod":       WaxedWeatheredLightningRod{},
+	"minecraft:waxed_oxidized_lightning_rod":        WaxedOxidizedLightningRod{},
+	"minecraft:pointed_dripstone":                   PointedDripstone{},
+	"minecraft:dripstone_block":                     DripstoneBlock{},
+	"minecraft:cave_vines":                          CaveVines{},
+	"minecraft:cave_vines_plant":                    CaveVinesPlant{},
+	"minecraft:spore_blossom":                       SporeBlossom{},
+	"minecraft:azalea":                              Azalea{},
+	"minecraft:flowering_azalea":                    FloweringAzalea{},
+	"minecraft:moss_carpet":                         MossCarpet{},
+	"minecraft:pink_petals":                         PinkPetals{},
+	"minecraft:wildflowers":                         Wildflowers{},
+	"minecraft:leaf_litter":                         LeafLitter{},
+	"minecraft:moss_block":                          MossBlock{},
+	"minecraft:big_dripleaf":                        BigDripleaf{},
+	"minecraft:big_dripleaf_stem":                   BigDripleafStem{},
+	"minecraft:small_dripleaf":                      SmallDripleaf{},
+	"minecraft:hanging_roots":                       HangingRoots{},
+	"minecraft:rooted_dirt":                         RootedDirt{},
+	"minecraft:mud":                                 Mud{},
+	"minecraft:deepslate":                           Deepslate{},
+	"minecraft:cobbled_deepslate":                   CobbledDeepslate{},
+	"minecraft:cobbled_deepslate_stairs":            CobbledDeepslateStairs{},
+	"minecraft:cobbled_deepslate_slab":              CobbledDeepslateSlab{},
+	"minecraft:cobbled_deepslate_wall":              CobbledDeepslateWall{},
+	"minecraft:polished_deepslate":                  PolishedDeepslate{},
+	"minecraft:polished_deepslate_stairs":           PolishedDeepslateStairs{},
+	"minecraft:polished_deepslate_slab":             PolishedDeepslateSlab{},
+	"minecraft:polished_deepslate_wall":             PolishedDeepslateWall{},
+	"minecraft:deepslate_tiles":                     DeepslateTiles{},
+	"minecraft:deepslate_tile_stairs":               DeepslateTileStairs{},
+	"minecraft:deepslate_tile_slab":                 DeepslateTileSlab{},
+	"minecraft:deepslate_tile_wall":                 DeepslateTileWall{},
+	"minecraft:deepslate_bricks":                    DeepslateBricks{},
+	"minecraft:deepslate_brick_stairs":              DeepslateBrickStairs{},
+	"minecraft:deepslate_brick_slab":                DeepslateBrickSlab{},
+	"minecraft:deepslate_brick_wall":                DeepslateBrickWall{},
+	"minecraft:chiseled_deepslate":                  ChiseledDeepslate{},
+	"minecraft:cracked_deepslate_bricks":            CrackedDeepslateBricks{},
+	"minecraft:cracked_deepslate_tiles":             CrackedDeepslateTiles{},
+	"minecraft:infested_deepslate":                  InfestedDeepslate{},
+	"minecraft:smooth_basalt":                       SmoothBasalt{},
+	"minecraft:raw_iron_block":                      RawIronBlock{},
+	"minecraft:raw_copper_block":                    RawCopperBlock{},
+	"minecraft:raw_gold_block":                      RawGoldBlock{},
+	"minecraft:potted_azalea_bush":                  PottedAzaleaBush{},
+	"minecraft:potted_flowering_azalea_bush":        PottedFloweringAzaleaBush{},
+	"minecraft:ochre_froglight":                     OchreFroglight{},
+	"minecraft:verdant_froglight":                   VerdantFroglight{},
+	"minecraft:pearlescent_froglight":               PearlescentFroglight{},
+	"minecraft:frogspawn":                           Frogspawn{},
+	"minecraft:reinforced_deepslate":                ReinforcedDeepslate{},
+	"minecraft:decorated_pot":                       DecoratedPot{},
+	"minecraft:crafter":                             Crafter{},
+	"minecraft:trial_spawner":                       TrialSpawner{},
+	"minecraft:vault":                               Vault{},
+	"minecraft:heavy_core":                          HeavyCore{},
+	"minecraft:pale_moss_block":                     PaleMossBlock{},
+	"minecraft:pale_moss_carpet":                    PaleMossCarpet{},
+	"minecraft:pale_hanging_moss":                   PaleHangingMoss{},
+	"minecraft:open_eyeblossom":                     OpenEyeblossom{},
+	"minecraft:closed_eyeblossom":                   ClosedEyeblossom{},
+	"minecraft:potted_open_eyeblossom":              PottedOpenEyeblossom{},
+	"minecraft:potted_closed_eyeblossom":            PottedClosedEyeblossom{},
+	"minecraft:firefly_bush":                        FireflyBush{},
 }

@@ -8,6 +8,7 @@ var LootPoolEntryType = []string{
 	"minecraft:loot_table",
 	"minecraft:dynamic",
 	"minecraft:tag",
+	"minecraft:slots",
 	"minecraft:alternatives",
 	"minecraft:sequence",
 	"minecraft:group",

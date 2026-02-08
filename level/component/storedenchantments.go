@@ -9,11 +9,7 @@ import (
 var _ DataComponent = (*StoredEnchantments)(nil)
 
 type StoredEnchantments struct {
-	Enchantments []struct {
-		Type  pk.VarInt
-		Level pk.VarInt
-	}
-	ShowInTooltip pk.Boolean
+	Enchantments []EnchantmentEntry
 }
 
 // ID implements DataComponent.
@@ -23,16 +19,10 @@ func (StoredEnchantments) ID() string {
 
 // ReadFrom implements DataComponent.
 func (s *StoredEnchantments) ReadFrom(r io.Reader) (n int64, err error) {
-	return pk.Tuple{
-		pk.Array(&s.Enchantments),
-		&s.ShowInTooltip,
-	}.ReadFrom(r)
+	return pk.Array(&s.Enchantments).ReadFrom(r)
 }
 
 // WriteTo implements DataComponent.
 func (s *StoredEnchantments) WriteTo(w io.Writer) (n int64, err error) {
-	return pk.Tuple{
-		pk.Array(&s.Enchantments),
-		&s.ShowInTooltip,
-	}.WriteTo(w)
+	return pk.Array(&s.Enchantments).WriteTo(w)
 }
