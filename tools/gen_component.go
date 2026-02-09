@@ -83,6 +83,12 @@ func NewComponent(id int32) DataComponent {
 			logf("%s", u)
 		}
 	}
+
+	// Generate individual type files from the hand-crafted schema.
+	if err := genComponentTypes(goMCRoot); err != nil {
+		return err
+	}
+
 	return nil
 }
 

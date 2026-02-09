@@ -1,3 +1,4 @@
+// bannerpatterns.go contains helper types for the BannerPatterns data component.
 package component
 
 import (
@@ -5,8 +6,6 @@ import (
 
 	pk "github.com/Tnze/go-mc/net/packet"
 )
-
-var _ DataComponent = (*BannerPatterns)(nil)
 
 // BannerPatternLayer represents a single banner pattern layer.
 // Wire: {pattern:registryEntryHolder<BannerPattern>, colorId:VarInt}
@@ -49,25 +48,4 @@ func (l BannerPatternLayer) WriteTo(w io.Writer) (n int64, err error) {
 	n2, err := l.ColorID.WriteTo(w)
 	n += n2
 	return
-}
-
-// BannerPatterns component (wire 63).
-// Wire: {layers:Array<BannerPatternLayer>}
-type BannerPatterns struct {
-	Layers []BannerPatternLayer
-}
-
-// ID implements DataComponent.
-func (BannerPatterns) ID() string {
-	return "minecraft:banner_patterns"
-}
-
-// ReadFrom implements DataComponent.
-func (b *BannerPatterns) ReadFrom(r io.Reader) (n int64, err error) {
-	return pk.Array(&b.Layers).ReadFrom(r)
-}
-
-// WriteTo implements DataComponent.
-func (b *BannerPatterns) WriteTo(w io.Writer) (n int64, err error) {
-	return pk.Array(&b.Layers).WriteTo(w)
 }
