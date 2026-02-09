@@ -36,7 +36,7 @@ func _() {
 	_ = x[ClientboundConfigClearDialog-17]
 	_ = x[ClientboundConfigShowDialog-18]
 	_ = x[ClientboundConfigCodeOfConduct-19]
-	_ = x[BundleDelimiter-0]
+	_ = x[ClientboundBundleDelimiter-0]
 	_ = x[ClientboundAddEntity-1]
 	_ = x[ClientboundAnimate-2]
 	_ = x[ClientboundAwardStats-3]
