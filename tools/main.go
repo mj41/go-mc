@@ -36,6 +36,7 @@ var generators = []generator{
 	{"component", genComponent},
 	{"blockentities", genBlockEntities},
 	{"registryid", genRegistryID},
+	{"biome", genBiome},
 }
 
 func main() {
@@ -105,7 +106,7 @@ func main() {
 		elapsed := time.Since(start).Round(time.Millisecond)
 		fmt.Fprintf(os.Stderr, "  %s: done (%s)\n", g.name, elapsed)
 	}
-	fmt.Fprintln(os.Stderr, "\ntools: all 8 generators done!")
+	fmt.Fprintf(os.Stderr, "\ntools: all %d generators done!\n", len(generators))
 }
 
 // detectGoMCRoot finds the go-mc repository root by walking up from the
