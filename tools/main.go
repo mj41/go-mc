@@ -37,6 +37,7 @@ var generators = []generator{
 	{"blockentities", genBlockEntities},
 	{"registryid", genRegistryID},
 	{"biome", genBiome},
+	{"lang", genLang},
 }
 
 func main() {

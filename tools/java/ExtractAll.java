@@ -77,6 +77,9 @@ public class ExtractAll {
         Files.createDirectories(outputDir);
         copyReports(reportsDir, outputDir);
 
+        // Step 4.5: Extract en_us.json from inner jar (for lang generator).
+        extractLangJson(innerJar, outputDir);
+
         // Step 5: Run custom extractors (if present).
         runCustomExtractors(serverJar, innerJar, outputDir);
 
@@ -287,6 +290,25 @@ public class ExtractAll {
         if (Files.exists(schema)) {
             Files.copy(schema, outputDir.resolve("json-rpc-api-schema.json"),
                        StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    // --- Step 4.5: Extract en_us.json from inner jar ---
+
+    static void extractLangJson(Path innerJar, Path outputDir) throws Exception {
+        String entryName = "assets/minecraft/lang/en_us.json";
+        Path dest = outputDir.resolve("en_us.json");
+
+        try (ZipFile zip = new ZipFile(innerJar.toFile())) {
+            ZipEntry entry = zip.getEntry(entryName);
+            if (entry == null) {
+                log("  WARNING: %s not found in inner jar, skipping lang extraction.", entryName);
+                return;
+            }
+            try (InputStream in = zip.getInputStream(entry)) {
+                Files.copy(in, dest, StandardCopyOption.REPLACE_EXISTING);
+            }
+            log("  %-25s %s (from inner jar)", "en_us.json", humanSize(entry.getSize()));
         }
     }
 
