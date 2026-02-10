@@ -36,6 +36,11 @@ func genComponent(jsonDir, goMCRoot string) error {
 		return fmt.Errorf("genComponent: %w", err)
 	}
 
+	// Generate individual type files first (so discoverImplementedTypes finds them).
+	if err := genComponentTypes(jsonDir, goMCRoot); err != nil {
+		return err
+	}
+
 	// Discover implemented types by scanning Go source files.
 	implemented := discoverImplementedTypes(compDir)
 
@@ -90,11 +95,6 @@ func NewComponent(id int32) DataComponent {
 		for _, u := range unimplemented {
 			logf("%s", u)
 		}
-	}
-
-	// Generate individual type files from the hand-crafted schema.
-	if err := genComponentTypes(goMCRoot); err != nil {
-		return err
 	}
 
 	return nil

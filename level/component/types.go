@@ -504,3 +504,38 @@ func (p *BannerPattern) ReadFrom(r io.Reader) (n int64, err error) {
 func (p BannerPattern) WriteTo(w io.Writer) (n int64, err error) {
 	return pk.Tuple{&p.AssetID, &p.TranslationKey}.WriteTo(w)
 }
+
+// SoundEvent represents an ItemSoundHolder (registryEntryHolder for sound events).
+// Wire: soundId:VarInt. If 0, read inline {soundName:string, fixedRange:Option<f32>}.
+// If >0, value is soundId-1 (registry reference).
+type SoundEvent struct {
+	Type       pk.VarInt
+	SoundName  pk.Identifier
+	FixedRange pk.Option[pk.Float, *pk.Float]
+}
+
+func (s *SoundEvent) ReadFrom(r io.Reader) (int64, error) {
+	return pk.Tuple{
+		&s.Type,
+		pk.Opt{
+			Has: func() bool { return s.Type == 0 },
+			Field: pk.Tuple{
+				&s.SoundName,
+				&s.FixedRange,
+			},
+		},
+	}.ReadFrom(r)
+}
+
+func (s SoundEvent) WriteTo(w io.Writer) (int64, error) {
+	return pk.Tuple{
+		&s.Type,
+		pk.Opt{
+			Has: func() bool { return s.Type == 0 },
+			Field: pk.Tuple{
+				&s.SoundName,
+				&s.FixedRange,
+			},
+		},
+	}.WriteTo(w)
+}

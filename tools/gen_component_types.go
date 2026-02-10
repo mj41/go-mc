@@ -1,5 +1,6 @@
-// gen_component_types generates individual _gen.go files for each component type
-// defined in hand-crafted/component_schema.json.
+// gen_component_types generates individual _gen.go files for each component type.
+// The schema is built by merging an auto-extracted component_schema.json
+// (from GenComponentSchema.java) with hand-crafted overrides.
 package main
 
 import (
@@ -12,17 +13,21 @@ import (
 	"strings"
 )
 
-// componentSchema represents one entry in hand-crafted/component_schema.json.
+// componentSchema represents one entry in the merged component schema.
 type componentSchema struct {
-	Name      string       `json:"name"`
-	Pattern   string       `json:"pattern"`
-	EmbedType string       `json:"embedType,omitempty"`
-	FieldName string       `json:"fieldName,omitempty"`
-	FieldType string       `json:"fieldType,omitempty"`
-	SerMethod string       `json:"serMethod,omitempty"`
-	BaseType  string       `json:"baseType,omitempty"`
-	ElemType  string       `json:"elementType,omitempty"`
-	Fields    []tupleField `json:"fields,omitempty"`
+	Name         string         `json:"name"`
+	Pattern      string         `json:"pattern"`
+	EmbedType    string         `json:"embedType,omitempty"`
+	FieldName    string         `json:"fieldName,omitempty"`
+	FieldType    string         `json:"fieldType,omitempty"`
+	SerMethod    string         `json:"serMethod,omitempty"`
+	BaseType     string         `json:"baseType,omitempty"`
+	ElemType     string         `json:"elementType,omitempty"`
+	Fields       []tupleField   `json:"fields,omitempty"`
+	InlineType   string         `json:"inlineType,omitempty"`
+	InlineFields []tupleField   `json:"inlineFields,omitempty"`
+	Holders      []holderConfig `json:"holders,omitempty"`
+	Comment      string         `json:"_comment,omitempty"` // ignored, for JSON readability
 }
 
 type tupleField struct {
@@ -30,12 +35,17 @@ type tupleField struct {
 	Type string `json:"type"`
 }
 
-func genComponentTypes(goMCRoot string) error {
-	schemaPath := filepath.Join(goMCRoot, "tools", "hand-crafted", "component_schema.json")
+type holderConfig struct {
+	TypeName   string `json:"typeName"`
+	DataName   string `json:"dataName"`
+	InlineType string `json:"inlineType"`
+}
+
+func genComponentTypes(jsonDir, goMCRoot string) error {
 	compDir := filepath.Join(goMCRoot, "level", "component")
 
-	var schema []componentSchema
-	if err := readJSON(schemaPath, &schema); err != nil {
+	schema, err := loadMergedSchema(jsonDir, goMCRoot)
+	if err != nil {
 		return fmt.Errorf("genComponentTypes: %w", err)
 	}
 
@@ -70,6 +80,86 @@ func genComponentTypes(goMCRoot string) error {
 	return nil
 }
 
+// loadMergedSchema builds the component schema by merging the auto-extracted
+// schema (from GenComponentSchema.java) with hand-crafted overrides.
+//
+// Merge logic: start with extracted entries, then replace any entry whose
+// name matches an override. Override entries not present in extracted (new
+// components added manually) are appended. The result is sorted by name.
+//
+// Fallback: if the extracted schema doesn't exist (e.g., running without
+// --extract, or using an older json-dir), fall back to the hand-crafted
+// component_schema.json.
+func loadMergedSchema(jsonDir, goMCRoot string) ([]componentSchema, error) {
+	extractedPath := filepath.Join(jsonDir, "component_schema.json")
+	overridesPath := filepath.Join(goMCRoot, "tools", "hand-crafted", "component_schema_overrides.json")
+	fallbackPath := filepath.Join(goMCRoot, "tools", "hand-crafted", "component_schema.json")
+
+	// Try to load extracted schema.
+	var extracted []componentSchema
+	if err := readJSON(extractedPath, &extracted); err != nil {
+		// Fallback to the hand-crafted schema.
+		logf("genComponentTypes: no extracted schema at %s, using hand-crafted fallback", extractedPath)
+		var fallback []componentSchema
+		if err := readJSON(fallbackPath, &fallback); err != nil {
+			return nil, fmt.Errorf("reading fallback schema: %w", err)
+		}
+		return fallback, nil
+	}
+
+	// Load overrides (optional — if missing, just use extracted as-is).
+	var overrides []componentSchema
+	if err := readJSON(overridesPath, &overrides); err != nil {
+		logf("genComponentTypes: no overrides file, using extracted schema as-is")
+		return extracted, nil
+	}
+
+	// Build override map (name → entry), skipping comment-only entries.
+	overrideMap := make(map[string]componentSchema, len(overrides))
+	for _, o := range overrides {
+		if o.Name == "" {
+			continue // skip _comment entries
+		}
+		overrideMap[o.Name] = o
+	}
+
+	// Merge: extracted entries, replacing with overrides where present.
+	seen := make(map[string]bool, len(extracted))
+	merged := make([]componentSchema, 0, len(extracted)+len(overrides))
+	overridden := 0
+	for _, e := range extracted {
+		if o, ok := overrideMap[e.Name]; ok {
+			merged = append(merged, o)
+			overridden++
+		} else {
+			merged = append(merged, e)
+		}
+		seen[e.Name] = true
+	}
+
+	// Append override entries not present in extracted (manually added components).
+	added := 0
+	for _, o := range overrides {
+		if o.Name == "" {
+			continue // skip _comment entries
+		}
+		if !seen[o.Name] {
+			merged = append(merged, o)
+			added++
+		}
+	}
+
+	// Sort by name for stable output.
+	sort.Slice(merged, func(i, j int) bool {
+		return merged[i].Name < merged[j].Name
+	})
+
+	logf("genComponentTypes: merged schema: %d extracted + %d overrides applied (%d overridden, %d added) = %d total",
+		len(extracted), len(overrides), overridden, added, len(merged))
+
+	return merged, nil
+}
+
 func generateComponentCode(s componentSchema, goName string) (string, error) {
 	switch s.Pattern {
 	case "embed":
@@ -86,12 +176,18 @@ func generateComponentCode(s componentSchema, goName string) (string, error) {
 		return genArray(s, goName), nil
 	case "tuple":
 		return genTuple(s, goName), nil
+	case "either_holder_data":
+		return genEitherHolderData(s, goName), nil
+	case "holder_data":
+		return genHolderData(s, goName), nil
+	case "composite_holder":
+		return genCompositeHolder(s, goName), nil
 	default:
 		return "", fmt.Errorf("unknown pattern %q", s.Pattern)
 	}
 }
 
-const compGenHeader = "// Code generated by tools/gen_component_types.go from hand-crafted/component_schema.json; DO NOT EDIT.\n"
+const compGenHeader = "// Code generated by tools/gen_component_types.go from merged component schema; DO NOT EDIT.\n"
 
 // compReceiver returns a lowercase receiver variable for the given Go type name,
 // avoiding collision with 'r' (reader) and 'w' (writer) params.
@@ -375,6 +471,271 @@ func genTuple(s componentSchema, goName string) string {
 	buf.WriteString("\treturn pk.Tuple{\n")
 	for _, f := range s.Fields {
 		fmt.Fprintf(&buf, "\t\t%s,\n", fieldTupleArg(rcv, f))
+	}
+	buf.WriteString("\t}.WriteTo(w)\n")
+	buf.WriteString("}\n")
+	return buf.String()
+}
+
+// ---------------------------------------------------------------------------
+// Holder pattern generators
+// ---------------------------------------------------------------------------
+
+// genEitherHolderData generates a component with the full EitherHolder pattern:
+// HasHolder:Boolean, HolderType:VarInt (if HasHolder), InlineData (if HolderType==0), TagKey:String (if !HasHolder).
+// If inlineFields are provided, the inline data type is also generated.
+func genEitherHolderData(s componentSchema, goName string) string {
+	is := newImportSet()
+	is.addIO()
+	is.addPk()
+
+	rcv := compReceiver(goName)
+
+	// Collect imports from inline fields.
+	for _, f := range s.InlineFields {
+		is.addForType(f.Type)
+		if inner := extractInnerType(f.Type); inner != "" {
+			is.addForType(inner)
+		}
+	}
+
+	var buf strings.Builder
+	buf.WriteString(compGenHeader)
+	buf.WriteString("package component\n\n")
+	buf.WriteString(is.render())
+	buf.WriteString("\n")
+	fmt.Fprintf(&buf, "var _ DataComponent = (*%s)(nil)\n\n", goName)
+
+	// Generate inline data type if fields are specified.
+	if len(s.InlineFields) > 0 {
+		fmt.Fprintf(&buf, "type %s struct {\n", s.InlineType)
+		for _, f := range s.InlineFields {
+			fmt.Fprintf(&buf, "\t%s %s\n", f.Name, fieldStructType(f.Type))
+		}
+		buf.WriteString("}\n\n")
+
+		// InlineData ReadFrom.
+		drcv := strings.ToLower(s.InlineType[:1])
+		if drcv == "r" || drcv == "w" {
+			drcv = "d"
+		}
+		fmt.Fprintf(&buf, "func (%s *%s) ReadFrom(r io.Reader) (int64, error) {\n", drcv, s.InlineType)
+		fmt.Fprintf(&buf, "\treturn pk.Tuple{")
+		for i, f := range s.InlineFields {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			fmt.Fprintf(&buf, "&%s.%s", drcv, f.Name)
+		}
+		buf.WriteString("}.ReadFrom(r)\n")
+		buf.WriteString("}\n\n")
+
+		// InlineData WriteTo.
+		fmt.Fprintf(&buf, "func (%s %s) WriteTo(w io.Writer) (int64, error) {\n", drcv, s.InlineType)
+		fmt.Fprintf(&buf, "\treturn pk.Tuple{")
+		for i, f := range s.InlineFields {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			fmt.Fprintf(&buf, "&%s.%s", drcv, f.Name)
+		}
+		buf.WriteString("}.WriteTo(w)\n")
+		buf.WriteString("}\n\n")
+	}
+
+	// Generate main component struct.
+	fmt.Fprintf(&buf, "type %s struct {\n", goName)
+	buf.WriteString("\tHasHolder  pk.Boolean\n")
+	buf.WriteString("\tHolderType pk.VarInt\n")
+	fmt.Fprintf(&buf, "\tInlineData %s\n", s.InlineType)
+	buf.WriteString("\tTagKey     pk.String\n")
+	buf.WriteString("}\n\n")
+
+	// ID.
+	fmt.Fprintf(&buf, "func (%s) ID() string { return %q }\n\n", goName, s.Name)
+
+	// ReadFrom.
+	fmt.Fprintf(&buf, "func (%s *%s) ReadFrom(r io.Reader) (n int64, err error) {\n", rcv, goName)
+	fmt.Fprintf(&buf, "\tn, err = %s.HasHolder.ReadFrom(r)\n", rcv)
+	buf.WriteString("\tif err != nil {\n\t\treturn\n\t}\n")
+	fmt.Fprintf(&buf, "\tif %s.HasHolder {\n", rcv)
+	fmt.Fprintf(&buf, "\t\tn2, err := %s.HolderType.ReadFrom(r)\n", rcv)
+	buf.WriteString("\t\tn += n2\n")
+	buf.WriteString("\t\tif err != nil {\n\t\t\treturn n, err\n\t\t}\n")
+	fmt.Fprintf(&buf, "\t\tif %s.HolderType == 0 {\n", rcv)
+	fmt.Fprintf(&buf, "\t\t\tn2, err = %s.InlineData.ReadFrom(r)\n", rcv)
+	buf.WriteString("\t\t\tn += n2\n")
+	buf.WriteString("\t\t}\n")
+	buf.WriteString("\t\treturn n, err\n")
+	buf.WriteString("\t}\n")
+	fmt.Fprintf(&buf, "\tn2, err := %s.TagKey.ReadFrom(r)\n", rcv)
+	buf.WriteString("\treturn n + n2, err\n")
+	buf.WriteString("}\n\n")
+
+	// WriteTo.
+	fmt.Fprintf(&buf, "func (%s *%s) WriteTo(w io.Writer) (n int64, err error) {\n", rcv, goName)
+	fmt.Fprintf(&buf, "\tn, err = %s.HasHolder.WriteTo(w)\n", rcv)
+	buf.WriteString("\tif err != nil {\n\t\treturn\n\t}\n")
+	fmt.Fprintf(&buf, "\tif %s.HasHolder {\n", rcv)
+	fmt.Fprintf(&buf, "\t\tn2, err := %s.HolderType.WriteTo(w)\n", rcv)
+	buf.WriteString("\t\tn += n2\n")
+	buf.WriteString("\t\tif err != nil {\n\t\t\treturn n, err\n\t\t}\n")
+	fmt.Fprintf(&buf, "\t\tif %s.HolderType == 0 {\n", rcv)
+	fmt.Fprintf(&buf, "\t\t\tn2, err = %s.InlineData.WriteTo(w)\n", rcv)
+	buf.WriteString("\t\t\tn += n2\n")
+	buf.WriteString("\t\t}\n")
+	buf.WriteString("\t\treturn n, err\n")
+	buf.WriteString("\t}\n")
+	fmt.Fprintf(&buf, "\tn2, err := %s.TagKey.WriteTo(w)\n", rcv)
+	buf.WriteString("\treturn n + n2, err\n")
+	buf.WriteString("}\n")
+	return buf.String()
+}
+
+// genHolderData generates a component with the registryEntryHolder pattern:
+// Type:VarInt. If 0, read inline data. If >0, registry ref (value-1).
+// If inlineFields are provided, the inline data type is also generated.
+func genHolderData(s componentSchema, goName string) string {
+	is := newImportSet()
+	is.addIO()
+	is.addPk()
+
+	rcv := compReceiver(goName)
+
+	// Collect imports from inline fields.
+	for _, f := range s.InlineFields {
+		is.addForType(f.Type)
+		if inner := extractInnerType(f.Type); inner != "" {
+			is.addForType(inner)
+		}
+	}
+
+	var buf strings.Builder
+	buf.WriteString(compGenHeader)
+	buf.WriteString("package component\n\n")
+	buf.WriteString(is.render())
+	buf.WriteString("\n")
+	fmt.Fprintf(&buf, "var _ DataComponent = (*%s)(nil)\n\n", goName)
+
+	// Generate inline data type if fields are specified.
+	if len(s.InlineFields) > 0 {
+		fmt.Fprintf(&buf, "type %s struct {\n", s.InlineType)
+		for _, f := range s.InlineFields {
+			fmt.Fprintf(&buf, "\t%s %s\n", f.Name, fieldStructType(f.Type))
+		}
+		buf.WriteString("}\n\n")
+
+		drcv := strings.ToLower(s.InlineType[:1])
+		if drcv == "r" || drcv == "w" {
+			drcv = "d"
+		}
+		fmt.Fprintf(&buf, "func (%s *%s) ReadFrom(r io.Reader) (int64, error) {\n", drcv, s.InlineType)
+		fmt.Fprintf(&buf, "\treturn pk.Tuple{")
+		for i, f := range s.InlineFields {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			fmt.Fprintf(&buf, "&%s.%s", drcv, f.Name)
+		}
+		buf.WriteString("}.ReadFrom(r)\n")
+		buf.WriteString("}\n\n")
+
+		fmt.Fprintf(&buf, "func (%s %s) WriteTo(w io.Writer) (int64, error) {\n", drcv, s.InlineType)
+		fmt.Fprintf(&buf, "\treturn pk.Tuple{")
+		for i, f := range s.InlineFields {
+			if i > 0 {
+				buf.WriteString(", ")
+			}
+			fmt.Fprintf(&buf, "&%s.%s", drcv, f.Name)
+		}
+		buf.WriteString("}.WriteTo(w)\n")
+		buf.WriteString("}\n\n")
+	}
+
+	// Generate main component struct.
+	fmt.Fprintf(&buf, "type %s struct {\n", goName)
+	buf.WriteString("\tType       pk.VarInt\n")
+	fmt.Fprintf(&buf, "\tInlineData %s\n", s.InlineType)
+	buf.WriteString("}\n\n")
+
+	// ID.
+	fmt.Fprintf(&buf, "func (%s) ID() string { return %q }\n\n", goName, s.Name)
+
+	// ReadFrom.
+	fmt.Fprintf(&buf, "func (%s *%s) ReadFrom(r io.Reader) (n int64, err error) {\n", rcv, goName)
+	fmt.Fprintf(&buf, "\tn, err = %s.Type.ReadFrom(r)\n", rcv)
+	buf.WriteString("\tif err != nil {\n\t\treturn\n\t}\n")
+	fmt.Fprintf(&buf, "\tif %s.Type == 0 {\n", rcv)
+	fmt.Fprintf(&buf, "\t\tn2, err := %s.InlineData.ReadFrom(r)\n", rcv)
+	buf.WriteString("\t\tn += n2\n")
+	buf.WriteString("\t\treturn n, err\n")
+	buf.WriteString("\t}\n")
+	buf.WriteString("\treturn\n")
+	buf.WriteString("}\n\n")
+
+	// WriteTo.
+	fmt.Fprintf(&buf, "func (%s *%s) WriteTo(w io.Writer) (n int64, err error) {\n", rcv, goName)
+	fmt.Fprintf(&buf, "\tn, err = %s.Type.WriteTo(w)\n", rcv)
+	buf.WriteString("\tif err != nil {\n\t\treturn\n\t}\n")
+	fmt.Fprintf(&buf, "\tif %s.Type == 0 {\n", rcv)
+	fmt.Fprintf(&buf, "\t\tn2, err := %s.InlineData.WriteTo(w)\n", rcv)
+	buf.WriteString("\t\tn += n2\n")
+	buf.WriteString("\t\treturn n, err\n")
+	buf.WriteString("\t}\n")
+	buf.WriteString("\treturn\n")
+	buf.WriteString("}\n")
+	return buf.String()
+}
+
+// genCompositeHolder generates a component with multiple registryEntryHolder fields,
+// each conditional on its type being 0 (inline). Uses pk.Tuple with pk.Opt.
+func genCompositeHolder(s componentSchema, goName string) string {
+	is := newImportSet()
+	is.addIO()
+	is.addPk()
+
+	rcv := compReceiver(goName)
+
+	var buf strings.Builder
+	buf.WriteString(compGenHeader)
+	buf.WriteString("package component\n\n")
+	buf.WriteString(is.render())
+	buf.WriteString("\n")
+	fmt.Fprintf(&buf, "var _ DataComponent = (*%s)(nil)\n\n", goName)
+
+	// Struct definition.
+	fmt.Fprintf(&buf, "type %s struct {\n", goName)
+	for _, h := range s.Holders {
+		fmt.Fprintf(&buf, "\t%s pk.VarInt\n", h.TypeName)
+		fmt.Fprintf(&buf, "\t%s %s\n", h.DataName, h.InlineType)
+	}
+	buf.WriteString("}\n\n")
+
+	// ID.
+	fmt.Fprintf(&buf, "func (%s) ID() string { return %q }\n\n", goName, s.Name)
+
+	// ReadFrom.
+	fmt.Fprintf(&buf, "func (%s *%s) ReadFrom(r io.Reader) (n int64, err error) {\n", rcv, goName)
+	buf.WriteString("\treturn pk.Tuple{\n")
+	for _, h := range s.Holders {
+		fmt.Fprintf(&buf, "\t\t&%s.%s,\n", rcv, h.TypeName)
+		fmt.Fprintf(&buf, "\t\tpk.Opt{\n")
+		fmt.Fprintf(&buf, "\t\t\tHas:   func() bool { return %s.%s == 0 },\n", rcv, h.TypeName)
+		fmt.Fprintf(&buf, "\t\t\tField: &%s.%s,\n", rcv, h.DataName)
+		buf.WriteString("\t\t},\n")
+	}
+	buf.WriteString("\t}.ReadFrom(r)\n")
+	buf.WriteString("}\n\n")
+
+	// WriteTo.
+	fmt.Fprintf(&buf, "func (%s *%s) WriteTo(w io.Writer) (n int64, err error) {\n", rcv, goName)
+	buf.WriteString("\treturn pk.Tuple{\n")
+	for _, h := range s.Holders {
+		fmt.Fprintf(&buf, "\t\t&%s.%s,\n", rcv, h.TypeName)
+		fmt.Fprintf(&buf, "\t\tpk.Opt{\n")
+		fmt.Fprintf(&buf, "\t\t\tHas:   func() bool { return %s.%s == 0 },\n", rcv, h.TypeName)
+		fmt.Fprintf(&buf, "\t\t\tField: &%s.%s,\n", rcv, h.DataName)
+		buf.WriteString("\t\t},\n")
 	}
 	buf.WriteString("\t}.WriteTo(w)\n")
 	buf.WriteString("}\n")
