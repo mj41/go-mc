@@ -144,6 +144,28 @@ func flagBool(args []string, key string) bool {
 }
 
 // ---------------------------------------------------------------------------
+// Hand-crafted JSON helpers
+// ---------------------------------------------------------------------------
+
+// namingOverrides represents the structure of hand-crafted/naming_overrides.json.
+type namingOverrides struct {
+	ComponentNames       map[string]string `json:"component_names"`
+	BlockTrimPrefixTypes []string          `json:"block_trim_prefix_types"`
+}
+
+// packetPhase represents one entry in hand-crafted/packet_phases.json.
+type packetPhase struct {
+	Name     string `json:"name"`
+	GoPrefix string `json:"go_prefix"`
+	Comment  string `json:"comment"`
+}
+
+// readHandCrafted reads a JSON file from tools/hand-crafted/ relative to goMCRoot.
+func readHandCrafted(goMCRoot, filename string, v any) error {
+	return readJSON(filepath.Join(goMCRoot, "tools", "hand-crafted", filename), v)
+}
+
+// ---------------------------------------------------------------------------
 // Size formatting
 // ---------------------------------------------------------------------------
 

@@ -50,16 +50,28 @@ a component is serialized on the wire, using one of these patterns:
 - `pk.Option[T]` — field is `pk.Option[T, *T]`, tuple arg is `&field`
 - `pk.NBTField[T]` — field is `T`, tuple arg is `pk.NBTField{V: &field, AllowUnknownFields: true}`
 
-### Planned Additions
+### naming_overrides.json
 
-These files will be created when the existing inline Go constants are
-migrated (see gen-more-v3.md Task 1.5):
+Go naming convention overrides that cannot be derived from MC data:
 
-- **naming_overrides.json** — Go name special cases: component name overrides
-  (`map_id` → `MapID`) and block property type prefix trimming
-  (`Direction`, `Axis`, etc. omit type-name prefix in constants)
-- **packet_phases.json** — Protocol phase ordering and Go abbreviations
-  (`configuration` → `Config`, `play` → `` (no prefix))
+- **`component_names`** — maps snake_case component names (without `minecraft:`
+  prefix) to Go type names when `snakeToCamel()` produces the wrong result.
+  Example: `map_id` → `MapID` (Go treats "ID" as an initialism).
+- **`block_trim_prefix_types`** — block property enum types whose Go constants
+  omit the type-name prefix. Example: `Direction` → `Down`, `Up` (not
+  `DirectionDown`, `DirectionUp`). Style preference only.
+
+Used by: `gen_component.go`, `gen_component_types.go`, `gen_blocks.go`
+
+### packet_phases.json
+
+Protocol phase definitions in generation order. Each entry has:
+
+- `name` — MC JSON key (e.g. `"configuration"`)
+- `go_prefix` — Go constant name prefix (e.g. `"Config"`, or `""` for play)
+- `comment` — Human-readable name for section comments
+
+Used by: `gen_packetid.go`
 
 ---
 

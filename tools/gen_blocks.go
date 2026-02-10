@@ -94,12 +94,8 @@ type enumDef struct {
 // trimPrefixTypes is a style preference for Go constant naming. When true,
 // const names omit the type prefix (e.g. Direction → Down, Up, not DirectionDown).
 // This is not derivable from MC data — it's a Go naming convention choice.
-var trimPrefixTypes = map[string]bool{
-	"Direction":   true,
-	"Axis":        true,
-	"Half":        true,
-	"FrontAndTop": true,
-}
+// Loaded from hand-crafted/naming_overrides.json.
+var trimPrefixTypes map[string]bool
 
 // ---------------------------------------------------------------------------
 // NBT output model
@@ -169,6 +165,17 @@ func genBlocks(jsonDir, goMCRoot string) error {
 	blocksOut := filepath.Join(goMCRoot, "level", "block", "blocks.go")
 	statesOut := filepath.Join(goMCRoot, "level", "block", "block_states.nbt")
 	propsOut := filepath.Join(goMCRoot, "level", "block", "properties_enum.go")
+
+	if trimPrefixTypes == nil {
+		var no namingOverrides
+		if err := readHandCrafted(goMCRoot, "naming_overrides.json", &no); err != nil {
+			return fmt.Errorf("genBlocks: %w", err)
+		}
+		trimPrefixTypes = make(map[string]bool, len(no.BlockTrimPrefixTypes))
+		for _, t := range no.BlockTrimPrefixTypes {
+			trimPrefixTypes[t] = true
+		}
+	}
 
 	// Load block_properties.json — property type metadata extracted from MC runtime.
 	enumLookup, enumDefs, err := loadPropsJSON(propsJSONPath)

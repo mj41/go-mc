@@ -22,30 +22,19 @@ type packetIDEntry struct {
 	GoName     string // e.g. "ClientboundAddEntity"
 }
 
-// phaseOrder defines which phases to generate and in what order.
-// Handshake is excluded (only has serverbound intention, handled separately).
-var phaseOrder = []string{"login", "status", "configuration", "play"}
-
-// phaseAbbrev maps JSON phase name to Go name prefix.
-// Play phase has no prefix (just Clientbound/Serverbound).
-var phaseAbbrev = map[string]string{
-	"login":         "Login",
-	"status":        "Status",
-	"configuration": "Config",
-	"play":          "",
-}
-
-// phaseComment maps JSON phase name to section comment.
-var phaseComment = map[string]string{
-	"login":         "Login",
-	"status":        "Status",
-	"configuration": "Configuration",
-	"play":          "Game",
-}
+// phases is loaded from hand-crafted/packet_phases.json.
+// Defines protocol phases in generation order with Go naming conventions.
+var phases []packetPhase
 
 func genPacketID(jsonDir, goMCRoot string) error {
 	jsonPath := filepath.Join(jsonDir, "packets.json")
 	outPath := filepath.Join(goMCRoot, "data", "packetid", "packetid.go")
+
+	if phases == nil {
+		if err := readHandCrafted(goMCRoot, "packet_phases.json", &phases); err != nil {
+			return fmt.Errorf("genPacketID: %w", err)
+		}
+	}
 
 	var packets PacketsJSON
 	if err := readJSON(jsonPath, &packets); err != nil {
@@ -73,8 +62,8 @@ func generatePacketID(w *strings.Builder, packets PacketsJSON) {
 	w.WriteString("\tServerboundPacketID int32\n")
 	w.WriteString(")\n")
 
-	for _, phase := range phaseOrder {
-		phaseData, ok := packets[phase]
+	for _, ph := range phases {
+		phaseData, ok := packets[ph.Name]
 		if !ok {
 			continue
 		}
@@ -85,8 +74,8 @@ func generatePacketID(w *strings.Builder, packets PacketsJSON) {
 				continue
 			}
 
-			abbrev := phaseAbbrev[phase]
-			comment := phaseComment[phase]
+			abbrev := ph.GoPrefix
+			comment := ph.Comment
 			dirTitle := strings.ToUpper(dir[:1]) + dir[1:]
 
 			w.WriteString(fmt.Sprintf("\n// %s %s\n", comment, dirTitle))
@@ -118,7 +107,7 @@ func generatePacketID(w *strings.Builder, packets PacketsJSON) {
 			}
 
 			// Add guard sentinel for play phase.
-			if phase == "play" {
+			if ph.Name == "play" {
 				prefix := dirPrefix(dir)
 				w.WriteString(fmt.Sprintf("\t%sPacketIDGuard\n", prefix))
 			}
