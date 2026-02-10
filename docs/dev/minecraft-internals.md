@@ -7,20 +7,11 @@ Starting with 1.21.11, Mojang released separate unobfuscated server builds (titl
 - https://minecraft.wiki/w/Java_Edition_1.21.11
 - https://minecraft.wiki/w/Tutorial:See_Minecraft%27s_code
 
-### Decompiling with mcsrc
+### Data Extraction
 
-Use `mcsrc` (in the w42-mc-cubes repo) to download the unobfuscated JAR and decompile to Java source:
-
-```bash
-cd w42-mc-cubes/cmd-dev
-go run ./mcsrc --version 1.21.11           # → ../temp/mc-src-1.21.11/
-go run ./mcsrc --version 1.21.11 --jar-only # JAR only, no decompile
-```
-
-Output: `temp/mc-src-1.21.11/net/minecraft/` (~4600 .java files, fully readable names).
-
-The `tools/` package also uses unobfuscated JARs for its Java extractors — see
-[tools.md](tools.md) for the extraction pipeline.
+The `tools/` package downloads unobfuscated server JARs and runs Java
+extractors against them to produce all data files used by go-mc.
+See [tools.md](tools.md) for the full extraction and generation pipeline.
 
 ## Packets
 

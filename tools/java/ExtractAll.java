@@ -163,7 +163,7 @@ public class ExtractAll {
 
         HttpRequest req = HttpRequest.newBuilder()
             .uri(URI.create(apiUrl))
-            .header("User-Agent", "ExtractAll/1.0 (w42-mc-cubes; Java)")
+            .header("User-Agent", "ExtractAll/1.0 (go-mc; Java)")
             .GET().build();
 
         HttpResponse<String> resp = HTTP.send(req, HttpResponse.BodyHandlers.ofString());

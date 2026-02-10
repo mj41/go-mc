@@ -45,17 +45,19 @@ Runs an `eclipse-temurin:21-jdk` container that:
 3. Runs the MC `--all` data generator → 6000+ data files
 4. Copies key reports: `blocks.json`, `packets.json`, `registries.json`,
    `items.json`, `commands.json`, `datapack.json`
-5. Compiles and runs 4 custom Java extractors:
+5. Compiles and runs 6 custom Java extractors:
    - **GenEntities** — entity types with dimensions (id, name, width, height)
    - **GenComponents** — data component types with networkability flags
+   - **GenComponentSchema** — component wire format schema via reflection
    - **GenBlockEntities** — block entity types with valid blocks
    - **GenBlockProperties** — block state property definitions (boolean/integer/enum)
+   - **GenBiomes** — biome protocol ordering via runtime registry introspection
 
 Output: `temp/jsons/<version>/*.json` (~8 MB total)
 
 ### Generation
 
-Runs 8 Go generators that read the extracted JSON files and produce
+Runs 10 Go generators that read the extracted JSON files and produce
 Go source code:
 
 | Generator | Input | Output |
@@ -65,9 +67,11 @@ Go source code:
 | item | `items.json` + `registries.json` | `data/item/item.go` |
 | blocks | `blocks.json` + `block_properties.json` | `level/block/blocks.go` + `block_states.nbt` + `properties_enum.go` |
 | entity | `entities.json` | `data/entity/entity.go` |
-| component | `components.json` | `level/component/components.go` |
+| component | `components.json` + `component_schema.json` | `level/component/components.go` + `*_gen.go` |
 | blockentities | `block_entities.json` | `level/block/blockentity.go` + `blockentities.go` |
 | registryid | `registries.json` | `data/registryid/*.go` (95 files) |
+| biome | `biomes.json` | `level/biome/list.go` |
+| lang | `en_us.json` | `data/lang/en-us/en_us.go` |
 
 ## Directory Layout
 
@@ -84,12 +88,17 @@ tools/
 ├── gen_component.go     # generator: data components
 ├── gen_blockentities.go # generator: block entities
 ├── gen_registryid.go    # generator: registry IDs (95 registries)
+├── gen_biome.go         # generator: biomes
+├── gen_lang.go          # generator: language translations
+├── gen_component_types.go # generator: component type structs (*_gen.go)
 ├── java/                # Java extractor sources (committed)
 │   ├── ExtractAll.java  # container orchestrator
-│   ├── GenEntities.java
-│   ├── GenComponents.java
+│   ├── GenBiomes.java
 │   ├── GenBlockEntities.java
-│   └── GenBlockProperties.java
+│   ├── GenBlockProperties.java
+│   ├── GenComponents.java
+│   ├── GenComponentSchema.java
+│   └── GenEntities.java
 └── go.mod               # separate module (replace → parent go-mc)
 ```
 

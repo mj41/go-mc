@@ -44,19 +44,10 @@ used. The extracted data is consumed by Go generators that produce type-safe Go 
 
 ### Data Accuracy
 
-All generated data comes directly from Minecraft's own server jar:
-
-- **MC `--all` reports**: The server's built-in data generator produces authoritative
-  JSON for blocks, items, packets, registries, commands, and datapacks.
-- **Java extractors**: 4 custom Java programs run against the server classpath to
-  extract data not available in reports (entity dimensions, component wire IDs,
-  block entity associations, block property enum definitions).
-- **No manual data entry**: All numeric IDs, string names, and type mappings are
-  extracted programmatically. The only hand-maintained data is the biome list (65 entries).
-
-The extraction + generation pipeline is fully repeatable:
+All generated data comes directly from Minecraft's own server jar — no third-party
+data sources. The extraction + generation pipeline is fully repeatable:
 `cd tools && go run . --extract --version 1.21.11` produces identical output
-each run (deterministic).
+each run. See [dev/tools.md](dev/tools.md) for the full pipeline documentation.
 
 ## Packages
 
