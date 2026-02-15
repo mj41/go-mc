@@ -2,8 +2,8 @@
 
 package registryid
 
-var WorldgenCarver = []string{
-	"minecraft:cave",
-	"minecraft:nether_cave",
-	"minecraft:canyon",
+var SpawnConditionType = []string{
+	"minecraft:structure",
+	"minecraft:moon_brightness",
+	"minecraft:biome",
 }
