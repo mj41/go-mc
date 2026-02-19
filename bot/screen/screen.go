@@ -125,7 +125,10 @@ func (m *Manager) onSetContentPacket(p pk.Packet) error {
 	// copy the slot data to container
 	container, ok := m.Screens[int(ContainerID)]
 	if !ok {
-		return Error{errors.New("setting content of non-exist container")}
+		// Unknown container ID: the server may send spurious updates for containers
+		// the bot hasn't opened (e.g., after death/respawn or dimension change).
+		// Silently ignore rather than crashing HandleGame.
+		return nil
 	}
 	for i, v := range SlotData {
 		err := container.onSetSlot(i, v)
