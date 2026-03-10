@@ -27,7 +27,8 @@ type LinkedListQueue[T any] struct {
 func (p *LinkedListQueue[T]) Push(v T) bool {
 	p.cond.L.Lock()
 	if p.closed {
-		panic("push on closed queue")
+		p.cond.L.Unlock()
+		return false
 	}
 	p.queue.PushBack(v)
 	p.cond.Signal()
