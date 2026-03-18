@@ -56,6 +56,31 @@ func Open(name string) (r *Region, err error) {
 	return
 }
 
+// OpenReadOnly opens a .mca file for reading only (O_RDONLY).
+// The returned Region supports ExistSector and ReadSector but NOT WriteSector.
+// Use this when the file is on a read-only filesystem or mount.
+func OpenReadOnly(name string) (r *Region, err error) {
+	f, err := os.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	r, err = Load(&readOnlySeeker{f})
+	if err != nil {
+		_ = f.Close()
+	}
+	return
+}
+
+// readOnlySeeker wraps an io.ReadSeeker to satisfy io.ReadWriteSeeker.
+// Write panics — it should never be called on a read-only region.
+type readOnlySeeker struct {
+	io.ReadSeeker
+}
+
+func (r *readOnlySeeker) Write(p []byte) (int, error) {
+	panic("region: attempted write on a read-only region")
+}
+
 // Load works like Open but read from an io.ReadWriteSeeker.
 func Load(f io.ReadWriteSeeker) (r *Region, err error) {
 	r = &Region{
