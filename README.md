@@ -42,3 +42,14 @@ To get the first of each primary version: `go get github.com/Tnze/go-mc@v1.19.0`
 
 - Run `go run github.com/Tnze/go-mc/examples/mcping localhost` to ping and list the localhost mc server.
 - Run `go run github.com/Tnze/go-mc/examples/daze` to join the local server at *localhost:25565* as player named Daze on the offline mode.
+
+### Microsoft Auth
+
+Modern Microsoft-backed Minecraft login is available through the `microsoft` package.
+
+- Use `go run github.com/Tnze/go-mc/examples/microsoft` to do an interactive device-code bootstrap and populate the local cache.
+- Use `go run github.com/Tnze/go-mc/examples/microsoft -address host:port` to prove a cached authenticated join.
+- Use `-cache-dir` and `-cache-key` to separate local accounts without storing secrets in the repository.
+- Use `-force-refresh` only when you intentionally want to ignore cached Microsoft tokens and require a fresh browser login.
+
+The recommended workflow is to bootstrap interactively once, then let later automated runs reuse the cached token state.
