@@ -1,3 +1,13 @@
+// Package microsoft resolves Microsoft-backed Minecraft account auth into the
+// existing go-mc bot login inputs.
+//
+// The intended workflow is split into two entrypoints:
+//
+//  1. AuthenticateDeviceCode for interactive device-code bootstrap or cache repair.
+//  2. AuthenticateCached for non-interactive cached-token reuse in automated runs.
+//
+// Both return the same Access result so callers can keep the normal online-mode
+// join path and avoid special-case packet/login logic.
 package microsoft
 
 import (
@@ -10,6 +20,7 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -48,11 +59,16 @@ var xboxLiveErrors = map[int64]string{
 	2148916238: "the account is under 18 and must be added to a family by an adult",
 }
 
+var ErrInteractiveLoginRequired = errors.New("microsoft auth requires interactive device-code approval")
+
 type Options struct {
 	ClientID      string
 	DeviceType    string
 	DeviceVersion string
 	HTTPClient    *http.Client
+	CacheDir      string
+	CacheKey      string
+	ForceRefresh  bool
 	OnDeviceCode  func(DeviceCode)
 	OnStatus      func(string)
 }
@@ -130,6 +146,8 @@ type flow struct {
 	clientID   string
 	deviceType string
 	deviceVers string
+	cache      *tokenCache
+	forceAuth  bool
 	onCode     func(DeviceCode)
 	onStatus   func(string)
 	key        *ecdsa.PrivateKey
@@ -152,12 +170,20 @@ type xboxXSTS struct {
 }
 
 func AuthenticateDeviceCode(ctx context.Context, opts Options) (*Access, error) {
+	return authenticate(ctx, opts, true)
+}
+
+func AuthenticateCached(ctx context.Context, opts Options) (*Access, error) {
+	return authenticate(ctx, opts, false)
+}
+
+func authenticate(ctx context.Context, opts Options, allowInteractive bool) (*Access, error) {
 	flow, err := newFlow(opts)
 	if err != nil {
 		return nil, err
 	}
 
-	msaToken, err := flow.acquireLiveToken(ctx)
+	msaToken, err := flow.acquireLiveToken(ctx, allowInteractive)
 	if err != nil {
 		return nil, err
 	}
@@ -197,6 +223,7 @@ func AuthenticateDeviceCode(ctx context.Context, opts Options) (*Access, error) 
 	if err != nil {
 		return nil, err
 	}
+	_ = flow.saveProfile(profile)
 
 	flow.status("resolved Minecraft profile")
 	return &Access{Token: mcToken, Profile: profile}, nil
@@ -223,6 +250,10 @@ func newFlow(opts Options) (*flow, error) {
 		}
 		httpClient = &http.Client{Jar: jar, Timeout: 30 * time.Second}
 	}
+	cache, err := newTokenCache(opts.CacheDir, opts.CacheKey, clientID)
+	if err != nil {
+		return nil, err
+	}
 	key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
 		return nil, fmt.Errorf("generate xbox signing key: %w", err)
@@ -232,6 +263,8 @@ func newFlow(opts Options) (*flow, error) {
 		clientID:   clientID,
 		deviceType: deviceType,
 		deviceVers: deviceVers,
+		cache:      cache,
+		forceAuth:  opts.ForceRefresh,
 		onCode:     opts.OnDeviceCode,
 		onStatus:   opts.OnStatus,
 		key:        key,
@@ -239,7 +272,20 @@ func newFlow(opts Options) (*flow, error) {
 	}, nil
 }
 
-func (f *flow) acquireLiveToken(ctx context.Context) (*liveTokenResponse, error) {
+func (f *flow) acquireLiveToken(ctx context.Context, allowInteractive bool) (*liveTokenResponse, error) {
+	if !f.forceAuth {
+		token, err := f.acquireCachedLiveToken(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if token != nil {
+			return token, nil
+		}
+	}
+	if !allowInteractive {
+		return nil, ErrInteractiveLoginRequired
+	}
+
 	form := url.Values{}
 	form.Set("scope", "service::user.auth.xboxlive.com::MBI_SSL")
 	form.Set("client_id", f.clientID)
@@ -295,11 +341,72 @@ func (f *flow) acquireLiveToken(ctx context.Context) (*liveTokenResponse, error)
 		if token.AccessToken == "" {
 			continue
 		}
+		_ = f.saveLiveToken(token)
 		f.status("received Microsoft access token")
 		return &token, nil
 	}
 
 	return nil, fmt.Errorf("microsoft device login timed out")
+}
+
+func (f *flow) acquireCachedLiveToken(ctx context.Context) (*liveTokenResponse, error) {
+	if f.cache == nil {
+		return nil, nil
+	}
+	state, err := f.cache.load()
+	if err != nil {
+		return nil, fmt.Errorf("load Microsoft token cache: %w", err)
+	}
+	if state == nil || state.ClientID != f.clientID {
+		return nil, nil
+	}
+	if liveTokenStillValid(state) {
+		f.status("using cached Microsoft access token")
+		return &state.Token, nil
+	}
+	if state.Token.RefreshToken == "" {
+		return nil, nil
+	}
+	f.status("refreshing cached Microsoft token")
+	token, err := f.refreshLiveToken(ctx, state.Token.RefreshToken)
+	if err != nil {
+		var tokenErr *liveTokenError
+		if errors.As(err, &tokenErr) && tokenErr.Code == "invalid_grant" {
+			f.status("cached Microsoft refresh token was rejected; browser approval required")
+			_ = f.cache.clear()
+			return nil, nil
+		}
+		return nil, err
+	}
+	if err := f.saveLiveToken(*token); err != nil {
+		return nil, err
+	}
+	f.status("refreshed cached Microsoft token")
+	return token, nil
+}
+
+func (f *flow) refreshLiveToken(ctx context.Context, refreshToken string) (*liveTokenResponse, error) {
+	form := url.Values{}
+	form.Set("scope", "service::user.auth.xboxlive.com::MBI_SSL")
+	form.Set("client_id", f.clientID)
+	form.Set("grant_type", "refresh_token")
+	form.Set("refresh_token", refreshToken)
+
+	var token liveTokenResponse
+	status, err := f.doFormJSONAnyStatus(ctx, http.MethodPost, liveTokenURL, form, nil, &token)
+	if err != nil {
+		return nil, err
+	}
+	if status < 200 || status >= 300 {
+		if token.Error != "" {
+			return nil, &liveTokenError{Code: token.Error, Description: token.Description}
+		}
+		return nil, fmt.Errorf("refresh Microsoft token: unexpected status %d", status)
+	}
+	if token.AccessToken == "" {
+		return nil, fmt.Errorf("refresh Microsoft token: missing access token")
+	}
+	return &token, nil
 }
 
 func (f *flow) getUserToken(ctx context.Context, msaAccessToken string) (string, error) {
@@ -468,6 +575,38 @@ func (f *flow) status(message string) {
 	if f.onStatus != nil {
 		f.onStatus(message)
 	}
+}
+
+func (f *flow) saveLiveToken(token liveTokenResponse) error {
+	if f.cache == nil {
+		return nil
+	}
+	state, err := f.cache.load()
+	if err != nil {
+		return err
+	}
+	if state == nil {
+		state = &cachedLiveState{ClientID: f.clientID}
+	}
+	state.ClientID = f.clientID
+	state.ObtainedAt = time.Now().UTC()
+	state.Token = token
+	return f.cache.save(*state)
+}
+
+func (f *flow) saveProfile(profile Profile) error {
+	if f.cache == nil {
+		return nil
+	}
+	state, err := f.cache.load()
+	if err != nil {
+		return err
+	}
+	if state == nil {
+		return nil
+	}
+	state.Profile = &profile
+	return f.cache.save(*state)
 }
 
 func (f *flow) signedJSONRequest(rawURL string, payload any) ([]byte, http.Header, error) {
