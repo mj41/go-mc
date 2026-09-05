@@ -57,7 +57,7 @@ Runs an `eclipse-temurin:25-jdk` container that:
 3. Copies key reports: `blocks.json`, `packets.json`, `registries.json`,
    `commands.json`, `datapack.json` (and `items.json` up to 1.21.11 — 26.x no
    longer emits it, see `GenItems` below)
-4. Compiles and runs 6 custom Java extractors:
+4. Compiles and runs 8 custom Java extractors:
    - **GenEntities** — entity types with dimensions (id, name, width, height)
    - **GenComponents** — data component types with networkability flags
    - **GenComponentSchema** — component wire format schema via reflection
@@ -65,6 +65,9 @@ Runs an `eclipse-temurin:25-jdk` container that:
    - **GenBlockProperties** — block state property definitions (boolean/integer/enum)
    - **GenBiomes** — biome protocol ordering via runtime registry introspection
    - **GenItems** — per-item `max_stack_size` / `item_name` in the shape of the old `items.json` report
+   - **GenPacketSchema** — wire layout of every packet (and of shared wire structures such as
+     `LevelChunkSection`, `ItemStack`, `ChatType$Bound`) read from bytecode with `java.lang.classfile`;
+     `packet_schema.json` feeds `packetdiff`, not a generator
 
 Output: `temp/jsons/<version>/*.json` + `lang/` (~83 MB total)
 
@@ -153,12 +156,41 @@ cd tools
 # 1. Extract (if needed) + generate
 go run . --version 26.X
 
-# 2. Verify from go-mc root
+# 2. Wire changes: what the hand-written packet code in bot/ and server/ must follow
+go run ./packetdiff 26.2 26.X        # -v also lists renumbered packets
+
+# 3. Verify from go-mc root
 cd .. && go build ./... && go test ./...
 
-# 3. Review generated diffs
+# 4. Review generated diffs
 git diff --stat
 ```
+
+### Packet wire diff (`packetdiff`)
+
+`GenPacketSchema` writes `packet_schema.json`: for every packet (keyed `<flow>/<name>`,
+with the state of the `*PacketTypes` class that declares it) the codec or buffer reads in
+wire order — `ByteBufCodecs.VAR_INT`, `buf.readUUID`, nested codecs inline as
+`Owner.FIELD{...}`, constructor readers as `λClass.<init>{...}`. Shared structures that
+packets carry as byte blobs (`LevelChunkSection.read/write`, `ItemStack.STREAM_CODEC`,
+`ChatType$Bound.STREAM_CODEC`, …) are listed under `struct/`. `packetdiff A B` joins two
+such files with their `packets.json` and prints packets added/removed, renumbered counts,
+and a token diff for every packet whose layout changed. Java type renames show up as
+changed tokens with the same wire shape (e.g. `buf.readLpVec3` → `Vec3.LP_STREAM_CODEC{…}`);
+read the tokens, they carry the primitive reads. For 1.21.11 → 26.2 it reports the login
+`readBoolean`, the login-finished `UUIDUtil.STREAM_CODEC`, the new `interact` layout, the
+chunk section `readShort` (fluid count), `set_time`'s clock structure and the
+`set_player_team` parameter reorder — everything the live tests had to find by hand.
+
+## See also
+
+- [mcsrc.dev](https://mcsrc.dev) — Fabric's in-browser decompiled Minecraft source (Vineflower in
+  WebAssembly); quickest way to look at one class of an unobfuscated 26.x jar.
+- `w42-mc-cubes/cmd-dev/decompile` — local Vineflower decompile of a whole client/server jar when
+  a grep-able tree is needed.
+- [misode/mcmeta](https://github.com/misode/mcmeta) — processed data-generator reports for every
+  release and snapshot on tagged branches (`<version>-summary`), a Java-free way to preview what a
+  new version changes in the registries.
 
 ## Module Structure
 
