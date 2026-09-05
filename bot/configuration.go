@@ -2,15 +2,20 @@ package bot
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"io"
 
 	"github.com/Tnze/go-mc/chat"
 	"github.com/Tnze/go-mc/data/packetid"
-	"github.com/Tnze/go-mc/net"
 	pk "github.com/Tnze/go-mc/net/packet"
 )
+
+// packetReadWriter abstracts both *net.Conn (initial login) and *Conn (config re-entry)
+// so that joinConfiguration can be used in both contexts.
+type packetReadWriter interface {
+	ReadPacket(*pk.Packet) error
+	WritePacket(pk.Packet) error
+}
 
 type ConfigHandler interface {
 	EnableFeature(features []pk.Identifier)
@@ -43,7 +48,7 @@ func (l ConfigErr) Unwrap() error {
 	return l.Err
 }
 
-func (c *Client) joinConfiguration(conn *net.Conn) error {
+func (c *Client) joinConfiguration(conn packetReadWriter) error {
 	for {
 		var p pk.Packet
 		if err := conn.ReadPacket(&p); err != nil {
@@ -150,9 +155,6 @@ func (c *Client) joinConfiguration(conn *net.Conn) error {
 			}
 
 			registry := c.Registries.Registry(string(registryID))
-			if registry == nil {
-				return ConfigErr{ErrStage, errors.New("unknown registry: " + string(registryID))}
-			}
 
 			_, err = registry.ReadFrom(r)
 			if err != nil {
@@ -292,6 +294,21 @@ func (c *Client) joinConfiguration(conn *net.Conn) error {
 
 		case packetid.ClientboundConfigServerLinks:
 			// TODO
+
+		case packetid.ClientboundConfigClearDialog:
+			// No UI to clear; ignore.
+
+		case packetid.ClientboundConfigShowDialog:
+			// Bot has no UI; ignore the dialog.
+
+		case packetid.ClientboundConfigCodeOfConduct:
+			// Server waits for acceptance before continuing configuration.
+			err := conn.WritePacket(pk.Marshal(
+				packetid.ServerboundConfigAcceptCodeOfConduct,
+			))
+			if err != nil {
+				return ConfigErr{"accept code of conduct", err}
+			}
 		}
 	}
 }

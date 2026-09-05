@@ -1,26 +1,22 @@
+// suspicioussteweffects.go contains helper types for the SuspiciousStewEffects data component.
 package component
 
 import (
 	"io"
+
+	pk "github.com/Tnze/go-mc/net/packet"
 )
 
-var _ DataComponent = (*SuspiciousStewEffects)(nil)
-
-type SuspiciousStewEffects struct {
-	Effects []any
+type StewEffect struct {
+	Effect   pk.VarInt
+	Duration pk.VarInt
 }
 
-// ID implements DataComponent.
-func (SuspiciousStewEffects) ID() string {
-	return "minecraft:suspicious_stew_effects"
+// Wire: effect:VarInt (mob effect id), duration:VarInt.
+func (s *StewEffect) ReadFrom(r io.Reader) (int64, error) {
+	return pk.Tuple{&s.Effect, &s.Duration}.ReadFrom(r)
 }
 
-// ReadFrom implements DataComponent.
-func (s *SuspiciousStewEffects) ReadFrom(r io.Reader) (n int64, err error) {
-	panic("unimplemented")
-}
-
-// WriteTo implements DataComponent.
-func (s *SuspiciousStewEffects) WriteTo(w io.Writer) (n int64, err error) {
-	panic("unimplemented")
+func (s StewEffect) WriteTo(w io.Writer) (int64, error) {
+	return pk.Tuple{&s.Effect, &s.Duration}.WriteTo(w)
 }

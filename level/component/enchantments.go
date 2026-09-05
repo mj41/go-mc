@@ -1,22 +1,22 @@
+// enchantments.go contains helper types for the Enchantments data component.
 package component
 
-import "io"
+import (
+	"io"
 
-var _ DataComponent = (*Enchantments)(nil)
+	pk "github.com/Tnze/go-mc/net/packet"
+)
 
-type Enchantments struct{}
-
-// ID implements DataComponent.
-func (Enchantments) ID() string {
-	return "minecraft:enchantments"
+type EnchantmentEntry struct {
+	ID    pk.VarInt
+	Level pk.VarInt
 }
 
-// ReadFrom implements DataComponent.
-func (r *Enchantments) ReadFrom(reader io.Reader) (n int64, err error) {
-	panic("unimplemented")
+// Wire: enchantment:VarInt (registry id), level:VarInt.
+func (e *EnchantmentEntry) ReadFrom(r io.Reader) (int64, error) {
+	return pk.Tuple{&e.ID, &e.Level}.ReadFrom(r)
 }
 
-// WriteTo implements DataComponent.
-func (r *Enchantments) WriteTo(writer io.Writer) (n int64, err error) {
-	panic("unimplemented")
+func (e EnchantmentEntry) WriteTo(w io.Writer) (int64, error) {
+	return pk.Tuple{&e.ID, &e.Level}.WriteTo(w)
 }

@@ -68,6 +68,7 @@ func (m *Manager) handleSystemChat(p pk.Packet) error {
 
 func (m *Manager) handlePlayerChat(packet pk.Packet) error {
 	var (
+		globalIndex     pk.VarInt
 		sender          pk.UUID
 		index           pk.VarInt
 		signature       pk.Option[sign.Signature, *sign.Signature]
@@ -76,7 +77,7 @@ func (m *Manager) handlePlayerChat(packet pk.Packet) error {
 		filter          sign.FilterMask
 		chatType        chat.Type
 	)
-	if err := packet.Scan(&sender, &index, &signature, &body, &unsignedContent, &filter, &chatType); err != nil {
+	if err := packet.Scan(&globalIndex, &sender, &index, &signature, &body, &unsignedContent, &filter, &chatType); err != nil {
 		return err
 	}
 
@@ -88,9 +89,9 @@ func (m *Manager) handlePlayerChat(packet pk.Packet) error {
 	if !ok {
 		return InvalidChatPacket{ErrUnknownPlayer}
 	}
-	ct := m.c.Registries.ChatType.GetByID(chatType.ID)
-	if ct == nil {
-		return InvalidChatPacket{ErrUnknwonChatType}
+	decoration, err := m.chatDecoration(&chatType)
+	if err != nil {
+		return err
 	}
 
 	var message sign.Message
@@ -128,8 +129,21 @@ func (m *Manager) handlePlayerChat(packet pk.Packet) error {
 	} else {
 		content = chat.Text(body.PlainMsg)
 	}
-	msg := chatType.Decorate(content, &ct.Chat)
+	msg := chatType.Decorate(content, decoration)
 	return m.events.PlayerChatMessage(msg, validated)
+}
+
+// chatDecoration resolves the chat decoration for a bound chat type: the inline
+// definition if the server sent one, otherwise the minecraft:chat_type registry entry.
+func (m *Manager) chatDecoration(t *chat.Type) (*chat.Decoration, error) {
+	if t.Inline != nil {
+		return &t.Inline.Chat, nil
+	}
+	ct := m.c.Registries.ChatType.GetByID(t.ID)
+	if ct == nil {
+		return nil, InvalidChatPacket{ErrUnknwonChatType}
+	}
+	return &ct.Chat, nil
 }
 
 func (m *Manager) handleDisguisedChat(packet pk.Packet) error {
@@ -141,11 +155,11 @@ func (m *Manager) handleDisguisedChat(packet pk.Packet) error {
 		return err
 	}
 
-	ct := m.c.Registries.ChatType.GetByID(chatType.ID)
-	if ct == nil {
-		return InvalidChatPacket{ErrUnknwonChatType}
+	decoration, err := m.chatDecoration(&chatType)
+	if err != nil {
+		return err
 	}
-	msg := chatType.Decorate(message, &ct.Chat)
+	msg := chatType.Decorate(message, decoration)
 
 	return m.events.DisguisedChat(msg)
 }

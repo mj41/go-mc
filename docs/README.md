@@ -3,7 +3,7 @@
 Go libraries for Minecraft Java Edition — bot framework, server framework,
 world I/O, NBT, and protocol implementation.
 
-**Current version**: Minecraft 1.21.11 (protocol 774)
+**Current version**: Minecraft 26.2 (protocol 776, data version 4903, Java 25)
 
 ## Data Coverage
 
@@ -11,35 +11,35 @@ All data is extracted directly from the Minecraft server jar via a container-bas
 pipeline (`tools/`). No third-party data sources (PrismarineJS, Burger, etc.) are
 used. The extracted data is consumed by Go generators that produce type-safe Go code.
 
-### MC 1.21.11 Data Summary
+### MC 26.2 Data Summary
 
 | Category | Count | Package | Source |
 |----------|------:|---------|--------|
-| Block types | 1,166 | `level/block` | `blocks.json` (MC `--all` report) |
-| Block states | 29,671 | `level/block` | `blocks.json` → `block_states.nbt` |
+| Block types | 1,196 | `level/block` | `blocks.json` (MC `--all` report) |
+| Block states | 32,366 | `level/block` | `blocks.json` → `block_states.nbt` |
 | Block property enums | 29 | `level/block` | `block_properties.json` (Java extractor) |
 | Block entity types | 49 | `level/block` | `block_entities.json` (Java extractor) |
-| Packet IDs | 264 | `data/packetid` | `packets.json` (MC `--all` report) |
-| Entity types | 157 | `data/entity` | `entities.json` (Java extractor) |
-| Item types | 1,505 | `data/item` | `items.json` (MC `--all` report) |
-| Sound IDs | 1,838 | `data/soundid` | `registries.json` (MC `--all` report) |
+| Packet IDs | 256 | `data/packetid` | `packets.json` (MC `--all` report) |
+| Entity types | 158 | `data/entity` | `entities.json` (Java extractor) |
+| Item types | 1,537 | `data/item` | `items.json` (Java extractor `GenItems`; the `--all` report was dropped in 26.x) |
+| Sound IDs | 1,968 | `data/soundid` | `registries.json` (MC `--all` report) |
 | Registries | 95 | `data/registryid` | `registries.json` (MC `--all` report) |
-| Biomes | 65 | `level/biome` | `biomes.json` (Java extractor) |
-| Data components | 104 | `level/component` | `components.json` (Java extractor) |
-| Languages | 147 | `data/lang` | Mojang asset index CDN |
+| Biomes | 66 | `level/biome` | `biomes.json` (Java extractor) |
+| Data components | 111 | `level/component` | `components.json` (Java extractor) |
+| Languages | 142 | `data/lang` | Mojang asset index CDN |
 
 ### Implementation Status
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Network protocol (bot) | Complete | Login, config, play phases. E2E tested against vanilla 1.21.11 |
+| Network protocol (bot) | Complete | Login, config, play phases. E2E tested against Paper 26.2 build 121 and vanilla 26.2 |
 | Network protocol (server) | Complete | Per-registry RegistryData, all phases |
 | Chunk I/O (network) | Complete | BitStorage format (1.21.5+ no length prefix) |
-| Chunk I/O (save/region) | Complete | Anvil format, tested with MC 1.21.4 + 1.21.11 |
+| Chunk I/O (save/region) | Complete | Anvil format, tested with MC 1.21.4 + 1.21.11; 26.1+ moved region dirs under `dimensions/<ns>/<dim>/` and `level.dat` fields (`difficulty_settings`, `spawn`) |
 | Chat signing | Complete | HistoryUpdate checksum, globalIndex, PackedSignature |
 | Slot / inventory | Complete | Post-1.20.5 format with component data |
-| Data components | Complete | All 104 wire protocol types (IDs 0–103) |
-| Block state mapping | Complete | 29,671 states, validated via E2E |
+| Data components | Complete | All 111 wire protocol types (IDs 0–110) |
+| Block state mapping | Complete | 32,366 states, validated via E2E |
 | NBT codec | Complete | Full spec, SNBT, RawMessage |
 | RCON | Complete | Client and server |
 
@@ -47,7 +47,7 @@ used. The extracted data is consumed by Go generators that produce type-safe Go 
 
 All generated data comes directly from Minecraft's own server jar — no third-party
 data sources. The extraction + generation pipeline is fully repeatable:
-`cd tools && go run . --extract --version 1.21.11` produces identical output
+`cd tools && go run . --extract --version 26.2` produces identical output
 each run. See [dev/tools.md](dev/tools.md) for the full pipeline documentation.
 
 ## Packages
@@ -62,7 +62,7 @@ each run. See [dev/tools.md](dev/tools.md) for the full pipeline documentation.
 | `server/` | Server framework — handshake, login, config, gameplay |
 | `level/` | Chunk data structures, bit storage, palettes |
 | `level/block/` | Block types, state IDs, property enums |
-| `level/component/` | Data component types (104 types) |
+| `level/component/` | Data component types (111 types) |
 | `level/biome/` | Biome list |
 | `nbt/` | NBT codec (binary + SNBT) |
 | `net/` | Low-level network (connection, encryption, compression) |

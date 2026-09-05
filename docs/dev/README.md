@@ -11,10 +11,10 @@ Internal documentation for go-mc contributors and maintainers.
 **Generated** (do not edit manually — see [tools.md](tools.md) for the pipeline):
 - All files in `data/packetid/`, `data/soundid/`, `data/item/`, `data/entity/`
 - `data/registryid/*.go` (95 files)
-- `data/lang/<locale>/<locale>.go` (147 languages)
+- `data/lang/<locale>/<locale>.go` (142 languages)
 - `level/block/blocks.go`, `block_states.nbt`, `properties_enum.go`
 - `level/block/blockentity.go` (constants), `blockentities.go` (mappings)
-- `level/biome/list.go` — biome list (65 entries)
+- `level/biome/list.go` — biome list (66 entries)
 - `level/component/components.go` (component constructor switch)
 - `level/component/*_gen.go` (component type structs)
 

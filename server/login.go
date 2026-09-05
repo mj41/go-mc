@@ -150,12 +150,13 @@ func (d *MojangLoginHandler) AcceptLogin(conn *net.Conn, protocol int32) (name s
 			return
 		}
 	}
-	// send login success
+	// send login success (26.2+ appends a per-connection session ID after the game profile)
 	err = conn.WritePacket(pk.Marshal(
-		packetid.ClientboundLoginGameProfile,
+		packetid.ClientboundLoginLoginFinished,
 		pk.UUID(id),
 		pk.String(name),
 		pk.Array(properties),
+		pk.UUID(uuid.New()),
 	))
 	if err != nil {
 		return

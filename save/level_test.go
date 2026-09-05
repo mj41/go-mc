@@ -33,3 +33,32 @@ func TestLevel(t *testing.T) {
 	//	t.Errorf("player data parse error: get %v, want %v", data, want)
 	//}
 }
+
+// TestLevel26 reads a level.dat written by a vanilla 26.2 server (DataVersion 4903),
+// which moved difficulty into difficulty_settings and the spawn point into spawn.
+func TestLevel26(t *testing.T) {
+	f, err := os.Open("testdata/level-26.2.dat")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	r, err := gzip.NewReader(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	data, err := ReadLevel(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if data.Data.DataVersion != 4903 || data.Data.Version.Name != "26.2" {
+		t.Errorf("unexpected version: DataVersion=%d Name=%q", data.Data.DataVersion, data.Data.Version.Name)
+	}
+	if data.Data.DifficultySettings.Difficulty != "peaceful" {
+		t.Errorf("difficulty_settings.difficulty = %q, want peaceful", data.Data.DifficultySettings.Difficulty)
+	}
+	if data.Data.Spawn.Dimension != "minecraft:overworld" || len(data.Data.Spawn.Pos) != 3 {
+		t.Errorf("spawn = %+v", data.Data.Spawn)
+	}
+}

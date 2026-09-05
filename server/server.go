@@ -38,8 +38,8 @@ import (
 )
 
 const (
-	ProtocolName    = "1.20.2"
-	ProtocolVersion = 764
+	ProtocolName    = "26.2"
+	ProtocolVersion = 776
 )
 
 type Server struct {

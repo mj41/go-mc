@@ -18,9 +18,14 @@ func (c *Client) HandleGame() error {
 			return err
 		}
 
-		if p.ID == int32(packetid.BundleDelimiter) {
+		if p.ID == int32(packetid.ClientboundBundleDelimiter) {
 			err := c.handleBundlePackets()
 			if err != nil {
+				return err
+			}
+		} else if p.ID == int32(packetid.ClientboundStartConfiguration) {
+			// MC 1.21.2+: server-initiated config-phase re-entry during play.
+			if err := c.handleStartConfiguration(); err != nil {
 				return err
 			}
 		} else {
@@ -58,7 +63,7 @@ func (c *Client) handleBundlePackets() (err error) {
 			return err
 		}
 
-		if p.ID == int32(packetid.BundleDelimiter) {
+		if p.ID == int32(packetid.ClientboundBundleDelimiter) {
 			// bundle finished
 			goto handlePackets
 		}
@@ -74,6 +79,18 @@ handlePackets:
 		}
 	}
 	return nil
+}
+
+// handleStartConfiguration handles a server-initiated config-phase re-entry (MC 1.21.2+).
+// The server sends ClientboundStartConfiguration during play; the client must ACK in play
+// phase, then run the config loop, and the server resumes play when done.
+func (c *Client) handleStartConfiguration() error {
+	if err := c.Conn.WritePacket(pk.Marshal(packetid.ServerboundConfigurationAcknowledged)); err != nil {
+		return err
+	}
+	// c.Conn is queue-based: the background goroutine pushes config-phase packets into
+	// the queue, so reading from c.Conn here is safe and correct.
+	return c.joinConfiguration(c.Conn)
 }
 
 func (c *Client) handlePacket(p pk.Packet) (err error) {

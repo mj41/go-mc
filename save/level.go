@@ -25,11 +25,18 @@ type LevelData struct {
 	DataPacks                    struct {
 		Enabled, Disabled []string
 	}
-	DataVersion      int32
-	DayTime          int64
-	Difficulty       byte
-	DifficultyLocked bool
-	DimensionData    struct {
+	DataVersion int32
+	DayTime     int64
+	// Difficulty and DifficultyLocked are the pre-26.1 fields; 26.1+ (DataVersion >= 4786)
+	// stores them in DifficultySettings instead.
+	Difficulty         byte
+	DifficultyLocked   bool
+	DifficultySettings struct {
+		Difficulty string `nbt:"difficulty"` // "peaceful", "easy", "normal" or "hard"
+		Hardcore   bool   `nbt:"hardcore"`
+		Locked     bool   `nbt:"locked"`
+	} `nbt:"difficulty_settings"`
+	DimensionData struct {
 		TheEnd struct {
 			DragonFight struct {
 				Gateways         []int32
@@ -61,10 +68,17 @@ type LevelData struct {
 	SizeOnDisk             int64
 	SpawnAngle             float32
 	SpawnX, SpawnY, SpawnZ int32
-	Thundering             bool  `nbt:"thundering"`
-	ThunderTime            int32 `nbt:"thunderTime"`
-	Time                   int64
-	Version                struct {
+	// Spawn replaces SpawnX/Y/Z and SpawnAngle in 26.1+.
+	Spawn struct {
+		Dimension string  `nbt:"dimension"`
+		Pos       []int32 `nbt:"pos"` // x, y, z
+		Yaw       float32 `nbt:"yaw"`
+		Pitch     float32 `nbt:"pitch"`
+	} `nbt:"spawn"`
+	Thundering  bool  `nbt:"thundering"`
+	ThunderTime int32 `nbt:"thunderTime"`
+	Time        int64
+	Version     struct {
 		ID       int32 `nbt:"Id"`
 		Name     string
 		Series   string
