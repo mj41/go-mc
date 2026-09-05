@@ -18,11 +18,17 @@ type LevelData struct {
 	BorderSize                   float64
 	BorderSizeLerpTarget         float64
 	BorderSizeLerpTime           int64
-	BorderWarningBlocks          float64
-	BorderWarningTime            float64
-	ClearWeatherTime             int32 `nbt:"clearWeatherTime"`
-	CustomBossEvents             map[string]CustomBossEvent
-	DataPacks                    struct {
+	// BukkitVersion is written by Paper/Spigot servers ("Bukkit.Version");
+	// vanilla worlds do not have it.
+	BukkitVersion string `nbt:"Bukkit.Version"`
+	// PaperSpawnDimension is Paper's copy of the spawn dimension
+	// ("paperSpawnDimension"); vanilla worlds do not have it.
+	PaperSpawnDimension string `nbt:"paperSpawnDimension"`
+	BorderWarningBlocks float64
+	BorderWarningTime   float64
+	ClearWeatherTime    int32 `nbt:"clearWeatherTime"`
+	CustomBossEvents    map[string]CustomBossEvent
+	DataPacks           struct {
 		Enabled, Disabled []string
 	}
 	DataVersion int32

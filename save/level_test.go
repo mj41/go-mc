@@ -62,3 +62,30 @@ func TestLevel26(t *testing.T) {
 		t.Errorf("spawn = %+v", data.Data.Spawn)
 	}
 }
+
+// TestLevel26Paper reads a level.dat written by Paper 26.2 (a world converted to
+// the 26.1+ dimensions layout). Paper adds "Bukkit.Version", which the strict
+// decoder used to reject as an unknown field.
+func TestLevel26Paper(t *testing.T) {
+	f, err := os.Open("testdata/level-26.2-paper.dat")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	r, err := gzip.NewReader(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	data, err := ReadLevel(r)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if data.Data.DataVersion != 4903 || data.Data.Version.Name != "26.2" {
+		t.Errorf("unexpected version: DataVersion=%d Name=%q", data.Data.DataVersion, data.Data.Version.Name)
+	}
+	if data.Data.BukkitVersion == "" {
+		t.Errorf("Bukkit.Version missing; Paper writes it")
+	}
+}
