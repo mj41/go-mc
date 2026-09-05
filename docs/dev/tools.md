@@ -153,8 +153,13 @@ temp/                        # gitignored working data
 ```bash
 cd tools
 
+# 0. Preview the scope without Java: registries, block states, item components
+go run ./mcmeta versions            # what exists (releases and snapshots)
+go run ./mcmeta diff 26.2 26.X
+
 # 1. Extract (if needed) + generate
 go run . --version 26.X
+go run ./mcmeta check 26.X          # our registries.json == mcmeta's (sanity)
 
 # 2. Wire changes: what the hand-written packet code in bot/ and server/ must follow
 go run ./packetdiff 26.2 26.X        # -v also lists renumbered packets
@@ -165,6 +170,18 @@ cd .. && go build ./... && go test ./...
 # 4. Review generated diffs
 git diff --stat
 ```
+
+### Registry preview (`mcmeta`)
+
+`mcmeta` reads [misode/mcmeta](https://github.com/misode/mcmeta), the archive of the
+game's data-generator output for every release and snapshot (tagged `<version>-summary`),
+cached under `temp/mcmeta/<version>/`. `versions` lists ids with data/protocol versions;
+`diff A B` prints per-registry entry counts with added/removed names, blocks whose state
+properties changed, and items whose default components changed (with a per-component
+tally); `check V` compares `temp/jsons/V/registries.json` with mcmeta's registries and
+exits non-zero on a difference. Example, 26.2 → 26.3-pre-2: block 1196 → 1286, item
+1537 → 1658, data_component_type 111 → 122 (+13 −2), `minecraft:attack_animation` added
+on every item — known before the first extraction run.
 
 ### Packet wire diff (`packetdiff`)
 
@@ -186,8 +203,8 @@ chunk section `readShort` (fluid count), `set_time`'s clock structure and the
 
 - [mcsrc.dev](https://mcsrc.dev) — Fabric's in-browser decompiled Minecraft source (Vineflower in
   WebAssembly); quickest way to look at one class of an unobfuscated 26.x jar.
-- `w42-mc-cubes/cmd-dev/decompile` — local Vineflower decompile of a whole client/server jar when
-  a grep-able tree is needed.
+- A local [Vineflower](https://vineflower.org) run over the client or server jar when a grep-able
+  full source tree is needed (1.12.0 handles the 26.x class files on JDK 25).
 - [misode/mcmeta](https://github.com/misode/mcmeta) — processed data-generator reports for every
   release and snapshot on tagged branches (`<version>-summary`), a Java-free way to preview what a
   new version changes in the registries.
